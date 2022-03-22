@@ -356,8 +356,8 @@ export default {
       axios.post("/product-service/cws/catalog/products/"+String(this.$store.state.fashid)).then((response) => {
         console.log('list', response.data.item_list)
         this.itemsArr = response.data.item_list  
-        console.log('arr', this.itemsArr)     
-      }
+        console.log('arr', this.itemsArr) 
+             }
       );
       
   },
