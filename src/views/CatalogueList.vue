@@ -17,7 +17,9 @@
         </div>
       </div>
       <div class="col-md-7 text-left">
-        <p>cjhsdcj</p>
+        <p>Category: {{ this.$store.state.expandata.category_name }}</p>
+        <h3>{{ this.$store.state.expandata.name }}</h3>        
+        <p>MRP: ₹ {{ this.$store.state.expandata.mrp }}</p>
       </div>
     </div>
   </div>
@@ -29,11 +31,9 @@ export default {
     return {
       indexOfActive: 0,
       activePic:
-        "https://www.jiomart.com/images/product/75x94/441120188_olivegreen/zip-front-training-jacket-model-441120188_olivegreen-0-202104212037.jpg",
+        this.$store.state.expandata.img_url,
       pictures: [
-        "https://www.jiomart.com/images/product/75x94/441120188_olivegreen/zip-front-training-jacket-model-441120188_olivegreen-0-202104212037.jpg",
-        "https://www.jiomart.com/images/product/600x750/441120188_olivegreen/zip-front-training-jacket-model2-441120188_olivegreen-2-202104212037.jpg",
-        "https://www.jiomart.com/images/product/600x750/441120188_olivegreen/zip-front-training-jacket-model3-441120188_olivegreen-3-202104212036.jpg",
+        this.$store.state.expandata.img_url
       ],
     };
   },

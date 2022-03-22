@@ -12,7 +12,8 @@ export default new Vuex.Store({
       email: "",
       tenantId: 1,
     },
-    fashid: null
+    fashid: null,
+    expandata:{}
   },
   mutations: {
     SET_REGISTER_INFO: (state, payload) => {
@@ -25,7 +26,12 @@ export default new Vuex.Store({
     fashId(state, id){
       console.log('called mutation', id)
       state.fashid = id
+    },
+    expanFash(state,data){
+      console.log('called muta',data)
+      state.expandata = data
     }
+
   },
   actions: {
     UPDATE_REGISTER_INFO: ({ commit }, payload) => {

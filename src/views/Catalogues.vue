@@ -5,7 +5,7 @@
     </p>
     <div class="row">
       <div class="col-md-3">
-        <div class="card text-left m-0 p-0" style="border-radius: 5px">
+        <div class="card text-left m-0 p-0" style="border-radius: 5px" v-show="filterexists">
           <p class="mb-0 mt-2 ml-3" style="font-weight: bolder">Filters</p>
           <hr />
           <div v-show="this.brands.length != 0" >
@@ -201,7 +201,7 @@
                   <div class="clearfix"></div>
                   OFF
                 </div>
-                <img class="zoom" :src="data.img_url" alt="" width="100%" />
+                <img @click="expandInfo(data)" class="zoom" :src="data.img_url" alt="" width="100%" />
                 <h5
                   class="mt-3 text-left"
                   style="
@@ -268,7 +268,8 @@ export default {
           text: "Name: Z-A",
         }
       ],
-      itemsArr:[]
+      itemsArr:[],
+      filterexists: true
     };
   },
   
@@ -277,6 +278,11 @@ export default {
     this.loadFilters()
   },
   methods: {
+    expandInfo(data){
+      console.log('dis be da expan', data)
+      this.$store.commit('expanFash',data)
+      this.$router.push('/display')
+  },
     selected(id){
       console.log('which butt', id)
         switch(id){
@@ -364,6 +370,7 @@ export default {
   loadFilters(){
       axios.get("/product-service/cws/catalog/filters/"+String(this.$store.state.fashid)).then((response) => {        
         
+        if(response.data.status !== "Fail"){
           let arr = response.data.filters.find(a => a.key === "size")
           console.log('size arr', arr.values)
         this.sizes = arr.values
@@ -375,10 +382,13 @@ export default {
           let arr3 = response.data.filters.find(a => a.key === "color")
           console.log('color arr', arr3.values)
           this.colours = arr3.values
+        }
+        else
+          this.filterexists = false
                  
   }     
       );
-      console.log('failed filters')
+      console.log('no filters')
   }
   }
 };

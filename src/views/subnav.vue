@@ -6,10 +6,10 @@
         style="color: black; font-weight: 700"
       >
       <div class="bttns" v-for="(item,i) in buttArr" :key="i" :value="i">
-          <b-button @click="drpFunc(item.id)"> {{item.name}} </b-button> 
+          <b-button variant="outline-secondary" @click="drpFunc(item.id)"> {{item.name}} </b-button> 
       </div>
        <div class="drps" v-for="(items,j) in drpArr" :key="j" :value="j">
-          <b-dropdown :text="items.name"> 
+          <b-dropdown split :text="items.name" split-variant="outline-secondary" @click="drpFunc(3)"> 
           <b-dropdown-item  @click="drpFunc(its.id)" v-for="(its,k) in items.sub_categories" :key="k" :value="k">{{its.name}} </b-dropdown-item>
           </b-dropdown> 
       </div>
