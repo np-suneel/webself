@@ -87,7 +87,9 @@ export default {
         const neww = localStorage.getItem('jwtToken')
         console.log('new token', neww)
         console.log('response', response.data)
+        this.$store.commit('storeId',response.data.id)
       });
+      
       this.$router.push('/home')
     },
     productList() {

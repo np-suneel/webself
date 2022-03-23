@@ -12,8 +12,10 @@ export default new Vuex.Store({
       email: "",
       tenantId: 1,
     },
-    fashid: null,
-    expandata:{}
+    fashionid: null,
+    expandata:{},
+    storeid: null,
+    
   },
   mutations: {
     SET_REGISTER_INFO: (state, payload) => {
@@ -25,11 +27,15 @@ export default new Vuex.Store({
     },
     fashId(state, id){
       console.log('called mutation', id)
-      state.fashid = id
+      state.fashionid = id
     },
     expanFash(state,data){
       console.log('called muta',data)
       state.expandata = data
+    },
+    storeId(state,id){
+      console.log('called mutat',id)
+      state.storeid=id
     }
 
   },

@@ -21,7 +21,7 @@
         <p style="font-weight:700">{{ this.$store.state.expandata.name }}</p>        
         <p style="font-weight:700; font-size:13px">MRP: <span style="color:grey">₹ {{ this.$store.state.expandata.mrp }}</span></p>
         <p style="font-size:13px"><span style="font-weight:700; font-size:14px">Description:</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur praesentium quae, nam optio odio quibusdam animi incidunt, voluptatum vero vel veritatis laborum magnam est quia ab! Architecto ullam harum corrupti. </p>
-        <button class="btn btn-danger">Add to cart</button>
+        <button class="btn btn-danger" @click="addToCart()">Add to cart</button>
       </div>
     </div>
   </div>
@@ -40,6 +40,10 @@ export default {
     };
   },
   methods: {
+    addToCart(){
+      this.$router.push('/cart')
+    },
+
     changeActivePic(index) {
       this.activePic = this.pictures[index];
       this.indexOfActive = index;
