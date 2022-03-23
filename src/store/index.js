@@ -13,7 +13,8 @@ export default new Vuex.Store({
       tenantId: 1,
     },
     fashid: null,
-    expandata:{}
+    expandata:{},
+    kanganaRunout:{}
   },
   mutations: {
     SET_REGISTER_INFO: (state, payload) => {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     expanFash(state,data){
       console.log('called muta',data)
       state.expandata = data
+    },
+    kanganaRunout(state, data){
+      state.kanganaRunout = data
     }
 
   },
