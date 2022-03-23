@@ -185,7 +185,7 @@ export default {
   },
   methods: {
     changeCounter(num) {
-      if(this.counter>=1)
+      if(this.counter>=0)
       this.counter += +num;
       const payload = {
     operation: "UpdateItemQuantity",
