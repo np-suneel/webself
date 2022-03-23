@@ -5,7 +5,7 @@
       id="carouselExampleCaptions"
       class="carousel slide"
       data-bs-ride="carousel"
-      @click="$router.push('/catalogues')"
+     
     >
       <div class="carousel-indicators">
         <button

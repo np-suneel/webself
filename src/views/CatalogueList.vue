@@ -1,9 +1,9 @@
 <template>
-  <div class="">
-    <div class="row">
-      <div class="col-md-5" id="vue-slider">
-        <div class="picture">
-          <img :src="activePic" alt="" />
+  <div class="col-md-11 m-auto">
+    <div class="row my-3" >
+      <div class="col-md-5 card" id="vue-slider">
+        <div class="picture p-3">
+          <img :src="activePic" alt="" width="360px" height="auto" />
         </div>
         <div class="pictures">
           <div class="col" v-for="(data, index) in pictures" :key="index">
@@ -16,10 +16,12 @@
           </div>
         </div>
       </div>
-      <div class="col-md-7 text-left">
-        <p>Category: {{ this.$store.state.expandata.category_name }}</p>
-        <h3>{{ this.$store.state.expandata.name }}</h3>        
-        <p>MRP: ₹ {{ this.$store.state.expandata.mrp }}</p>
+      <div class="col-md-6 " style="text-align:left">
+        <p style="font-weight:700; font-size:13px">Category: {{ this.$store.state.expandata.category_name }}</p>
+        <p style="font-weight:700">{{ this.$store.state.expandata.name }}</p>        
+        <p style="font-weight:700; font-size:13px">MRP: <span style="color:grey">₹ {{ this.$store.state.expandata.mrp }}</span></p>
+        <p style="font-size:13px"><span style="font-weight:700; font-size:14px">Description:</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur praesentium quae, nam optio odio quibusdam animi incidunt, voluptatum vero vel veritatis laborum magnam est quia ab! Architecto ullam harum corrupti. </p>
+        <button class="btn btn-danger">Add to cart</button>
       </div>
     </div>
   </div>
@@ -47,7 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.picture {
+/* .picture {
   width: 500px;
 }
 .picture img {
@@ -61,7 +63,7 @@ export default {
 .pictures img {
   width: 150px;
   margin: 15px;
-}
+} */
 .active {
   border: 2px solid red;
 }

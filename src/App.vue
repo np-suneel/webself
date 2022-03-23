@@ -1,31 +1,43 @@
 <template>
   <div id="app">
-    <navb v-if="!$route.meta.hideNavbar"></navb>
-    <subnav v-if="!$route.meta.hideNavbar"></subnav>
-
-    <router-view />
+    <LoadingScreen :isLoading="isLoading" />
+    <div class="col-md-12 m-0 p-0" v-if="!isLoading">
+      <navb v-if="!$route.meta.hideNavbar"></navb>
+      <subnav v-if="!$route.meta.subnav"></subnav>
+      <router-view />
+    </div>
   </div>
 </template>
+
+
 
 <script>
 import navb from "./views/Navbar";
 import subnav from "./views/subnav";
+import LoadingScreen from "./views/SplashScreen";
 
 export default {
   components: {
     navb,
     subnav,
+    LoadingScreen
   },
+  data() {
+    return { isLoading: true };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
+  }
 };
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
   text-align: center;
-  color: #2c3e50;
+  color: black;
 }
 
 #nav {

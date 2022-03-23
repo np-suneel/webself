@@ -1,8 +1,8 @@
 <template>
   <div class="col-md-12 mb-5" style="margin-top: 50px">
     <div
-      class="col-md-3 m-auto p-5"
-      style="border: 1px solid black; border-radius: 5px"
+      class="col-md-3 card m-auto p-5"
+      style=" border-radius: 5px"
     >
       <h5 style="color: black">Login Here</h5>
       <!-- <button class="btn btn-success" @click="getposts()">Get Posts</button>
@@ -31,7 +31,7 @@
         style="color: black"
       />
 
-      <button style="border: 1px solid black" @click="login">Log In</button>
+      <button  class="btn btn-danger" style="border: 1px solid red" @click="login">Log In</button>
       <!-- <div class="social">
         <div class="go" style="background: #ea617c; color: white">
           <i class="fab fa-google"></i> Google

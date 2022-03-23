@@ -20,11 +20,20 @@ const routes = [
     path: "/catalogues",
     name: "",
     component: catalogues,
+    meta: {
+      
+      subnav:true
+    },
+    
   },
   {
     path: "/display",
     name: "",
     component: cl,
+    meta: {
+
+      subnav:true
+    },
   },
   {
     path: "/login",
@@ -32,6 +41,7 @@ const routes = [
     component: Login,
     meta: {
       hideNavbar: true,
+      subnav:true
     },
   },
   {
@@ -40,6 +50,7 @@ const routes = [
     component: SelectStore,
     meta: {
       hideNavbar: true,
+      subnav:true
     },
   },
   {
@@ -48,6 +59,7 @@ const routes = [
     component: Register,
     meta: {
       hideNavbar: true,
+      subnav:true
     },
   },
   {
@@ -59,6 +71,7 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: cart,
+    subnav:true
   },
 ];
 

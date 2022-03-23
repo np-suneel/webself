@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-12 m-0 p-0" style="background: #eb6079">
+  <div class="col-md-12 m-0 p-0" style="background: #021E45">
     <!-- <ul>
             <li><img class="img-css" src="../assets/images/onboarding/rdep_logo.png" alt=""></li>
             <li style="float:right; color:white; padding-right:70px; margin-top: 24px;"><span style="font-size:16px;  font-family: 'DM Sans', sans-serif;">+91 91234 56789</span></li>
@@ -34,11 +34,11 @@
             >
           </li>
           <li class="nav-item" style="margin-left: 20px">
-            <a class="nav-link" href="#">Shop</a>
+            <a class="nav-link" href="#">Scan</a>
           </li>
-          <li class="nav-item" style="margin-left: 20px">
+          <!-- <li class="nav-item" style="margin-left: 20px">
             <a class="nav-link" href="#">Department</a>
-          </li>
+          </li> -->
         </ul>
       </div>
       <div>

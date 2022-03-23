@@ -1,8 +1,8 @@
 <template>
   <div class="m-3">
-    <p class="text-left" style="font-size: 13px">
+    <!-- <p class="text-left" style="font-size: 13px">
       Home > All Categories > Fashion > Men > Clothing Accessories
-    </p>
+    </p> -->
     <div class="row">
       <div class="col-md-3">
         <div class="card text-left m-0 p-0" style="border-radius: 5px" v-show="filterexists">
@@ -100,6 +100,7 @@
               type="checkbox"
               :id="index"
               style="padding-right: 12px"
+              class="mr-3"
             />
             <label :for="index">
               <p class="pl-1 mb-1" style="font-size: 12px">
@@ -109,7 +110,7 @@
           </div>
           </div>
           <div>
-            <button type="button" class="btn btn-outline-secondary" @click="postFilt()">Apply</button>
+            <button type="button" class="my-3 btn btn-outline-secondary" @click="postFilt()">Apply</button>
           </div>
         </div>
       </div>
@@ -120,7 +121,7 @@
           width="100%"
         />
         <div class="d-flex mt-3 my-3" style="justify-content: space-between">
-          <div class=" " style="text-align: left">
+          <!-- <div class=" " style="text-align: left">
             <p
               class="mb-0"
               style="color: black !important; opacity: 0.8; font-size: 14px"
@@ -129,7 +130,7 @@
               <span style="font-weight: bolder; color: black">20</span> of
               <span style="font-weight: bolder; color: black">128</span> items
             </p>
-          </div>
+          </div> -->
           <div class="d-flex c">
             <div class="">
               <p class="mb-0">Sort By:</p>
@@ -159,15 +160,9 @@
             ALL PRODUCTS
           </p>
           <div class="row col-md-12">
-            <div class="col-md-3" v-for="(data, index) in items" :key="index">
+            <!-- <div class="col-md-3" v-for="(data, index) in items" :key="index">
               <div class="m-0 my-2 p-1" style="margin-right: 9px">
-                <div class="dis">
-                  <span>
-                    {{ data.discount }}<span class="per_txt">%</span>
-                  </span>
-                  <div class="clearfix"></div>
-                  OFF
-                </div>
+               
                 <img class="zoom" :src="data.img3" alt="" height="90%" width="100%" />
                 <h5
                   class="mt-3 text-left"
@@ -188,20 +183,20 @@
                   >
                 </p>
               </div>
-            </div>
+            </div> -->
 
           <!-- Women's wear-->
 
           <div class="col-md-3" v-for="(data, index) in itemsArr" :key="index">
               <div class="m-0 my-2 p-1" style="margin-right: 9px">
-                <div class="dis">
+                <!-- <div class="dis">
                   <span>
                     {{ data.net_price }}<span class="per_txt">%</span>
                   </span>
                   <div class="clearfix"></div>
                   OFF
-                </div>
-                <img @click="expandInfo(data)" class="zoom" :src="data.img_url" alt="" width="100%" />
+                </div> -->
+                <img @click="expandInfo(data)" class="zoom" :src="data.img_url" alt="" width="250px" height="250px" />
                 <h5
                   class="mt-3 text-left"
                   style="
