@@ -115,7 +115,8 @@ export default {
   methods:{    
     drpFunc(id){
       console.log('clicked drpdwn',id)
-      this.$store.commit('fashId',id)           
+      //this.$store.commit('fashId',id) 
+      localStorage.setItem('fashionId',id)          
       this.$router.push('/catalogues')
       
     },

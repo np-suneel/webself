@@ -273,9 +273,9 @@ export default {
     this.loadFilters()
   },
   methods: {
-    expandInfo(data){
-      console.log('dis be da expan', data)
-      this.$store.commit('expanFash',data)
+    expandInfo(data){      
+      localStorage.setItem('expandFashion',JSON.stringify(data))            
+      //this.$store.commit('expanFash',data)
       this.$router.push('/display')
   },
     selected(id){
@@ -354,7 +354,7 @@ export default {
     },
     
     loadItems(){
-      axios.post("/product-service/cws/catalog/products/"+String(this.$store.state.fashionid)).then((response) => {
+      axios.post("/product-service/cws/catalog/products/"+localStorage.getItem('fashionId')).then((response) => {
         console.log('list', response.data.item_list)
         this.itemsArr = response.data.item_list  
         console.log('arr', this.itemsArr) 
@@ -363,7 +363,7 @@ export default {
       
   },
   loadFilters(){
-      axios.get("/product-service/cws/catalog/filters/"+String(this.$store.state.fashionid)).then((response) => {        
+      axios.get("/product-service/cws/catalog/filters/"+localStorage.getItem('fashionId')).then((response) => {        
         
         if(response.data.status !== "Fail"){
           let arr = response.data.filters.find(a => a.key === "size")

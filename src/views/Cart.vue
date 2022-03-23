@@ -3,8 +3,38 @@
     <div class="col-md-12 my-3 d-flex justify-content-between">
       <div>
         <h5 style="font-weight: 700" class="text-left">My Cart (1)</h5>
+        
       </div>
-      <div></div>
+      <div>
+        <button
+                    style="height: 40px;border-radius: 5%"
+                    class="btn btn-primary"
+                    @click="cartFunc('refresh')"
+                    type="button"
+                    name="button"
+                  >
+                    Refresh cart
+                  </button>
+                  
+         <button
+                    style="height: 40px;border-radius: 5%"
+                    class="btn btn-primary"
+                    @click="cartFunc('clear')"
+                    type="button"
+                    name="button"
+                  >
+                    Clear cart
+                  </button>       
+                   <button
+                    style="height: 40px;border-radius: 5%"
+                    class="btn btn-primary"
+                    @click="cartFunc('cancel')"
+                    type="button"
+                    name="button"
+                  >
+                    Cancel cart
+                  </button>          
+      </div>         
     </div>
     <div class="col-md-12 row">
       <div class="col-md-7 ml-0 pl-0">
@@ -25,7 +55,7 @@
               </div>
               <div class="col-md-6 text-left">
                 <p>{{ data.name }}</p>
-                <p>{{data.mrp}} {{data.net_price}} You Save {{data.netPrice - data.mrp}}</p>
+                <p>{{data.mrp}} {{data.netPrice}} You Save {{data.netPrice - data.mrp}}</p>
                 <p>Size: / Colour: </p>
               </div>
               <div
@@ -58,6 +88,17 @@
                     <p>+</p>
                   </button>
                 </div>
+                <div class="mt-1">
+                   <button
+                    style="height: 40px;border-radius: 5%"
+                    class="btn btn-primary"
+                    @click="removeItem(data.sku)"
+                    type="button"
+                    name="button"
+                  >
+                    Remove item
+                  </button>                  
+                </div>                
               </div>
             </div>
           </div>
@@ -146,15 +187,15 @@
 <script>
 import axios from 'axios'
 export default {
-  created(){
+  created(){        
     const payload = {
       operation: "AddItem",
       cartItems: [
         {
-            storeId: this.$store.state.storeId,
+            storeId: parseInt(localStorage.getItem('storeId')),
             quantity: 1,
-            sku: this.$store.state.expandata.sku,
-            storeCode: this.$store.state.expandata.site_code,
+            sku: JSON.parse(localStorage.getItem('expandFashion')).sku,
+            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
             sequence: 0            
         
      }
@@ -162,6 +203,7 @@ export default {
     }
       axios.post('/cart-service/ws/cart/addItemtoCart',payload).then((response) => {
         console.log('added to cart resp',response.data)
+        //localStorage.setItem('cartData',JSON.stringify(response.data))
         this.cartitemarr = response.data.itemResult
         this.cartId = response.data.cartId
         this.mrptotal = response.data.grossTotal
@@ -179,11 +221,63 @@ export default {
       totalamt:null,
       counter: 1,
       cartitemarr:[],
-      pic: this.$store.state.expandata.img_url
+      pic: JSON.parse(localStorage.getItem('expandFashion')).img_url
     };
     
   },
   methods: {
+    removeItem(sk){
+        const payload = {
+                    operation: "RemoveItem",
+                    cartId: this.cartId,
+                    cartItems: [
+        {
+            storeId: parseInt(localStorage.getItem('storeId')),
+            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
+            sku: sk
+        }
+    ]
+                    }
+              axios.post('/cart-service/ws/cart/removeItem',payload).then((response)=>{
+                alert(response.data.statusMessage)
+              })     
+              
+    },
+    cartFunc(k){
+        switch(k){
+          case 'clear': {
+                  const payload = {
+                    operation: "Clear cart",
+                    cartId: this.cartId
+                    }
+              axios.post('/cart-service/ws/cart/clearCart',payload).then((response)=>{
+                alert(response.data.statusMessage)
+              })      
+              break;
+          }
+          case 'refresh':
+            {
+                const payloads = {
+                    operation: "Refresh cart",
+                    cartId: this.cartId
+                    }
+              axios.post('/cart-service/ws/cart/refreshCart',payloads).then((response)=>{
+                alert(response.data.statusMessage)
+              })      
+              break;
+              }
+          case 'cancel': {
+                 const payloadss = {
+                    operation: "Cancel cart",
+                    cartId: this.cartId
+                    }
+              axios.post('/cart-service/ws/cart/cancelCart',payloadss).then((response)=>{
+                alert(response.data.statusMessage)
+              })      
+              break;
+          }
+        }
+  },
     changeCounter(num) {
       if(this.counter>1)
       this.counter += +num;
@@ -194,10 +288,10 @@ export default {
     cartId: this.cartId,
     cartItems: [
         {
-            storeId: this.$store.state.storeId,
+            storeId: parseInt(localStorage.getItem('storeId')),
             newQuantity: this.counter,
-            storeCode: this.$store.state.expandata.site_code,
-            sku: this.$store.state.expandata.sku
+            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
+            sku: JSON.parse(localStorage.getItem('expandFashion')).sku
         }
     ]
 }

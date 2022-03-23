@@ -17,9 +17,9 @@
         </div>
       </div>
       <div class="col-md-6 " style="text-align:left">
-        <p style="font-weight:700; font-size:13px">Category: {{ this.$store.state.expandata.category_name }}</p>
-        <p style="font-weight:700">{{ this.$store.state.expandata.name }}</p>        
-        <p style="font-weight:700; font-size:13px">MRP: <span style="color:grey">₹ {{ this.$store.state.expandata.mrp }}</span></p>
+        <p style="font-weight:700; font-size:13px">Category: {{ this.categoryname }}</p>
+        <p style="font-weight:700">{{ this.itemname }}</p>        
+        <p style="font-weight:700; font-size:13px">MRP: <span style="color:grey">₹ {{ this.mrp }}</span></p>
         <p style="font-size:13px"><span style="font-weight:700; font-size:14px">Description:</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur praesentium quae, nam optio odio quibusdam animi incidunt, voluptatum vero vel veritatis laborum magnam est quia ab! Architecto ullam harum corrupti. </p>
         <button class="btn btn-danger" @click="addToCart()">Add to cart</button>
       </div>
@@ -29,14 +29,22 @@
 
 <script>
 export default {
+  created(){
+    this.categoryname = JSON.parse(localStorage.getItem('expandFashion')).category_name
+    this.itemname = JSON.parse(localStorage.getItem('expandFashion')).name
+    this.mrp = JSON.parse(localStorage.getItem('expandFashion')).mrp
+  },  
   data() {
     return {
       indexOfActive: 0,
       activePic:
-        this.$store.state.expandata.img_url,
+        JSON.parse(localStorage.getItem('expandFashion')).img_url,
       pictures: [
-        this.$store.state.expandata.img_url
+        JSON.parse(localStorage.getItem('expandFashion')).img_url
       ],
+      categoryname:'',
+      itemname:'',
+      mrp:''
     };
   },
   methods: {
