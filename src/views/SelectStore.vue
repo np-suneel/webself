@@ -60,8 +60,8 @@ export default {
   data() {
     return {
       storeDatas: [],
-      storedisplay:false,
-      selStore: 'Pasar Seni'
+      storedisplay:true,
+      selStore: ''
     };
   },
     created(){
