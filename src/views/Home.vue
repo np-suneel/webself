@@ -103,6 +103,7 @@ import features from "../views/Trending";
 import features1 from "../views/Trending2";
 import features2 from "../views/Trending3";
 import features3 from "../views/Trending4";
+
 export default {
   components: {
     features,
