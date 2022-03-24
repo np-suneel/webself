@@ -28,15 +28,18 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
   created(){
+    //localStorage.removeItem('cartData')
+    //localStorage.removeItem('cartId')
     this.categoryname = JSON.parse(localStorage.getItem('expandFashion')).category_name
     this.itemname = JSON.parse(localStorage.getItem('expandFashion')).name
-    this.mrp = JSON.parse(localStorage.getItem('expandFashion')).mrp
+    this.mrp = JSON.parse(localStorage.getItem('expandFashion')).mrp    
   },  
   data() {
     return {
-      indexOfActive: 0,
+      indexOfActive: 0,      
       activePic:
         JSON.parse(localStorage.getItem('expandFashion')).img_url,
       pictures: [
@@ -48,8 +51,54 @@ export default {
     };
   },
   methods: {
-    addToCart(){
+    addToCart(){      
+      if(localStorage.getItem('cartId') == null){
+        const payload = {
+      operation: "AddItem",
+      cartItems: [
+        {
+            storeId: parseInt(localStorage.getItem('storeId')),
+            quantity: 1,
+            sku: JSON.parse(localStorage.getItem('expandFashion')).sku,
+            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
+            sequence: 0            
+        
+     }
+     ]
+    }    
+    axios.post('/cart-service/ws/cart/addItemtoCart',payload).then((response) => {
+      
+      localStorage.setItem('cartId',response.data.cartId)
+      console.log('successfully added first item with cart id',localStorage.getItem('cartId'))
       this.$router.push('/cart')
+      }
+    )
+    
+      }
+      else{
+        const payload = {
+      operation: "AddItem",
+      cartId: parseInt(localStorage.getItem('cartId')),
+      cartItems: [
+        {
+            storeId: parseInt(localStorage.getItem('storeId')),
+            quantity: 1,
+            sku: JSON.parse(localStorage.getItem('expandFashion')).sku,
+            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
+            sequence: 0            
+        
+     }
+     ]
+    }    
+    axios.post('/cart-service/ws/cart/addItemtoCart',payload).then((response) => {
+      
+      console.log('successfully added next item with cart id',localStorage.getItem('cartId'))
+      localStorage.setItem('cartId',response.data.cartId)
+      this.$router.push('/cart')
+      })  
+          
+      }
+      
     },
 
     changeActivePic(index) {

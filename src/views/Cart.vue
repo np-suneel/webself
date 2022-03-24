@@ -2,7 +2,7 @@
   <div class="col-md-10 pt-2 m-auto">
     <div class="col-md-12 my-3 d-flex justify-content-between">
       <div>
-        <h5 style="font-weight: 700" class="text-left">My Cart (1)</h5>
+        <h5 style="font-weight: 700" class="text-left">My Cart</h5>
         
       </div>
       <div>
@@ -36,9 +36,9 @@
                   </button>          
       </div>         
     </div>
-    <div class="col-md-12 row">
+    <div class="col-md-12 row" v-show="this.iscartempty != true">
       <div class="col-md-7 ml-0 pl-0">
-        <div class="col-md-12">
+        <div class="col-md-12" v-show="this.iscartempty != true">
           <div class="card p-3" v-for="(data,index) in cartitemarr" :key="index">
             <div class="d-flex justify-content-between">
               <p>Fashion Basket (1 items)</p>
@@ -47,7 +47,7 @@
             <div class="col-md-12 d-flex">
               <div class="col-md-2 ml-0 pl-0">
                 <img
-                  :src="pic"
+                  :src="data.img_url"
                   alt=""
                   width="auto"
                   height="100px"
@@ -103,6 +103,7 @@
             </div>
           </div>
         </div>
+        
         <!--
         <div class="col-md-12 mt-2">
           <div class="card p-3">
@@ -181,47 +182,64 @@
         </div>
       </div>
     </div>
-  </div>
+    <div class="col-md-12 row" v-show="this.iscartempty">
+            <h2>Cart is empty</h2>
+        </div>
+  </div> 
+  
 </template>
 
 <script>
 import axios from 'axios'
 export default {
-  created(){        
-    const payload = {
-      operation: "AddItem",
-      cartItems: [
-        {
-            storeId: parseInt(localStorage.getItem('storeId')),
-            quantity: 1,
-            sku: JSON.parse(localStorage.getItem('expandFashion')).sku,
-            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
-            sequence: 0            
+  mounted(){      
+    
+       const payloads = {
+                    operation: "Refresh cart",
+                    cartId: parseInt(localStorage.getItem('cartId'))
+                    }
+                    
+              axios.post('/cart-service/ws/cart/refreshCart',payloads).then((response)=>{           
+               
         
-     }
-     ]
-    }
-      axios.post('/cart-service/ws/cart/addItemtoCart',payload).then((response) => {
-        console.log('added to cart resp',response.data)
-        //localStorage.setItem('cartData',JSON.stringify(response.data))
-        this.cartitemarr = response.data.itemResult
+        
+            if(response.data.status === "success"){
+        
+        this.cartitemarr=response.data.itemResult      
+        
+        console.log('cart arr',this.cartitemarr)
+
         this.cartId = response.data.cartId
+        localStorage.setItem('cartId',this.cartId)
         this.mrptotal = response.data.grossTotal
         this.totalamt = response.data.netTotal
         this.discount = response.data.discounts[0].discountAmount
-      })
+      }    
+                
+    else if(response.data.status === "failed"){
+                        alert('Retrieval failed')
+                        
+
+    }
+              }) 
+                    
+                    .catch(function (e){
+                      console.log('temporary error',e.response)                     
+                      
+                    })
 
 
   },  
   data() {
     return {
+      iscartempty:false,
       cartId: null,
       mrptotal:null,
       discount:null,
       totalamt:null,
       counter: 1,
       cartitemarr:[],
-      pic: JSON.parse(localStorage.getItem('expandFashion')).img_url
+      temparr:[]      
     };
     
   },
@@ -240,6 +258,30 @@ export default {
                     }
               axios.post('/cart-service/ws/cart/removeItem',payload).then((response)=>{
                 alert(response.data.statusMessage)
+                if(response.data.status === "Success" || response.data.status === "success"){
+                  console.log('succes remove')
+                    const payloads = {
+                    operation: "Refresh cart",
+                    cartId: this.cartId
+                    }
+              axios.post('/cart-service/ws/cart/refreshCart',payloads).then((response)=>{
+                console.log('remove refresh', response.data.status)
+                if(response.data.status !== "failed"){
+                this.cartitemarr=response.data.itemResult 
+                this.cartId = response.data.cartId
+        localStorage.setItem('cartId',this.cartId)
+        this.mrptotal = response.data.grossTotal
+        this.totalamt = response.data.netTotal
+        this.discount = response.data.discounts[0].discountAmount
+                }
+              
+                else{
+                  console.log('empty remove')
+                  this.iscartempty = true
+                  localStorage.removeItem('cartId')
+                }
+              })      
+                }
               })     
               
     },
@@ -252,6 +294,24 @@ export default {
                     }
               axios.post('/cart-service/ws/cart/clearCart',payload).then((response)=>{
                 alert(response.data.statusMessage)
+                const payloads = {
+                    operation: "Refresh cart",
+                    cartId: this.cartId
+                    }
+              axios.post('/cart-service/ws/cart/refreshCart',payloads).then((response)=>{
+                if(response.data.status !== "failed"){
+                this.cartitemarr=response.data.itemResult 
+                this.cartId = response.data.cartId
+        localStorage.setItem('cartId',this.cartId)
+        this.mrptotal = response.data.grossTotal
+        this.totalamt = response.data.netTotal
+        this.discount = response.data.discounts[0].discountAmount
+                }
+                else{
+                  this.iscartempty = true
+                  localStorage.removeItem('cartId')
+                }
+              })      
               })      
               break;
           }
@@ -263,6 +323,15 @@ export default {
                     }
               axios.post('/cart-service/ws/cart/refreshCart',payloads).then((response)=>{
                 alert(response.data.statusMessage)
+                 this.cartitemarr=response.data.itemResult      
+        
+        
+
+        this.cartId = response.data.cartId
+        localStorage.setItem('cartId',this.cartId)
+        this.mrptotal = response.data.grossTotal
+        this.totalamt = response.data.netTotal
+        this.discount = response.data.discounts[0].discountAmount
               })      
               break;
               }

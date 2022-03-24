@@ -90,7 +90,7 @@ export default {
         localStorage.setItem('storeId',response.data.id)
         //this.$store.commit('storeId',response.data.id)
       });
-      
+      localStorage.removeItem('cartId')
       this.$router.push('/home')
     },
     productList() {
