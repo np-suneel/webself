@@ -102,63 +102,7 @@
               </div>
             </div>
           </div>
-        </div>
-        
-        <!--
-        <div class="col-md-12 mt-2">
-          <div class="card p-3">
-            <div class="d-flex justify-content-between">
-              <p>Fashion Basket (1 items)</p>
-              <p>₹399.00</p>
-            </div>
-            <div class="col-md-12 d-flex">
-              <div class="col-md-2 ml-0 pl-0">
-                <img
-                  src="https://www.jiomart.com/images/product/150x188/440762638_red/polo-t-shirt-with-signature-branding-model-440762638_red-0-202104090103.jpg"
-                  alt=""
-                  width="auto"
-                  height="100px"
-                />
-              </div>
-              <div class="col-md-6 text-left">
-                <p>Polo T-shirt with Signature Branding</p>
-                <p>₹399.00 ₹499.00 You Save ₹100.00</p>
-                <p>Size: S / Colour: Red</p>
-              </div>
-              <div
-                class="col-md-4 mt-4 pt-5 pr-0 mr-0 text-right align-text-bottom"
-              >
-                <div class="wrapper">
-                  <button
-                    style="height: 40px; width: 40px; border-radius: 50%"
-                    class="btn btn-primary"
-                    @click="changeCounter('-1')"
-                    type="button"
-                    name="button"
-                  >
-                    -
-                  </button>
-                  <input
-                    style="height: 40px; border: none"
-                    class="quantity"
-                    type="text"
-                    name="name"
-                    :value="counter"
-                  />
-                  <button
-                    class="btn btn-primary"
-                    style="height: 40px; width: 40px; border-radius: 50%"
-                    @click="changeCounter('1')"
-                    type="button"
-                    name="button"
-                  >
-                    <p>+</p>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>-->
+        </div> 
       </div>
 
       <div class="col-md-5">
@@ -178,7 +122,7 @@
           </div>
         </div>
         <div class="text-right mt-2">
-          <button class="btn btn-primary">Checkout</button>
+          <button class="btn btn-primary" @click="$router.push('/payment')">Checkout</button>
         </div>
       </div>
     </div>
@@ -365,7 +309,17 @@ export default {
     ]
 }
 
-      axios.post('/cart-service/ws/cart/updateItemQty',payload)
+      axios.post('/cart-service/ws/cart/updateItemQty',payload).then((response) =>{
+        this.cartitemarr=response.data.itemResult      
+        
+        
+
+        this.cartId = response.data.cartId
+        localStorage.setItem('cartId',this.cartId)
+        this.mrptotal = response.data.grossTotal
+        this.totalamt = response.data.netTotal
+        this.discount = response.data.discounts[0].discountAmount
+      })
       
       console.log(this.counter);
       // !isNaN(this.counter) && this.counter > 0

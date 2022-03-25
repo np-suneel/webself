@@ -8,6 +8,7 @@ import catalogues from "../views/Catalogues.vue";
 import cl from "../views/CatalogueList.vue";
 import cart from "../views/Cart.vue";
 import SelectStore from "../views/SelectStore.vue";
+import Payment from "../views/Payment.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -71,8 +72,13 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: cart,
-    subnav:true
+    subnav:false
   },
+  {
+  path:"/payment",
+  name: "payment",
+  component: Payment,
+  }  
 ];
 
 const router = new VueRouter({
