@@ -91,10 +91,52 @@ return{
       totalamt:null
 }
 
+},
+methods:{
+    placeOrder(){
+       const payloads = {
+                    operation: "Refresh cart",
+                    cartId: parseInt(localStorage.getItem('cartId'))
+                    }
+       axios.post('/cart-service/ws/cart/refreshCart',payloads).then((response)=>{ 
+        if(response.data.status === "success"){
+          
+          for(let i=0;i<response.data.itemResult.length;i++){
+              let temppayload = response.data.itemResult[i]
+              temppayload.scanType = "Scan"
+              temppayload.scanSequence = 1
+              temppayload.price = temppayload.netPrice
+              temppayload.vatBit = 0
+              temppayload.unit = temppayload.quantityUnit
+              temppayload.productGroupNumber = temppayload.productGrpNmbr
+              console.log('temp payload',temppayload)
+          }
+         
+         let placearr = response.data.itemResult
+         console.log('place order modified arr',placearr)
+         const payload = {
+            task: "PLACE_ORDER",
+            startTime: response.data.startTime,
+            cartItems: placearr,
+            discounts: response.data.discounts,
+            grossTotal: response.data.grossTotal,
+            netTotal: response.data.netTotal,
+            storeId: response.data.storeId,
+            storeCode: response.data.storeCode,
+            cartId: response.data.cartId,
+            totalProductsCount: 1
+         }
+        axios.post('/order-service/ws/order/place',payload).then((respons)=>{
+        alert(respons.data.statusMessage + ' Order ID ' + respons.data.orderId)
+        }
+        )
 }
+else
+alert('cart error')
 
+})}
 }
-
+}
 </script>
 
 
