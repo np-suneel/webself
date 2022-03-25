@@ -1,11 +1,11 @@
 <template>
-  <div class="col-md-11 m-auto">
+  <div class="col-md-11 m-auto mx-3 mb-3" style="padding-top: 7rem!important;">
     <div class="row my-3" >
       <div class="col-md-5 card" id="vue-slider">
         <div class="picture p-3">
           <img :src="activePic" alt="" width="360px" height="auto" />
         </div>
-        <div class="pictures">
+        <!-- <div class="pictures">
           <div class="col" v-for="(data, index) in pictures" :key="index">
             <img
               :src="data"
@@ -14,7 +14,7 @@
               alt=""
             />
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-6 " style="text-align:left">
         <p style="font-weight:700; font-size:13px">Category: {{ this.categoryname }}</p>

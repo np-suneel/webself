@@ -1,5 +1,5 @@
-<template>
-  <div class="m-3">
+<template> 
+  <div class="mx-3 mb-3 mt-0 pt-0"  style="padding-top: 7rem!important;">
     <!-- <p class="text-left" style="font-size: 13px">
       Home > All Categories > Fashion > Men > Clothing Accessories
     </p> -->
@@ -30,7 +30,7 @@
             style="text-align: left; padding-left: 20px"
           >
             <input v-model="selbrand" :value="data.value" type="checkbox" :id="index" />
-            <label :for="index" class="pl-2">
+            <label :for="index" class="pl-2" style="padding-left:6px">
               <p class="mb-1" style="font-size: 12px">
                 {{ data.display_name }}
                 <!-- <span class="number"> ( 34 )</span> -->
@@ -66,7 +66,7 @@
               :id="index"
               style="padding-right: 12px"
             />
-            <label :for="index">
+            <label :for="index" style="padding-left:6px">
               <p class="pl-1 mb-1" style="font-size: 12px">
                 {{ data.display_name }}
               </p>
@@ -102,7 +102,7 @@
               style="padding-right: 12px"
               class="mr-3"
             />
-            <label :for="index">
+            <label :for="index" style="padding-left:6px">
               <p class="pl-1 mb-1" style="font-size: 12px">
                 {{ data.display_name }}
               </p>

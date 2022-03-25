@@ -3,7 +3,7 @@
     <!-- <button @click="updateToken()">update token</button>
     <button @click="productList()">get product list</button> -->
     <div class="col-md-6 m-auto pt-5">
-        <p style="font-size:13px " class="my-4" >How do you want to shop?</p>
+        <p style="font-size:15spx " class="my-4" >How do you want to shop?</p>
       <div class="col-md-12 row ">
         <div class="col-md-6" @click="storedisplay = false" >
           <div class="col-md-12 card p-3" style="align-items: center" :class="{active: !storedisplay}">
@@ -19,23 +19,22 @@
           </div>
         </div>
       </div>
-      <p class="my-4" style="font-size:13px">Visit your preferred store ? <br> and experience a better way to shop!</p>
+      <p class="my-4" style="font-size:15px">Visit your preferred store ? <br> and experience a better way to shop!</p>
       <div class="col-md-12  mt-3 border p-3" style="background:transparent;border-radius:5px" v-if="storedisplay">
         <p style="text-align:left;font-size:12px;color:red;font-weight:700"><i class="fa fa-map-marker" aria-hidden="true"></i> Branch</p>
         <select
-          class="mb-0 p-2  form-control form-select"
+          class="mb-0 p-2  form-control form-select "
+          placeholder="Select a store"
           style="
     
-            border-bottom: none;
-            border-top: none;
-            border-left: none;
-            border-right: none;
+            
             border-radius: 0;
             font-size: 13px;
             font-weight: 700;
           "
           v-model="selStore"
         >
+        <option value="" disabled>Select a store</option>
           <option          
             v-for="(data, i) in storeDatas"
             :key="i"
@@ -60,8 +59,8 @@ export default {
   data() {
     return {
       storeDatas: [],
-      storedisplay:false,
-      selStore: 'Pasar Seni'
+      storedisplay:true,
+      selStore: ''
     };
   },
     created(){

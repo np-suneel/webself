@@ -8,7 +8,9 @@ import { BootstrapVue } from "bootstrap-vue";
 // import 'bootstrap/dist/css/bootstrap.css'
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import setAuthHeaders from "./utils/setAuthHeaders";
+// import  VueBarcodeReader  from "vue-barcode-reader";
 
+// Vue.use(VueBarcodeReader);
 Vue.use(BootstrapVue);
 Vue.use(VueIziToast);
 Vue.config.productionTip = false;

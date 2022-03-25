@@ -1,70 +1,74 @@
 <template>
   <div class="col-md-10 pt-2 m-auto">
+    
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
+      <div >
+        <p
+
+          
+          @click="cartFunc('refresh')"
+         style="cursor:pointer"
+        >
+          Refresh cart
+        </p>
+                  
+        <p
+        
+          
+          @click="cartFunc('clear')"
+          style="cursor:pointer"
+        >
+          Clear cart
+        </p>       
+        <p
+          
+          
+          @click="cartFunc('cancel')"
+          style="cursor:pointer"
+        >
+          Cancel cart
+        </p>          
+      </div>
+    </div>
     <div class="col-md-12 my-3 d-flex justify-content-between">
       <div>
-        <h5 style="font-weight: 700" class="text-left">My Cart</h5>
-        
+        <h5 style="font-weight: 700" class="text-left">My Cart</h5> 
       </div>
       <div>
-        <button
-                    style="height: 40px;border-radius: 5%"
-                    class="btn btn-primary"
-                    @click="cartFunc('refresh')"
-                    type="button"
-                    name="button"
-                  >
-                    Refresh cart
-                  </button>
-                  
-         <button
-                    style="height: 40px;border-radius: 5%"
-                    class="btn btn-primary"
-                    @click="cartFunc('clear')"
-                    type="button"
-                    name="button"
-                  >
-                    Clear cart
-                  </button>       
-                   <button
-                    style="height: 40px;border-radius: 5%"
-                    class="btn btn-primary"
-                    @click="cartFunc('cancel')"
-                    type="button"
-                    name="button"
-                  >
-                    Cancel cart
-                  </button>          
-      </div>         
+        <span style="font-size:30px;cursor:pointer" @click="openNav()">&#9776;</span>
+      </div>
+               
     </div>
     <div class="col-md-12 row" v-show="this.iscartempty != true">
-      <div class="col-md-7 ml-0 pl-0">
+      <div class="col-md-7  ml-0 pl-0">
         <div class="col-md-12" v-show="this.iscartempty != true">
-          <div class="card p-3" v-for="(data,index) in cartitemarr" :key="index">
-            <div class="d-flex justify-content-between">
-              <p>Fashion Basket (1 items)</p>
-              <p>{{ data.mrp }}</p>
-            </div>
+          <div class="card mb-3 p-3" v-for="(data,index) in cartitemarr" :key="index">
+      
             <div class="col-md-12 d-flex">
               <div class="col-md-2 ml-0 pl-0">
-                <img
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAPFBMVEW7u7vz8/O4uLjb29vk5OTs7Ozh4eHZ2dny8vLu7u7q6ur29va9vb22trbn5+fGxsbQ0NDJycnU1NSwsLCMcr6HAAAESklEQVR4nO2bgXKiMBCGSTSaJQkIff93vf2X1lqF3tydTlfv/6YdFZTJ191sFopdRwghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYSQvyM+jp9WW6jz7lHM9aflDCnhURT5aTklzo8TVMX55xM1HmCYH2CHY5aDA8OdDWfY35vBjrvzYjg+oI6Ofgxz2cf7F70a9yU7MQzh8BDDg5sYwvDPPxdrrfG7v8yTG8ap11op83dv8W34m6xd1hgs6dtvdG7Yaf5tDw6CeVnztrsW54bxWOTUtoY3fvZBZdPBuSEcSj+uj09DeG6CSt48smvDOLw3XXVthFEuerMybh3Zs2Gc3tOwhHnlJC9edp9l2jqya0P5zEKZ2s1nLhv1p4yhlplLhUGn45dFwcZ+DuLmkR0b1usTod3VdHz2WvqxnF+EMZ/W35Gx5Nf1BsGx4bhy1l/S5coRzz1Nql3r0KCuHNmtYexvBfPHyrEEq6IvDaWgL22jnlxO8TaMbg3jaePCTQnHi0ZOo2bnFnqKoY5v403B9WvYbV+zuZ6O6tjFsY2tra0YHg0xnd6v22w5putgwTDW40rv49FQMy7W31xcvGnk6tjqUNL1guLSENOq7c9N9We25i89TJltOmqCWumJ43gIfQphvlg0KvLXnaFVfKwU+YvWWS/rM3tR8mT/k6it4iHWJPiz5DSd/1OBR2+GKI0txr5IQkCk71NS14yXomJiW2wfUnVEFW3VrtUcRFRP9+YDAttZaLHdlaEOuKnhSdVS35ckKQ1QhJSIxkg3ABEoZpFZ/RroTrJPQcxe0rE2ZK9ur82ZIcYVuz7LIBozjFYHHSyCiKa+EmzRF5qQsE5z94Z+LeY0SIA7yP3JlsrRnWF909xqOx3jgBxNJgpTPdlVLY2l/sJQfyyHs55z6EdinItGO/S9FLXX55KmN9RkZ1naVYuHpIyUUyd90NwMOuCsrxDQfnkUMxx6i+RBUzUFMxxgl4ruCXK0mmq9qxtDJGlrey0WGCImYxo0EwNmIYrNF0PdMCQtPth3PEp4jyG89bkail3EijvNXi//e0Klad2kQ7NhauuSMANNBnmbUEk/DBf0U2kJ7rVhQSYPunLMwz77Mexa7VDvMeFQLNMiYxVEpxbmYD5XGxW0RdKe5tDDUn+1KKklNuiOozvD2k4i5ras8CiMSEX1yrbeYeIJ1sWCRF2aAJuU2Few3x7xXltNYrfTxdOR4XLp4va8Il9v/Wzhcrht8M693S66qzQ3ly7+CTMMrgzXLl28lGHc0ZCGNKQhDWlIQxrS8CkM73mPaXZoeCr35eTNsHbT8Z5Mru5NxP2leHbPo+LX0/2lr36PMErfK9/n/fr36r/89y1e/zsz/8P3nl7/u2uEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCyBPyC1stQARopdgqAAAAAElFTkSuQmCC" width="auto"
+                  height="100px" alt="">
+                <!-- <img
                   :src="data.img_url"
                   alt=""
                   width="auto"
                   height="100px"
-                />
+                /> -->
               </div>
-              <div class="col-md-6 text-left">
-                <p>{{ data.name }}</p>
-                <p>{{data.mrp}} {{data.netPrice}} You Save {{data.netPrice - data.mrp}}</p>
-                <p>Size: / Colour: </p>
+              <div class="col-md-7  pl-2" style="text-align:left;padding-left: 10px;">
+                <p class="mb-1" style="font-weight:700">{{ data.name }}</p>
+                <p class="mb-4" style="color:grey; font-size:13px">{{data.sku}}</p>
+                <p class="mb-0" style="font-weight:700; color:#021E45">₹ {{data.mrp}}</p>
               </div>
-              <div
-                class="col-md-4 mt-4 pt-5 pr-0 mr-0 text-right align-text-bottom"
-              >
-                <div class="wrapper">
+              <div class="col-md-3 pr-0 mr-0 text-right align-text-bottom" >
+                <div style="text-align:right">
+                  <i class="fa fa-trash-o" style="font-size:20px" @click="removeItem(data.sku)"></i>
+                </div>
+                <div class="wrapper mt-4 pt-3 " style="text-align:right">
                   <button
-                    style="height: 40px; width: 40px; border-radius: 50%"
-                    class="btn btn-primary"
+                    style="height: 30px; width: 30px; "
+                    class="btn border m-0 p-0"
                     @click="changeCounter('-1')"
                     type="button"
                     name="button"
@@ -72,15 +76,15 @@
                     -
                   </button>
                   <input
-                    style="height: 40px; border: none"
-                    class="quantity"
+                    style="height: 30px;width: 30px;border:none "
+                    class="px-2 quantity"
                     type="text"
                     name="name"
                     :value="counter"
                   />
                   <button
-                    class="btn btn-primary"
-                    style="height: 40px; width: 40px; border-radius: 50%"
+                    class="btn border m-0 p-0"
+                    style="height: 30px; width: 30px;"
                     @click="changeCounter('1')"
                     type="button"
                     name="button"
@@ -88,21 +92,21 @@
                     <p>+</p>
                   </button>
                 </div>
-                <div class="mt-1">
+                <!-- <div class="mt-1">
                    <button
                     style="height: 40px;border-radius: 5%"
                     class="btn btn-primary"
                     @click="removeItem(data.sku)"
                     type="button"
                     name="button"
-                  >
-                    Remove item
+                  >remove
                   </button>                  
-                </div>                
+                </div>                 -->
               </div>
             </div>
           </div>
         </div>
+
         
         <!--
         <div class="col-md-12 mt-2">
@@ -162,24 +166,27 @@
       </div>
 
       <div class="col-md-5">
-        <div class="card p-3">
-          <p class="text-left" style="font-weight: 700">Payment Details</p>
-          <div class="d-flex justify-content-between">
+        <div class="card px-3 pt-3">
+         
+          <!-- <div class="d-flex justify-content-between">
             <p>MRP Total</p>
             <p>{{ this.mrptotal }}</p>
           </div>
           <div class="d-flex justify-content-between">
             <p>Product Discount</p>
             <p>- {{ this.discount }}</p>
-          </div>
+          </div> -->
           <div class="d-flex justify-content-between">
-            <p>Total Amount</p>
-            <p>{{ this.totalamt }}</p>
+            <div>
+              <p class="mb-1" style="font-weight:700">Subtotal</p>
+              <p style="font-weight:700">₹ {{ this.totalamt }}</p>
+            </div>
+            <div class="mt-3">
+              <button class="btn btn-primary">Checkout</button>
+            </div>
           </div>
         </div>
-        <div class="text-right mt-2">
-          <button class="btn btn-primary">Checkout</button>
-        </div>
+        
       </div>
     </div>
     <div class="col-md-12 row" v-show="this.iscartempty">
@@ -244,6 +251,12 @@ export default {
     
   },
   methods: {
+    openNav() {
+      window.document.getElementById("mySidenav").style.width = "250px";
+    },
+     closeNav() {
+      window.document.getElementById("mySidenav").style.width = "0";
+    },
     removeItem(sk){
         const payload = {
                     operation: "RemoveItem",
@@ -377,8 +390,7 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-}
+
 .quantity {
   -webkit-appearance: none;
   border: none;
@@ -389,5 +401,43 @@ export default {
   color: #43484d;
   font-weight: 300;
   border: 1px solid #e1e8ee;
+}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #f3f3f3;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
 </style>

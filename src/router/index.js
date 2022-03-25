@@ -8,6 +8,8 @@ import catalogues from "../views/Catalogues.vue";
 import cl from "../views/CatalogueList.vue";
 import cart from "../views/Cart.vue";
 import SelectStore from "../views/SelectStore.vue";
+import scanner from "../views/Scanner.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -45,6 +47,15 @@ const routes = [
     },
   },
   {
+    path: "/scan",
+    name: "Login",
+    component: scanner,
+    meta: {
+      hideNavbar: true,
+      subnav:true
+    },
+  },
+  {
     path: "/select-store",
     name: "Login",
     component: SelectStore,
@@ -71,7 +82,10 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: cart,
-    subnav:true
+    meta: {
+      // hideNavbar: true,
+      subnav:true
+    },
   },
 ];
 

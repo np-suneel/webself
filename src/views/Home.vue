@@ -7,7 +7,7 @@
       data-bs-ride="carousel"
      
     >
-      <div class="carousel-indicators">
+      <div class="carousel-indicators" style="z-index:-1">
         <button
           type="button"
           data-bs-target="#carouselExampleCaptions"
