@@ -8,15 +8,25 @@
   <div v-show="showaddr">
     <div>
         <h5 style="font-weight: 700" class="text-left">Saved Addresses</h5>
-        
+        <button
+                    style="height: 40px;border-radius: 5%"
+                    class="btn btn-primary"
+                    @click="editAddAddress('')"
+                    type="button"
+                    name="button"
+                  >
+                    Add address
+                    
+                  </button>  
+
       </div>
-<div class="card p-1" v-for="(data,index) in addrarr" :key="index">
+<div class="card p-1" v-for="(data) in addrarr" :key="data.addressId">
   <input type="radio" @click="selAddress(data)">
             <div class="d-flex justify-content-between">
               <div>
               <p>{{ data.tag }}</p>
               </div>
-              <div class="d-flex flex-row-reverse" :v-show="data.defaultDeliveryAddress">
+              <div class="d-flex flex-row-reverse" :v-if="data.defaultDeliveryAddress">
               <p><b>Default address</b></p>
               </div>
             </div>
@@ -39,11 +49,12 @@
                    <button
                     style="height: 40px;border-radius: 5%"
                     class="btn btn-primary"
-                    @click="editAddress(data)"
+                    @click="editAddAddress(data)"
                     type="button"
                     name="button"
                   >
                     Edit address
+                    
                   </button>  
 
 
@@ -51,7 +62,7 @@
 
                   
 
-  <b-modal v-model="clickededit" id="modal-1" title="Edit address" no-close-on-esc hide-footer>
+  <b-modal v-model = "clickededit" id="modal-1" title="Edit address" no-close-on-esc hide-footer>
     <b-form>
 
       <b-form-group id="input-group-2" label="Name:" label-for="input-2">
@@ -180,13 +191,147 @@
     >
       Make this default address
     </b-form-checkbox>
-      <b-button type="button" @click ="onSubmitAddr(data.addressId)" variant="primary">Submit</b-button>
+   
+      <b-button type="button" @click ="onSubmitAddr()" variant="primary">Submit</b-button>
       <b-button type="button" @click="onResetAddr()" variant="danger">Reset</b-button>
     </b-form>
   </b-modal>     
 
 
+<b-modal v-model = "clickedadd" id="modal-1" title="Add address" no-close-on-esc hide-footer>
+    <b-form>
 
+      <b-form-group id="input-group-2" label="Name:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.name"
+          placeholder="Enter name"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-1"
+        label="Phone number:"
+        label-for="input-1"
+        description="We'll never share your phone number with anyone else."
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.phno"
+          type="number"
+          placeholder="Enter phone number"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      
+
+      <b-form-group id="input-group-2" label="Enter Address Line 1:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.addrlin1"
+          placeholder="Enter Address Line 1"
+          required
+        ></b-form-input>
+      </b-form-group>
+       <b-form-group id="input-group-2" label="Enter Address Line 2:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.addrlin2"
+          placeholder="Enter Address Line 2"
+          required
+        ></b-form-input>
+      </b-form-group>
+       <b-form-group id="input-group-2" label="Enter Address Line 3:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.addrlin3"
+          placeholder="Enter Address Line 3"
+          required
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group id="input-group-2" label="City:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.city"
+          placeholder="Enter city"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="District:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.district"
+          placeholder="Enter district"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="State:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.state"
+          placeholder="Enter state"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Country:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.country"
+          placeholder="Enter country"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+    <b-form-group id="input-group-2" label="PIN Code:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.pincode"
+          placeholder="Enter PIN code"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Landmark:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.landmark"
+          placeholder="Enter landmark"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Enter label: (eg. Home, Office, etc.)" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.label"
+          placeholder="Enter label"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group label="Delivery type" v-slot="{ ariaDescribedby }">
+      <b-form-radio v-model="form.selected" :aria-describedby="ariaDescribedby" name="some-radios" value="Home">Home</b-form-radio>
+      <b-form-radio v-model="form.selected" :aria-describedby="ariaDescribedby" name="some-radios" value="Office">Office</b-form-radio>
+    </b-form-group>
+      <b-form-checkbox
+      id="checkbox-1"
+      v-model="form.ifdefault"
+      name="checkbox-1"
+      value="true"
+      unchecked-value="false"
+    >
+      Make this default address
+    </b-form-checkbox>
+   
+      <b-button type="button" @click ="submitAddr()" variant="primary">Submit</b-button>
+      <b-button type="button" @click="onResetAddr()" variant="danger">Reset</b-button>
+    </b-form>
+  </b-modal>     
 
 
 
@@ -205,7 +350,7 @@
                 </div>                
               </div>
             </div>
-          </div>
+</div>
     
     
     
@@ -315,15 +460,18 @@ return{
       addrarr: [],
       seladdr:null,
       showaddr:false,
-      clickededit: false
+      clickededit: false,
+      clickedadd: false,
+      addressid: null
 }
 
 },
 methods:{
-  onSubmitAddr(addr){
-      const payload = {
-        addressId: addr,
-        addressLine1: this.form.addrlin1,
+  
+  submitAddr(){
+    
+        const payload = {
+          addressLine1: this.form.addrlin1,
         addressLine2: this.form.addrlin2,
         addressLine3: this.form.addrlin3,
         city: this.form.city,
@@ -338,7 +486,33 @@ methods:{
         state: this.form.state,
         tag: this.form.selected
         }
-      axios.patch('customer-service/cws/address/'+addr,payload).then((response)=>{
+        axios.post('customer-service/cws/address',payload).then((response)=>{
+          console.log('add addr succ', response.data)
+          this.addrarr = response.data.addresses
+        })
+    this.clickedadd = false
+  },
+  onSubmitAddr(chec){
+    console.log('address id',this.addressid, chec)
+    
+      const payload = {
+        addressId: this.addressid,
+        addressLine1: this.form.addrlin1,
+        addressLine2: this.form.addrlin2,
+        addressLine3: this.form.addrlin3,
+        city: this.form.city,
+        contactPerson: this.form.name,
+        contactPhoneNumber: this.form.phno,
+        country: this.form.country,
+        defaultDeliveryAddress: this.form.ifdefault,
+        district: this.form.district,
+        label: this.form.label,
+        landmark: this.form.landmark,
+        pinCode: this.form.pincode,
+        state: this.form.state,
+        tag: this.form.selected
+      }
+      axios.patch('customer-service/cws/address/'+this.addressid,payload).then((response)=>{
             console.log('edit succ', response.data)
             if(response.data.status == "success")
             {
@@ -351,7 +525,9 @@ methods:{
 
       })
    this.clickededit = false
-  },
+      }
+    
+  ,
   onResetAddr(){
     this.form.name='',
     this.form.phno='',
@@ -377,7 +553,8 @@ methods:{
   selAddress(addr){
     this.seladdr = addr
   },
-  editAddress(addr){
+  editAddAddress(addr){
+    if(addr != ''){
       console.log('edit addr',addr)
       this.clickededit=true
       this.form.name=addr.contactPerson,
@@ -394,7 +571,27 @@ methods:{
     this.form.landmark=addr.landmark,
     this.form.selected=addr.tag,
     this.form.ifdefault=addr.defaultDeliveryAddress
-
+    this.addressid = addr.addressId
+    }
+    else {
+      console.log('add addr',addr)
+      this.clickedadd=true
+      this.form.name='',
+    this.form.phno='',
+    this.form.addrlin1='',
+    this.form.addrlin2='',
+    this.form.addrlin3='',
+    this.form.city='',
+    this.form.state='',
+    this.form.district='',
+    this.form.country='',
+    this.form.pincode='',
+    this.form.label='',
+    this.form.landmark='',
+    this.form.selected='',
+    this.form.ifdefault=''
+    this.addressid = ''
+    }
   },
   removeAddress(addr){
         axios.delete('customer-service/cws/address/'+addr).then((response)=>
