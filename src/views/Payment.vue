@@ -338,7 +338,7 @@ methods:{
         state: this.form.state,
         tag: this.form.selected
         }
-      axios.patch('customer-service/cws/address/'+addr,payload).then((response)=>{
+      axios.patch('customer-service/cws/address/'+addr.addressId,payload).then((response)=>{
             console.log('edit succ', response.data)
 
       })
