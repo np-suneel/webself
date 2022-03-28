@@ -9,6 +9,8 @@ import cl from "../views/CatalogueList.vue";
 import cart from "../views/Cart.vue";
 import SelectStore from "../views/SelectStore.vue";
 import Payment from "../views/Payment.vue";
+import MyOrders from "../views/MyOrders.vue";
+import PasswordReset from "../views/PasswordReset.vue"
 
 Vue.use(VueRouter);
 
@@ -79,7 +81,17 @@ const routes = [
   path:"/payment",
   name: "payment",
   component: Payment,
-  }
+  },
+  {
+    path:"/myorders",
+    name: "myorders",
+    component: MyOrders,
+    },
+    {
+      path:"/resetpass",
+      name: "resetpass",
+      component: PasswordReset,
+      },  
   
 ];
 

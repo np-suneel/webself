@@ -52,6 +52,24 @@
               >Profile</a
             >
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="" @click="$router.push('/resetpass')"
+              ><i
+                class="fa fa-lock"
+                style="font-size: 20px; padding-right: 10px; color: white"
+              ></i
+              >Reset Password</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="" @click="$router.push('/myorders')"
+              ><i
+                class="fa fa-list"
+                style="font-size: 20px; padding-right: 10px; color: white"
+              ></i
+              >My Orders</a
+            >
+          </li>
           <li class="nav-item" style="margin-right: 30px">
             <a class="nav-link disabled" href="#"
               ><i
