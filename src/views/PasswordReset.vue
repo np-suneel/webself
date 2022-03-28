@@ -21,11 +21,11 @@ export default {
 
         resetPass(){
             
-         axios.post('auth-service/cws/password/reset', {}, {
-  auth: {
+         axios.post('auth-service/cws/password/reset', {
+  
     currentPassword: this.currpass,
     newPassword: this.newpass
-  }
+  
 }).then((response) =>{
     console.log('reset pass',response.data)
     if(response.data.status == "failed")
