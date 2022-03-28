@@ -9,6 +9,7 @@ import cl from "../views/CatalogueList.vue";
 import cart from "../views/Cart.vue";
 import SelectStore from "../views/SelectStore.vue";
 import Payment from "../views/Payment.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -78,7 +79,8 @@ const routes = [
   path:"/payment",
   name: "payment",
   component: Payment,
-  }  
+  }
+  
 ];
 
 const router = new VueRouter({

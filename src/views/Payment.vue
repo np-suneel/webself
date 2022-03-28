@@ -3,9 +3,216 @@
     <div class="row col-8"><h3>Delivery Info</h3>  </div>
     <div class="row col-8"><h3>Email:  </h3> </div>
     <div class="row col-8"><h3>Delivery: </h3>
-        <div><input type="radio" >Pickup at the Store</div>
-  <div><input type="radio" >Delivery Service </div>
-  </div>
+        <div><input type="radio" @click="storePickup()">Pickup at the Store</div>
+  <div><input type="radio" @click="loadAddress()">Delivery Service </div>
+  <div v-show="showaddr">
+    <div>
+        <h5 style="font-weight: 700" class="text-left">Saved Addresses</h5>
+        
+      </div>
+<div class="card p-1" v-for="(data,index) in addrarr" :key="index">
+  <input type="radio" @click="selAddress(data)">
+            <div class="d-flex justify-content-between">
+              <div>
+              <p>{{ data.tag }}</p>
+              </div>
+              <div class="d-flex flex-row-reverse" :v-show="data.defaultDeliveryAddress">
+              <p><b>Default address</b></p>
+              </div>
+            </div>
+            <div class="col-md-12 d-flex">
+            <div class="col-md-6 text-left">
+                <p>{{ data.contactPerson }}</p>
+                <p>{{data.addressLine1}} </p>
+                <p>{{data.addressLine2}} </p>
+                <p>{{data.addressLine3}} </p>
+                <p>{{data.city}} - {{data.pinCode}} </p>
+                <p>{{data.district}}</p>
+                <p>{{data.state}}, {{data.country}}</p>
+
+                <h4>Landmark:</h4><p>{{data.landmark}}</p>
+              </div>
+              <div
+                class="col-md-4 mt-4 pt-5 pr-0 mr-0 text-right align-text-bottom"
+              >
+              <div class="mt-1">
+                   <button
+                    style="height: 40px;border-radius: 5%"
+                    class="btn btn-primary"
+                    @click="editAddress(data)"
+                    type="button"
+                    name="button"
+                  >
+                    Edit address
+                  </button>  
+
+
+
+
+                  
+
+  <b-modal v-model="clickededit" id="modal-1" title="Edit address" no-close-on-esc>
+    <b-form @submit="onSubmitAddr(data.addressId)" @reset="onResetAddr">
+
+      <b-form-group id="input-group-2" label="Name:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.name"
+          placeholder="Enter name"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-1"
+        label="Phone number:"
+        label-for="input-1"
+        description="We'll never share your phone number with anyone else."
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.phno"
+          type="number"
+          placeholder="Enter phone number"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      
+
+      <b-form-group id="input-group-2" label="Enter Address Line 1:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.addrlin1"
+          placeholder="Enter Address Line 1"
+          required
+        ></b-form-input>
+      </b-form-group>
+       <b-form-group id="input-group-2" label="Enter Address Line 2:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.addrlin2"
+          placeholder="Enter Address Line 2"
+          required
+        ></b-form-input>
+      </b-form-group>
+       <b-form-group id="input-group-2" label="Enter Address Line 3:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.addrlin3"
+          placeholder="Enter Address Line 3"
+          required
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group id="input-group-2" label="City:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.city"
+          placeholder="Enter city"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="District:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.district"
+          placeholder="Enter district"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="State:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.state"
+          placeholder="Enter state"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Country:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.country"
+          placeholder="Enter country"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+    <b-form-group id="input-group-2" label="PIN Code:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.pincode"
+          placeholder="Enter PIN code"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Landmark:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.landmark"
+          placeholder="Enter landmark"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Enter label: (eg. Home, Office, etc.)" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.label"
+          placeholder="Enter label"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group label="Delivery type" v-slot="{ ariaDescribedby }">
+      <b-form-radio v-model="form.selected" :aria-describedby="ariaDescribedby" name="some-radios" value="Home">Home</b-form-radio>
+      <b-form-radio v-model="form.selected" :aria-describedby="ariaDescribedby" name="some-radios" value="Office">Office</b-form-radio>
+    </b-form-group>
+      <b-form-checkbox
+      id="checkbox-1"
+      v-model="form.ifdefault"
+      name="checkbox-1"
+      value="true"
+      unchecked-value="false"
+    >
+      Make this default address
+    </b-form-checkbox>
+      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
+    </b-form>
+  </b-modal>     
+
+
+
+
+
+
+
+                </div>  
+              <div class="mt-1">
+                   <button
+                    style="height: 40px;border-radius: 5%"
+                    class="btn btn-primary"
+                    @click="removeAddress(data.addressId)"
+                    type="button"
+                    name="button"
+                  >
+                    Remove address
+                  </button>                  
+                </div>                
+              </div>
+            </div>
+          </div>
+    
+    
+    
+    
+    
+    </div>
+    </div>
 
 <div class="row col-8"><h3>Payment Method: </h3>
 <div>
@@ -85,14 +292,122 @@ created(){
 },
 data(){
 return{
+  form:{
+    name:'',
+    phno:'',
+    addrlin1:'',
+    addrlin2:'',
+    addrlin3:'',
+    city:'',
+    district:'',
+    state:'',
+    country:'',
+    label:'',
+    pincode:'',
+    landmark:'',
+    selected:'',
+    ifdefault:''
+    },
         cartitemarr:[],
         mrptotal:null,
       discount:null,
-      totalamt:null
+      totalamt:null,
+      addrarr: [],
+      seladdr:null,
+      showaddr:false,
+      clickededit: false
 }
 
 },
 methods:{
+  onSubmitAddr(addr){
+      const payload = {
+        addressId: addr,
+        addressLine1: this.form.addrlin1,
+        addressLine2: this.form.addrlin2,
+        addressLine3: this.form.addrlin3,
+        city: this.form.city,
+        contactPerson: this.form.name,
+        contactPhoneNumber: this.form.phno,
+        country: this.form.country,
+        defaultDeliveryAddress: this.form.ifdefault,
+        district: this.form.district,
+        label: this.form.label,
+        landmark: this.form.landmark,
+        pinCode: this.form.pincode,
+        state: this.form.state,
+        tag: this.form.selected
+        }
+      axios.patch('customer-service/cws/address/'+addr,payload).then((response)=>{
+            console.log('edit succ', response.data)
+
+      })
+
+  },
+  onResetAddr(){
+    this.form.name='',
+    this.form.phno='',
+    this.form.addrlin1='',
+    this.form.addrlin2='',
+    this.form.addrlin3='',
+    this.form.city='',
+    this.form.state='',
+    this.form.district='',
+    this.form.country='',
+    this.form.pincode='',
+    this.form.label='',
+    this.form.landmark='',
+    this.form.selected='',
+    this.form.ifdefault=''
+    
+  },
+  storePickup(){
+    this.addrarr = []
+    this.seladdr = null
+    this.showaddr = false
+  },
+  selAddress(addr){
+    this.seladdr = addr
+  },
+  editAddress(addr){
+      console.log('edit addr',addr)
+      this.clickededit=true
+      this.form.name=addr.contactPerson,
+    this.form.phno=addr.contactPhoneNumber,
+    this.form.addrlin1=addr.addressLine1,
+    this.form.addrlin2=addr.addressLine2,
+    this.form.addrlin3=addr.addressLine3,
+    this.form.city=addr.city,
+    this.form.state=addr.state,
+    this.form.district=addr.district,
+    this.form.country=addr.country,
+    this.form.pincode=addr.pinCode,
+    this.form.label=addr.label,
+    this.form.landmark=addr.landmark,
+    this.form.selected=addr.tag,
+    this.form.ifdefault=addr.defaultDeliveryAddress
+
+  },
+  removeAddress(addr){
+        axios.delete('customer-service/cws/address/'+addr).then((response)=>
+        {
+            
+            if(response.data.status == "success"){
+                axios.get('customer-service/cws/address/').then((response) =>{
+                console.log('new list of addresses', response.data.addresses)
+                this.addrarr = response.data.addresses
+
+            })
+            }
+        })
+    },
+
+  loadAddress(){
+    axios.get('customer-service/cws/address/').then((response) =>{
+    console.log('addresses', response.data.addresses)
+    this.addrarr = response.data.addresses})
+    this.showaddr = true
+  },
     placeOrder(){
        const payloads = {
                     operation: "Refresh cart",
@@ -114,6 +429,10 @@ methods:{
          
          let placearr = response.data.itemResult
          console.log('place order modified arr',placearr)
+         if(this.seladdr == null){
+            alert('Please select an address')
+            }
+        else{
          const payload = {
             task: "PLACE_ORDER",
             startTime: response.data.startTime,
@@ -124,12 +443,16 @@ methods:{
             storeId: response.data.storeId,
             storeCode: response.data.storeCode,
             cartId: response.data.cartId,
-            totalProductsCount: 1
+            totalProductsCount: 1,
+            deliveryAddress: this.seladdr
          }
+            
         axios.post('/order-service/ws/order/place',payload).then((respons)=>{
+          console.log('afa sel-ing address',respons.data)
         alert(respons.data.statusMessage + ' Order ID ' + respons.data.orderId)
         }
         )
+      }
 }
 else
 alert('cart error')

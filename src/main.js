@@ -4,12 +4,13 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import VueIziToast from "vue-izitoast";
-import { BootstrapVue } from "bootstrap-vue";
-// import 'bootstrap/dist/css/bootstrap.css'
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import 'bootstrap/dist/css/bootstrap.css'
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import setAuthHeaders from "./utils/setAuthHeaders";
 
 Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(VueIziToast);
 Vue.config.productionTip = false;
 
