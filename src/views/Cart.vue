@@ -3,9 +3,13 @@
     <div class="col-md-12 my-3 d-flex justify-content-between">
       <div>
         <h5 style="font-weight: 700" class="text-left">My Cart</h5>
-        
+        <div>
+          Enter SKU number: <input type = "text" v-model="skuno">
+        <button class="btn btn-primary" @click="addViaSKU()">Add to cart via SKU</button>
+      </div>
       </div>
       <div>
+        
         <button
                     style="height: 40px;border-radius: 5%"
                     class="btn btn-primary"
@@ -124,6 +128,7 @@
         <div class="text-right mt-2">
           <button class="btn btn-primary" @click="$router.push('/payment')">Checkout</button>
         </div>
+        
       </div>
     </div>
     <div class="col-md-12 row" v-show="this.iscartempty">
@@ -183,11 +188,86 @@ export default {
       totalamt:null,
       counter: 1,
       cartitemarr:[],
-      temparr:[]      
+      temparr:[],
+      skuno:''
+           
     };
     
   },
   methods: {
+    addViaSKU(){
+    if(this.skuno != ''){
+      if(this.cartitemarr == null){
+        
+        const payload = {
+      operation: "AddItem",
+      cartItems: [
+        {
+            storeId: parseInt(localStorage.getItem('storeId')),
+            quantity: 1,
+            sku: this.skuno,
+            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
+            sequence: 0            
+        
+     }
+     ]
+    }    
+    axios.post('/cart-service/ws/cart/addItemtoCart',payload).then((response) => {
+        if(response.data.status === "success"){
+        
+        this.cartitemarr=response.data.itemResult      
+        
+        
+
+        this.cartId = response.data.cartId
+        
+        this.mrptotal = response.data.grossTotal
+        this.totalamt = response.data.netTotal
+        this.discount = response.data.discounts[0].discountAmount
+        }
+         else if(response.data.status === "failed"){
+                        alert('Enter correct SKU number')}
+
+      })
+
+    }
+    else{
+        const payload = {
+      operation: "AddItem",
+      cartId: parseInt(localStorage.getItem('cartId')),
+      cartItems: [
+        {
+            storeId: parseInt(localStorage.getItem('storeId')),
+            quantity: 1,
+            sku: this.skuno,
+            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
+            sequence: 0            
+        
+     }
+     ]
+    }    
+    axios.post('/cart-service/ws/cart/addItemtoCart',payload).then((response) => {
+        if(response.data.status === "success"){
+        
+        this.cartitemarr=response.data.itemResult      
+        
+        
+
+        this.cartId = response.data.cartId
+        
+        this.mrptotal = response.data.grossTotal
+        this.totalamt = response.data.netTotal
+        this.discount = response.data.discounts[0].discountAmount
+        }
+         else if(response.data.status === "failed"){
+                        alert('Enter correct SKU number')}
+    })
+    }
+    }
+    else{
+      alert('Empty SKU input field')
+    }
+    },
     removeItem(sk){
         const payload = {
                     operation: "RemoveItem",

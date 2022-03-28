@@ -22,7 +22,9 @@
         <p style="font-weight:700; font-size:13px">MRP: <span style="color:grey">₹ {{ this.mrp }}</span></p>
         <p style="font-size:13px"><span style="font-weight:700; font-size:14px">Description:</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur praesentium quae, nam optio odio quibusdam animi incidunt, voluptatum vero vel veritatis laborum magnam est quia ab! Architecto ullam harum corrupti. </p>
         <button class="btn btn-danger" @click="addToCart()">Add to cart</button>
-      </div>
+
+        
+        </div>
     </div>
   </div>
 </template>
@@ -39,7 +41,8 @@ export default {
   },  
   data() {
     return {
-      indexOfActive: 0,      
+      indexOfActive: 0, 
+      skuno:'',     
       activePic:
         JSON.parse(localStorage.getItem('expandFashion')).img_url,
       pictures: [
@@ -51,6 +54,7 @@ export default {
     };
   },
   methods: {
+   
     addToCart(){      
       if(localStorage.getItem('cartId') == null){
         const payload = {

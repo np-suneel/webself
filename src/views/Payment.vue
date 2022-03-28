@@ -26,7 +26,7 @@
               <div>
               <p>{{ data.tag }}</p>
               </div>
-              <div class="d-flex flex-row-reverse" :v-if="data.defaultDeliveryAddress">
+              <div class="d-flex flex-row-reverse" v-show="data.defaultDeliveryAddress">
               <p><b>Default address</b></p>
               </div>
             </div>
