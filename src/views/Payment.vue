@@ -51,8 +51,8 @@
 
                   
 
-  <b-modal v-model="clickededit" id="modal-1" title="Edit address" no-close-on-esc>
-    <b-form @submit="onSubmitAddr(data.addressId)" @reset="onResetAddr">
+  <b-modal v-model="clickededit" id="modal-1" title="Edit address" no-close-on-esc hide-footer>
+    <b-form>
 
       <b-form-group id="input-group-2" label="Name:" label-for="input-2">
         <b-form-input
@@ -180,8 +180,8 @@
     >
       Make this default address
     </b-form-checkbox>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="button" @click ="onSubmitAddr(data.addressId)" variant="primary">Submit</b-button>
+      <b-button type="button" @click="onResetAddr()" variant="danger">Reset</b-button>
     </b-form>
   </b-modal>     
 
@@ -338,11 +338,19 @@ methods:{
         state: this.form.state,
         tag: this.form.selected
         }
-      axios.patch('customer-service/cws/address/'+addr.addressId,payload).then((response)=>{
+      axios.patch('customer-service/cws/address/'+addr,payload).then((response)=>{
             console.log('edit succ', response.data)
+            if(response.data.status == "success")
+            {
+              axios.get('customer-service/cws/address/').then((response) =>{
+              console.log('addresses', response.data.addresses)
+                this.addrarr = response.data.addresses})
+            }
+            else
+            alert('Address retrieval error')
 
       })
-
+   this.clickededit = false
   },
   onResetAddr(){
     this.form.name='',
