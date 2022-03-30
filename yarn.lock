@@ -7005,6 +7005,11 @@
   "resolved" "https://registry.npmjs.org/q/-/q-1.5.1.tgz"
   "version" "1.5.1"
 
+"qrcode.vue@^1.7.0":
+  "integrity" "sha512-R7t6Y3fDDtcU7L4rtqwGUDP9xD64gJhIwpfjhRCTKmBoYF6SS49PIJHRJ048cse6OI7iwTwgyy2C46N9Ygoc6g=="
+  "resolved" "https://registry.npmjs.org/qrcode.vue/-/qrcode.vue-1.7.0.tgz"
+  "version" "1.7.0"
+
 "qs@~6.5.2":
   "integrity" "sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA=="
   "resolved" "https://registry.npmjs.org/qs/-/qs-6.5.2.tgz"

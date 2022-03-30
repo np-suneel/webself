@@ -1,5 +1,9 @@
 <template>
 <div>
+    <div class="row col-8" v-show="ordercompl">
+      <h3>Order ID QR</h3>  
+      <qrcode-vue :value="value" :size="300" level="H" />
+    </div>
     <div class="row col-8"><h3>Delivery Info</h3>  </div>
     <div class="row col-8"><h3>Email:  </h3> </div>
     <div class="row col-8"><h3>Delivery: </h3>
@@ -405,8 +409,13 @@
 
 <script>
 import axios from 'axios'
+  import QrcodeVue from 'qrcode.vue'
+
 
 export default{
+components:{
+  QrcodeVue
+},
 created(){
     console.log('payment created meth')
     const payloads = {
@@ -454,6 +463,7 @@ return{
     ifdefault:''
     },
         cartitemarr:[],
+        ordercompl:false,
         mrptotal:null,
       discount:null,
       totalamt:null,
@@ -462,7 +472,8 @@ return{
       showaddr:false,
       clickededit: false,
       clickedadd: false,
-      addressid: null
+      addressid: null,
+      value:''
 }
 
 },
@@ -634,7 +645,7 @@ methods:{
          
          let placearr = response.data.itemResult
          console.log('place order modified arr',placearr)
-         if(this.seladdr == null){
+         if(this.seladdr == null && this.showaddr){
             alert('Please select an address')
             }
         else{
@@ -653,8 +664,10 @@ methods:{
          }
             
         axios.post('/order-service/ws/order/place',payload).then((respons)=>{
-          console.log('afa sel-ing address',respons.data)
+          
         alert(respons.data.statusMessage + ' Order ID ' + respons.data.orderId)
+        this.value = String(respons.data.orderId)
+        this.ordercompl = true
         }
         )
       }
