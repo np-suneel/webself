@@ -44,6 +44,15 @@
       <div>
         <ul>
           <li class="nav-item">
+            <a class="nav-link" href="" @click="$router.push('/scan')"
+              ><i
+                class="fa fa-barcode"
+                style="font-size: 20px; padding-right: 10px; color: white"
+              ></i
+              >Scan</a
+            >
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#"
               ><i
                 class="fa fa-user"

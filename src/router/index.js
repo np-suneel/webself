@@ -11,6 +11,8 @@ import SelectStore from "../views/SelectStore.vue";
 import Payment from "../views/Payment.vue";
 import MyOrders from "../views/MyOrders.vue";
 import PasswordReset from "../views/PasswordReset.vue"
+import Scan from "../views/Scan.vue"
+
 
 Vue.use(VueRouter);
 
@@ -92,6 +94,11 @@ const routes = [
       name: "resetpass",
       component: PasswordReset,
       },  
+      {
+        path:"/scan",
+        name: "scan",
+        component: Scan,
+        }  
   
 ];
 

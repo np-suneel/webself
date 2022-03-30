@@ -5,8 +5,8 @@
     </p> -->
     <div class="row">
       <div class="col-md-3">
-        <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
-        <ImageBarcodeReader @decode="onDecode" @error="onError"></ImageBarcodeReader>
+        
+        
         <div class="card text-left m-0 p-0" style="border-radius: 5px" v-show="filterexists">
           <p class="mb-0 mt-2 ml-3" style="font-weight: bolder">Filters</p>
           <hr />
@@ -229,13 +229,10 @@
 
 <script>
 import axios from 'axios'
-import { StreamBarcodeReader,  ImageBarcodeReader  } from 'vue-barcode-reader'
+
 
 export default {
-  components:{
-    StreamBarcodeReader,
-    ImageBarcodeReader
-  },
+  
   data() {
     
     return {    
@@ -281,9 +278,7 @@ export default {
     this.loadFilters()
   },
   methods: {
-     onDecode (result) { console.log('barcode',result) }, 
-     onLoaded(result) { console.log('barcode',result) },
-     onError(result) { console.log('barcode',result) },
+    
     expandInfo(data){      
       localStorage.setItem('expandFashion',JSON.stringify(data))            
       //this.$store.commit('expanFash',data)
