@@ -43,7 +43,7 @@
     <div class="col-md-12 row" v-show="this.iscartempty != true">
       <div class="col-md-7 ml-0 pl-0">
         <div class="col-md-12" v-show="this.iscartempty != true">
-          <div class="card p-3" v-for="(data,index) in cartitemarr" :key="index">
+          <div class="card p-3" v-for="(data) in cartitemarr" :key="data.id">
             <div class="d-flex justify-content-between">
               <p>Fashion Basket (1 items)</p>
               <p>{{ data.mrp }}</p>
@@ -69,7 +69,7 @@
                   <button
                     style="height: 40px; width: 40px; border-radius: 50%"
                     class="btn btn-primary"
-                    @click="changeCounter('-1')"
+                    @click="changeCounter('-1',data.sku,data.quantity)"
                     type="button"
                     name="button"
                   >
@@ -80,12 +80,12 @@
                     class="quantity"
                     type="text"
                     name="name"
-                    :value="counter"
+                    :value="data.quantity"
                   />
                   <button
                     class="btn btn-primary"
                     style="height: 40px; width: 40px; border-radius: 50%"
-                    @click="changeCounter('1')"
+                    @click="changeCounter('1',data.sku,data.quantity)"
                     type="button"
                     name="button"
                   >
@@ -371,20 +371,22 @@ export default {
           }
         }
   },
-    changeCounter(num) {
-      if(this.counter>1)
-      this.counter += +num;
-      if(this.counter== 1 && num == 1)
-      this.counter += +num;
+    changeCounter(num,sku,quan) {
+      if(quan == 1 && num == -1)
+        alert('click \'Remove Item\' button to delete item')
+        
+
+      else{
+      quan += +num;
       const payload = {
     operation: "UpdateItemQuantity",
     cartId: this.cartId,
     cartItems: [
         {
             storeId: parseInt(localStorage.getItem('storeId')),
-            newQuantity: this.counter,
+            newQuantity: quan,
             storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
-            sku: JSON.parse(localStorage.getItem('expandFashion')).sku
+            sku: sku
         }
     ]
 }
@@ -401,11 +403,13 @@ export default {
         this.discount = response.data.discounts[0].discountAmount
       })
       
-      console.log(this.counter);
+      console.log(quan);
       // !isNaN(this.counter) && this.counter > 0
       //   ? this.counter
       //   : (this.counter = 0);
-    },
+    
+    }
+  }
   },
 };
 </script>
