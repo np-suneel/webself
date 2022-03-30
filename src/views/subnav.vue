@@ -10,87 +10,13 @@
       </div>
        <div class="drps" v-for="(items,j) in drpArr" :key="j" :value="j" style="margin-left:10px">
           <b-dropdown split :text="items.name" split-variant="outline-secondary" @click="drpFunc(3)"> 
-          <b-dropdown-item  @click="drpFunc(its.id)" v-for="(its,k) in items.sub_categories" :key="k" :value="k">{{its.name}} </b-dropdown-item>
+          <b-dropdown-item  @click="drpFunc(its.id)" v-for="(its) in items.sub_categories" :key="its.id" :value="its.name">{{its.name}} </b-dropdown-item>
           </b-dropdown> 
       </div>
+      <div class="bttns" style="margin-left:10px">
+          <b-button variant="outline-secondary" @click="chngStr()"> Change Store </b-button> 
+      </div>
       
-      <!--<select v-model="selItem">
-          <option v-for="(item,i) in itemArr" :key="i" :value="i">{{item.name}}</option>
-      </select>-->
-  
-
-        <!--<div class="dropdown show">
-          <a
-            class="dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Fashion
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown show">
-          <a
-            class="dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Electronics
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown show">
-          <a
-            class="dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Groceries
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown show">
-          <a
-            class="dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Hair Saloon
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>-->
       </div>
     </div>
   </div>
@@ -113,6 +39,10 @@ export default {
     this.loadItems()
   },
   methods:{    
+    chngStr(){
+      localStorage.setItem('chngStr',1)
+      this.$router.push('/select-store')
+    },
     drpFunc(id){
       console.log('clicked drpdwn',id)
       //this.$store.commit('fashId',id) 

@@ -70,6 +70,7 @@ export default {
       window.localStorage.removeItem("jwtToken");
     },
     login() {
+      localStorage.setItem('chngStr',0)
       this.loading = true;
       axios
         .post("/auth-service/cws/auth", {

@@ -3,8 +3,9 @@
     <!-- <button @click="updateToken()">update token</button>
     <button @click="productList()">get product list</button> -->
     <div class="col-md-6 m-auto pt-5">
-        <p style="font-size:13px " class="my-4" >How do you want to shop?</p>
-      <div class="col-md-12 row ">
+        <p style="font-size:13px " class="my-4" v-show="showonline" >How do you want to shop?</p>
+        <p style="font-size:13px " class="my-4" v-show="!showonline" >Select store</p>
+      <div class="col-md-12 row " v-show="showonline">
         <div class="col-md-6" @click="storedisplay = false" >
           <div class="col-md-12 card p-3" style="align-items: center" :class="{active: !storedisplay}">
             <img src="https://cdn-icons-png.flaticon.com/128/126/126122.png" width="50px" height="auto" alt="">
@@ -19,7 +20,7 @@
           </div>
         </div>
       </div>
-      <p class="my-4" style="font-size:13px">Visit your preferred store ? <br> and experience a better way to shop!</p>
+      <p class="my-4" style="font-size:13px" v-show="showonline">Visit your preferred store ? <br> and experience a better way to shop!</p>
       <div class="col-md-12  mt-3 border p-3" style="background:transparent;border-radius:5px" v-if="storedisplay">
         <p style="text-align:left;font-size:12px;color:red;font-weight:700"><i class="fa fa-map-marker" aria-hidden="true"></i> Branch</p>
         <select
@@ -61,12 +62,17 @@ export default {
     return {
       storeDatas: [],
       storedisplay:false,
-      selStore: 'Pasar Seni'
+      selStore: 'Pasar Seni',
+      showonline:true
     };
   },
     created(){
         this.store()
-        
+        if(parseInt(localStorage.getItem('chngStr'))==1){
+          this.showonline = false
+          this.storedisplay = true
+        }
+         
     },
   methods: {
     store() {

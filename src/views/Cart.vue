@@ -42,7 +42,7 @@
     </div>
     <div class="col-md-12 row" v-show="this.iscartempty != true">
       <div class="col-md-7 ml-0 pl-0">
-        <div class="col-md-12" v-show="this.iscartempty != true">
+        <div class="col-md-12">
           <div class="card p-3" v-for="(data) in cartitemarr" :key="data.id">
             <div class="d-flex justify-content-between">
               <p>Fashion Basket (1 items)</p>
