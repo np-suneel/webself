@@ -16,6 +16,7 @@ import navb from "./views/Navbar";
 import subnav from "./views/subnav";
 import LoadingScreen from "./views/SplashScreen";
 
+
 export default {
   components: {
     navb,
@@ -25,10 +26,17 @@ export default {
   data() {
     return { isLoading: true };
   },
-  mounted() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
+  created() {
+    console.log(this.$store.state.splashLoader)
+    console.log(this.$store.state.hi)
+     if(this.$store.state.splashLoader){
+          setTimeout(() => {
+          this.isLoading = false;
+          const data = false
+          this.$state.commit('splashLoader', data)
+        }, 1000);
+     }
+    
   }
 };
 </script>

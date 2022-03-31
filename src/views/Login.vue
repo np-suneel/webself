@@ -81,6 +81,10 @@ export default {
           const token = response.headers.authorization;
           localStorage.setItem("jwtToken", response.headers.authorization);
           setAuthHeaders(token);
+          this.$store.state.email = response.data.email
+          this.$store.state.firstName = response.data.firstName
+          this.$store.state.lastName = response.data.lastName
+          this.$store.state.mobile = response.data.contactNumber
           console.log(response.data.statusCode);
           if (response.data.statusCode == 200) {
             this.$router.push("/select-store");

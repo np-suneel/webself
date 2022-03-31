@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-12 m-0 p-0" style="background: #021E45">
+  <div class="col-md-12 m-0 p-0" style="background: #021E45;">
     <!-- <ul>
             <li><img class="img-css" src="../assets/images/onboarding/rdep_logo.png" alt=""></li>
             <li style="float:right; color:white; padding-right:70px; margin-top: 24px;"><span style="font-size:16px;  font-family: 'DM Sans', sans-serif;">+91 91234 56789</span></li>
@@ -29,12 +29,15 @@
       >
         <ul class="navbar-nav" style="color: white">
           <li class="nav-item active" style="margin-left: 20px">
-            <a class="nav-link" href="#"
+            <a class="nav-link" @click="$router.push('home')" style="cursor:pointer"
               >Home <span class="sr-only">(current)</span></a
             >
           </li>
           <li class="nav-item" style="margin-left: 20px">
-            <a class="nav-link" href="#">Scan</a>
+            <a class="nav-link" @click="openNav1()" style="cursor:pointer" >Catalogue</a>
+          </li>
+          <li class="nav-item" style="margin-left: 20px">
+            <a class="nav-link" @click="$router.push('/test')" style="cursor:pointer">Scan</a>
           </li>
           <!-- <li class="nav-item" style="margin-left: 20px">
             <a class="nav-link" href="#">Department</a>
@@ -44,7 +47,7 @@
       <div>
         <ul>
           <li class="nav-item">
-            <a class="nav-link" href="#"
+            <a class="nav-link"  style="cursor:pointer"
               ><i
                 class="fa fa-user"
                 style="font-size: 20px; padding-right: 10px; color: white"
@@ -52,8 +55,26 @@
               >Profile</a
             >
           </li>
-          <li class="nav-item" style="margin-right: 30px">
-            <a class="nav-link disabled" href="#"
+          <li class="nav-item">
+            <a class="nav-link" @click="$router.push('myorders')" style="cursor:pointer"
+              ><i
+                class="fa fa-user"
+                style="font-size: 20px; padding-right: 10px; color: white"
+              ></i
+              >My Orders</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" @click="$router.push('resetpass')" style="cursor:pointer"
+              ><i
+                class="fa fa-user"
+                style="font-size: 20px; padding-right: 10px; color: white"
+              ></i
+              >Settings</a
+            >
+          </li>
+          <li class="nav-item" style="margin-right: 30px" >
+            <a class="nav-link " @click="$router.push('/cart')" style="cursor:pointer"
               ><i
                 class="fa fa-cart-plus"
                 style="font-size: 20px; padding-right: 10px; color: white"
@@ -64,14 +85,70 @@
         </ul>
       </div>
     </nav>
+    <div id="mySidenav1" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" @click="closeNav1()">&times;</a>
+      <div class="bttns" v-for="(item,i) in buttArr" :key="i" :value="i" style="margin-left:20px;text-align:left">
+          <b-button variant="outline-secondary" @click="drpFunc(item.id)"> {{item.name}} </b-button> 
+      </div>
+      <div class="drps mt-2" v-for="(items,j) in drpArr" :key="j" :value="j" style="margin-left:20px;text-align:left" >
+          <b-dropdown split :text="items.name" split-variant="outline-secondary" @click="drpFunc(3)"> 
+          <b-dropdown-item  @click="drpFunc(its.id)" v-for="(its,k) in items.sub_categories" :key="k" :value="k">{{its.name}} </b-dropdown-item>
+          </b-dropdown> 
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  data() {
-    return {};
+  data(){
+    return {
+    selItem: '',
+    selbtn:'',
+    seldrp:'',
+    buttArr: [],
+    drpArr: []
+    }
   },
+  created(){
+    this.loadItems()
+  },
+  methods:{    
+    drpFunc(id){
+      console.log('clicked drpdwn',id)
+      //this.$store.commit('fashId',id) 
+      localStorage.setItem('fashionId',id)          
+      this.$router.push('/catalogues')
+      
+    },
+    openNav1() {
+      window.document.getElementById("mySidenav1").style.width = "250px";
+      window.document.getElementById("main").style.marginLeft = "250px";
+      window.document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    },
+     closeNav1() {
+      window.document.getElementById("mySidenav1").style.width = "0";
+      window.document.getElementById("main").style.marginLeft= "0";
+      window.document.body.style.backgroundColor = "white";
+    },
+    loadItems(){
+      axios.get("/product-service/cws/catalog/online").then((response) => {
+        console.log('list', response.data.categories)
+        this.itemArr = response.data.categories        
+        for(let i=0;i<this.itemArr.length;i++){
+          if(this.itemArr[i].sub_categories.length!=0)
+            this.drpArr.push(this.itemArr[i])          
+          else
+            this.buttArr.push(this.itemArr[i])
+
+        }
+
+        console.log('dis array', this.itemArr[1].sub_categories)
+      });
+    }
+  }
 };
 </script>
 
@@ -99,5 +176,48 @@ li {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 0px;
+}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #021E45;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
 </style>

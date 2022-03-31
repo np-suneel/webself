@@ -12,9 +12,14 @@ export default new Vuex.Store({
       email: "",
       tenantId: 1,
     },
+    email:'',
+    firstName:'',
+    lastName:'',
     fashionid: null,
     expandata:{},
     storeid: null,
+    splashLoader:true,
+    hi:"rakesh"
     
   },
   mutations: {
@@ -36,6 +41,10 @@ export default new Vuex.Store({
     storeId(state,id){
       console.log('called mutat',id)
       state.storeid=id
+    },
+    splashLoader(state, id){
+      console.log('called mutat',id)
+      state.splashLoader=id
     }
 
   },

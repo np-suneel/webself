@@ -7,8 +7,8 @@
       data-bs-ride="carousel"
      
     >
-      <div class="carousel-indicators">
-        <button
+      <div class="carousel-indicators" style="z-index:-1">
+        <!-- <button
           type="button"
           data-bs-target="#carouselExampleCaptions"
           data-bs-slide-to="0"
@@ -27,7 +27,7 @@
           data-bs-target="#carouselExampleCaptions"
           data-bs-slide-to="2"
           aria-label="Slide 3"
-        ></button>
+        ></button> -->
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -59,7 +59,7 @@
           <div class="carousel-caption d-none d-md-block"></div>
         </div>
       </div>
-      <button
+      <!-- <button
         class="carousel-control-prev"
         type="button"
         data-bs-target="#carouselExampleCaptions"
@@ -76,40 +76,39 @@
       >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
-      </button>
+      </button> -->
     </div>
     <!-- carousel end -->
     <div class="mx-3 my-3">
-      <img
+      <!-- <img
         src="https://www.jiomart.com/images/cms/aw_rbslider/slides/1639679076_web.jpg"
         alt=""
         width="100%"
-      />
+      /> -->
     </div>
     <features class="my-5"></features>
-    <img
+    <!-- <img
       width="100%"
       src="https://www.jiomart.com/images/cms/aw_rbslider/slides/1624041574_web_static.jpg"
       alt=""
-    />
-    <features1 class="my-5"></features1>
+    /> -->
+    <!-- <features1 class="my-5"></features1>
     <features2 class="my-5"></features2>
-    <features3 class="my-5"></features3>
+    <features3 class="my-5"></features3> -->
   </div>
 </template>
 
 <script>
 import features from "../views/Trending";
-import features1 from "../views/Trending2";
-import features2 from "../views/Trending3";
-import features3 from "../views/Trending4";
-
+// import features1 from "../views/Trending2";
+// import features2 from "../views/Trending3";
+// import features3 from "../views/Trending4";
 export default {
   components: {
     features,
-    features1,
-    features2,
-    features3,
+    // features1,
+    // features2,
+    // features3,
   },
 };
 </script>
