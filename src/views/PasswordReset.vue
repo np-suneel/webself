@@ -13,6 +13,13 @@
   <div class="card mt-2  col-md-4 m-auto p-1">
      <p class="mb-0" @click="chngStr">Change store</p>
   </div>
+
+  <div class=" ">
+    <select class="p-1 lang-switcher" v-model="$i18n.locale">
+      <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ lang }}</option>
+    </select>
+  </div>
+
 </div>
 </template>
 
@@ -24,12 +31,20 @@ export default {
     return {
       currpass: "",
       newpass: "",
+      langs:['en','ka'],
     };
   },
   methods: {
     chngStr(){
       localStorage.setItem('chngStr',1)
       this.$router.push('/select-store')
+    },
+    setLocale(locale) {
+      this.$i18n.locale = locale
+      this.$router.push({
+        params: { lang: locale }
+      })
+      this.hideDropdown()
     },
     resetPass() {
       axios

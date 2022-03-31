@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-12 m-0 p-0" style="background: #021E45;">
+  <div class="col-md-12 m-0 p-0" style="background: #021E45;    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);z-index:10">
     <!-- <ul>
             <li><img class="img-css" src="../assets/images/onboarding/rdep_logo.png" alt=""></li>
             <li style="float:right; color:white; padding-right:70px; margin-top: 24px;"><span style="font-size:16px;  font-family: 'DM Sans', sans-serif;">+91 91234 56789</span></li>
@@ -30,7 +30,7 @@
         <ul class="navbar-nav" style="color: white">
           <li class="nav-item active" style="margin-left: 20px">
             <a class="nav-link" @click="$router.push('home')" style="cursor:pointer"
-              >Home <span class="sr-only">(current)</span></a
+              >{{ $t('nav.h1')}} <span class="sr-only">(current)</span></a
             >
           </li>
           <li class="nav-item" style="margin-left: 20px">

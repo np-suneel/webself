@@ -8,6 +8,7 @@ import { BootstrapVue } from "bootstrap-vue";
 // import 'bootstrap/dist/css/bootstrap.css'
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import setAuthHeaders from "./utils/setAuthHeaders";
+import i18n from './i18n'
 
 Vue.use(BootstrapVue);
 Vue.use(VueIziToast);
@@ -30,6 +31,7 @@ Vue.prototype.$http = require("axios");
 Vue.prototype.$http.defaults.baseURL = baseURL;
 
 new Vue({
+  i18n,
   router,
   store,
   render: (h) => h(App),

@@ -1,9 +1,10 @@
 <template>
   <div class="col-md-11 m-auto">
+                  
 
     <div class="col-md-12 mt-3 row">
       <div class="col-md-6">
-        <div class=" border p-3 my-3 " style="border-radius: 5px" >
+        <div class="  p-3 my-3 " style="border-radius: 5px;box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;" >
           <div class="col-md-12 p-3  card " style="text-align:left"> 
             <p>Email : {{data.email}}</p>
             <p>Name : {{data.firstName}} {{data.lastName}}</p>
@@ -606,6 +607,7 @@ export default {
       clickededit: false,
       clickedadd: false,
       addressid: null,
+      langs:['en','ka'],
     };
   },
   mounted(){
@@ -872,4 +874,9 @@ export default {
 };
 </script>
 
+<style scoped>
+.boxshadow{
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+</style>
 
