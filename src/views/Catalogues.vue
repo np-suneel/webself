@@ -1,15 +1,35 @@
 <template> 
+<div>
+<div class="col-md-12 m-0 p-0 py-2" style="background: white">
+    <div class="col-md-11 m-auto">
+      <div
+        class="d-flex col-md-6"
+        style="color: black; font-weight: 700"
+      >
+      <div class="bttns" v-for="(item,i) in buttArr" :key="i" :value="i">
+          <b-button variant="outline-secondary" @click="drpFunc(item.id)"> {{item.name}} </b-button> 
+      </div>
+       <div class="drps" v-for="(items,j) in drpArr" :key="j" :value="j" style="margin-left:10px">
+          <b-dropdown split :text="items.name" split-variant="outline-secondary" @click="drpFunc(3)"> 
+          <b-dropdown-item  @click="drpFunc(its.id)" v-for="(its,k) in items.sub_categories" :key="k" :value="k">{{its.name}} </b-dropdown-item>
+          </b-dropdown> 
+      </div>
+      
+      </div>
+    </div>
+  </div>
   <div class="mx-3 mb-3 mt-0 pt-0"  style="padding-top: 2rem!important;">
     <!-- <p class="text-left" style="font-size: 13px">
       Home > All Categories > Fashion > Men > Clothing Accessories
     </p> -->
     <div class="row">
+      
       <div class="col-md-3">
         <div class="card text-left m-0 p-0" style="border-radius: 5px" v-show="filterexists">
           <p class="mb-0 mt-2 ml-3" style="font-weight: bolder">Filters</p>
           <hr />
           <div v-show="this.brands.length != 0" >
-          <p class="ml-3">Brand</p>
+          <p class="ml-3">Brand </p>
           <div class="sb-example-1 px-3 pr-5 mb-2">
             <div class="search mb-2">
               <button type="submit" class="searchButton ml-2">
@@ -223,6 +243,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -231,6 +252,11 @@ export default {
   data() {
     
     return {    
+      selItem: '',
+    selbtn:'',
+    seldrp:'',
+    buttArr: [],
+    drpArr: [],
       selbrand:[],
       selsize:[],
       selcolour:[],      
@@ -271,8 +297,33 @@ export default {
   created(){
     this.loadItems()    
     this.loadFilters()
+    this.loadDrpItems()
   },
-  methods: {
+  methods: 
+  {
+    drpFunc(id){
+      
+      localStorage.setItem('fashionId',id)
+               this.loadItems()    
+    this.loadFilters()
+      
+      
+    },
+    loadDrpItems(){
+      axios.get("/product-service/cws/catalog/online").then((response) => {
+        console.log('list', response.data.categories)
+        this.itemArr = response.data.categories        
+        for(let i=0;i<this.itemArr.length;i++){
+          if(this.itemArr[i].sub_categories.length!=0)
+            this.drpArr.push(this.itemArr[i])          
+          else
+            this.buttArr.push(this.itemArr[i])
+
+        }
+
+        console.log('dis array', this.itemArr[1].sub_categories)
+      });
+    },
     expandInfo(data){      
       localStorage.setItem('expandFashion',JSON.stringify(data))            
       //this.$store.commit('expanFash',data)

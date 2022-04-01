@@ -5,7 +5,13 @@
         class="d-flex col-md-6"
         style="color: black; font-weight: 700"
       >
-      <div class="bttns" v-for="(item,i) in buttArr" :key="i" :value="i">
+      
+      <v-treeview :items="itemArr"
+    
+    item-children="sub_categories"
+    item-key="id"
+    item-text="name"></v-treeview>
+     <p>Old buttons:</p> <div class="bttns" v-for="(item,i) in buttArr" :key="i" :value="i">
           <b-button variant="outline-secondary" @click="drpFunc(item.id)"> {{item.name}} </b-button> 
       </div>
        <div class="drps" v-for="(items,j) in drpArr" :key="j" :value="j" style="margin-left:10px">
@@ -13,84 +19,6 @@
           <b-dropdown-item  @click="drpFunc(its.id)" v-for="(its,k) in items.sub_categories" :key="k" :value="k">{{its.name}} </b-dropdown-item>
           </b-dropdown> 
       </div>
-      
-      <!--<select v-model="selItem">
-          <option v-for="(item,i) in itemArr" :key="i" :value="i">{{item.name}}</option>
-      </select>-->
-  
-
-        <!--<div class="dropdown show">
-          <a
-            class="dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Fashion
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown show">
-          <a
-            class="dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Electronics
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown show">
-          <a
-            class="dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Groceries
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown show">
-          <a
-            class="dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Hair Saloon
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>-->
       </div>
     </div>
   </div>
@@ -100,13 +28,15 @@
 import axios from "axios";
 
 export default {
+
   data(){
     return {
     selItem: '',
     selbtn:'',
     seldrp:'',
     buttArr: [],
-    drpArr: []
+    drpArr: [],
+    itemArr:[]
     }
   },
   created(){
