@@ -1,14 +1,40 @@
+/* eslint-disable */ 
 <template>
   <div class="col-md-11 m-auto">
                   
 
     <div class="col-md-12 mt-3 row">
       <div class="col-md-6">
-        <div class="  p-3 my-3 " style="border-radius: 5px;box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;" >
+        <p>Delivery Info</p>
+        <div class="  px-3 mt-3 " style="border-radius: 5px;" >
           <div class="col-md-12 p-3  card " style="text-align:left"> 
-            <p>Email : {{data.email}}</p>
-            <p>Name : {{data.firstName}} {{data.lastName}}</p>
-            <p class="mb-0">Mobile : {{data.contactNumber}}</p>
+            <div class="d-flex justify-content-between">
+              <p>Email</p>
+              <p>{{data.email}}</p>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p>Mobile</p>
+              <p>{{data.contactNumber}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="  px-3 pt-0 mt-0 " style="border-radius: 5px;" >
+          <div class="col-md-12 p-3  card " style="text-align:left"> 
+            <div class="d-flex justify-content-between">
+              <div>
+                <p>Delivery</p>
+              </div>  
+              <div>
+                <div>
+                  <input class="ml-3" type="radio"  value="delivery" v-model="selectType"    />
+                  <label for="" style="margin-left: 10px;" >Delivery Service</label>
+                </div>
+                <div>
+                  <input type="radio"  value="pickup"   v-model="selectType" /> 
+                  <label for="" style="margin-left: 10px;">Pickup</label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       

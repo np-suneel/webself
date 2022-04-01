@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4 m-auto pt-5">
+  <div class="col-md-4 m-auto pt-5" style="padding-top:200px">
       <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
       <ImageBarcodeReader @decode="onDecode" @error="onError"></ImageBarcodeReader>
         
