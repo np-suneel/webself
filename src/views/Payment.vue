@@ -1,6 +1,9 @@
 <template>
   <div class="col-md-11 m-auto">
-                  
+         <div class="row col-8" v-show="ordercompl">
+      <h3>Order ID QR</h3>  
+      <qrcode-vue :value="value" :size="300" level="H" />
+    </div>         
 
     <div class="col-md-12 mt-3 row">
       <div class="col-md-6">
@@ -563,7 +566,7 @@
               <p>Rs. 0</p>
             </div>
           </div>
-          <button type="submit" class="btn btn-danger mt-2" style="width:100%">Place Order</button>
+          <button type="submit" class="btn btn-danger mt-2" style="width:100%" @click="placeOrder()">Place Order</button>
         </div>
         
         
@@ -575,8 +578,11 @@
 <script>
 
 import axios from "axios";
-
+import QrcodeVue from 'qrcode.vue'
 export default {
+  components:{
+  QrcodeVue
+},
   data() {
     return {
       data:[],
@@ -608,6 +614,8 @@ export default {
       clickedadd: false,
       addressid: null,
       langs:['en','ka'],
+      ordercompl:false,
+      value:''
     };
   },
   mounted(){
@@ -839,7 +847,7 @@ export default {
 
             let placearr = response.data.itemResult;
             console.log("place order modified arr", placearr);
-            if (this.seladdr == null) {
+            if (this.seladdr == null && this.showaddr) {
               alert("Please select an address");
             } else {
               const payload = {
@@ -865,6 +873,8 @@ export default {
                       " Order ID " +
                       respons.data.orderId
                   );
+                  this.value = String(respons.data.orderId)
+                  this.ordercompl = true
                 });
             }
           } else alert("cart error");

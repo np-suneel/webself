@@ -92,7 +92,7 @@
                   <button
                     style="height: 30px; width: 30px"
                     class="btn border m-0 p-0"
-                    @click="changeCounter('-1')"
+                    @click="changeCounter('-1',data.sku,data.quantity)"
                     type="button"
                     name="button"
                   >
@@ -103,12 +103,12 @@
                     class="px-2 quantity"
                     type="text"
                     name="name"
-                    :value="counter"
+                    :value="data.quantity"
                   />
                   <button
                     class="btn border m-0 p-0"
                     style="height: 30px; width: 30px"
-                    @click="changeCounter('1')"
+                    @click="changeCounter('1',data.sku,data.quantity)"
                     type="button"
                     name="button"
                   >
@@ -224,6 +224,12 @@
 import axios from "axios";
 export default {
   mounted() {
+    if(localStorage.getItem("cartId") == null){
+      this.iscartempty = true
+      this.cartitemarr = []
+      
+    }
+    else{
     const payloads = {
       operation: "Refresh cart",
       cartId: parseInt(localStorage.getItem("cartId")),
@@ -250,6 +256,7 @@ export default {
       .catch(function (e) {
         console.log("temporary error", e.response);
       });
+    }
   },
   data() {
     return {
@@ -261,6 +268,7 @@ export default {
       counter: 1,
       cartitemarr: [],
       temparr: [],
+      skuno:''
     };
   },
   methods: {
@@ -280,7 +288,8 @@ openModal() {
     },
     addViaSKU() {
       if (this.skuno != "") {
-        if (this.cartitemarr == null) {
+        if (this.cartitemarr.length == 0) {
+          console.log('came to null arr')
           const payload = {
             operation: "AddItem",
             cartItems: [
@@ -305,11 +314,48 @@ openModal() {
                 this.mrptotal = response.data.grossTotal;
                 this.totalamt = response.data.netTotal;
                 this.discount = response.data.discounts[0].discountAmount;
+                console.log('after adding to ar',this.cartitemarr)
               } else if (response.data.status === "failed") {
                 alert("Enter correct SKU number");
               }
             });
         } else {
+          console.log('not null arr')
+            for(let i=0; i<this.cartitemarr.length;i++){
+              if(this.cartitemarr[i].sku == this.skuno){
+                let quant = this.cartitemarr[i].quantity
+                const payload = {
+    operation: "UpdateItemQuantity",
+    cartId: this.cartId,
+    cartItems: [
+        {
+            storeId: parseInt(localStorage.getItem('storeId')),
+            newQuantity: quant+1,
+            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
+            sku: this.skuno
+        }
+    ]
+}
+
+      axios.post('/cart-service/ws/cart/updateItemQty',payload).then((response) =>{
+        this.cartitemarr=response.data.itemResult      
+        
+        
+
+        this.cartId = response.data.cartId
+        localStorage.setItem('cartId',this.cartId)
+        this.mrptotal = response.data.grossTotal
+        this.totalamt = response.data.netTotal
+        this.discount = response.data.discounts[0].discountAmount
+      })
+
+
+              }
+              return
+            }
+
+
+
           const payload = {
             operation: "AddItem",
             cartId: parseInt(localStorage.getItem("cartId")),
@@ -456,40 +502,45 @@ openModal() {
         }
       }
     },
-    changeCounter(num) {
-      if (this.counter > 1) this.counter += +num;
-      if (this.counter == 1 && num == 1) this.counter += +num;
+    changeCounter(num,sku,quan) {
+      if(quan == 1 && num == -1)
+        alert('click \'Remove Item\' button to delete item')
+        
+
+      else{
+      quan += +num;
       const payload = {
-        operation: "UpdateItemQuantity",
-        cartId: this.cartId,
-        cartItems: [
-          {
-            storeId: parseInt(localStorage.getItem("storeId")),
-            newQuantity: this.counter,
-            storeCode: JSON.parse(localStorage.getItem("expandFashion"))
-              .site_code,
-            sku: JSON.parse(localStorage.getItem("expandFashion")).sku,
-          },
-        ],
-      };
+    operation: "UpdateItemQuantity",
+    cartId: this.cartId,
+    cartItems: [
+        {
+            storeId: parseInt(localStorage.getItem('storeId')),
+            newQuantity: quan,
+            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
+            sku: sku
+        }
+    ]
+}
 
-      axios
-        .post("/cart-service/ws/cart/updateItemQty", payload)
-        .then((response) => {
-          this.cartitemarr = response.data.itemResult;
+      axios.post('/cart-service/ws/cart/updateItemQty',payload).then((response) =>{
+        this.cartitemarr=response.data.itemResult      
+        
+        
 
-          this.cartId = response.data.cartId;
-          localStorage.setItem("cartId", this.cartId);
-          this.mrptotal = response.data.grossTotal;
-          this.totalamt = response.data.netTotal;
-          this.discount = response.data.discounts[0].discountAmount;
-        });
-
-      console.log(this.counter);
+        this.cartId = response.data.cartId
+        localStorage.setItem('cartId',this.cartId)
+        this.mrptotal = response.data.grossTotal
+        this.totalamt = response.data.netTotal
+        this.discount = response.data.discounts[0].discountAmount
+      })
+      
+      console.log(quan);
       // !isNaN(this.counter) && this.counter > 0
       //   ? this.counter
       //   : (this.counter = 0);
-    },
+    
+    }
+  }
   },
 };
 </script>
