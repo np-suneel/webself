@@ -1,82 +1,88 @@
 <template>
-  <div class="col-md-12 m-0 p-0 py-2" style="background: white">
-    <div class="col-md-11 m-auto">
-      <div
-        class="d-flex col-md-6"
-        style="color: black; font-weight: 700"
-      >
-      
-      <v-treeview :items="itemArr"
-    
-    item-children="sub_categories"
-    item-key="id"
-    item-text="name"></v-treeview>
-     <p>Old buttons:</p> <div class="bttns" v-for="(item,i) in buttArr" :key="i" :value="i">
-          <b-button variant="outline-secondary" @click="drpFunc(item.id)"> {{item.name}} </b-button> 
-      </div>
-       <div class="drps" v-for="(items,j) in drpArr" :key="j" :value="j" style="margin-left:10px">
-          <b-dropdown split :text="items.name" split-variant="outline-secondary" @click="drpFunc(3)"> 
-          <b-dropdown-item  @click="drpFunc(its.id)" v-for="(its,k) in items.sub_categories" :key="k" :value="k">{{its.name}} </b-dropdown-item>
-          </b-dropdown> 
-      </div>
-      </div>
-    </div>
-  </div>
+  <v-treeview
+    activatable
+    :items="items"
+  ></v-treeview>
 </template>
 
 <script>
-import axios from "axios";
-
-export default {
-
-  data(){
-    return {
-    selItem: '',
-    selbtn:'',
-    seldrp:'',
-    buttArr: [],
-    drpArr: [],
-    itemArr:[]
-    }
-  },
-  created(){
-    this.loadItems()
-  },
-  methods:{    
-    drpFunc(id){
-      console.log('clicked drpdwn',id)
-      //this.$store.commit('fashId',id) 
-      localStorage.setItem('fashionId',id)          
-      this.$router.push('/catalogues')
-      
-    },
-    loadItems(){
-      axios.get("/product-service/cws/catalog/online").then((response) => {
-        console.log('list', response.data.categories)
-        this.itemArr = response.data.categories        
-        for(let i=0;i<this.itemArr.length;i++){
-          if(this.itemArr[i].sub_categories.length!=0)
-            this.drpArr.push(this.itemArr[i])          
-          else
-            this.buttArr.push(this.itemArr[i])
-
-        }
-
-        console.log('dis array', this.itemArr[1].sub_categories)
-      });
-    }
+  export default {
+    data: () => ({
+      items: [
+        {
+          id: 1,
+          name: 'Applications :',
+          children: [
+            { id: 2, name: 'Calendar : app' },
+            { id: 3, name: 'Chrome : app' },
+            { id: 4, name: 'Webstorm : app' },
+          ],
+        },
+        {
+          id: 5,
+          name: 'Documents :',
+          children: [
+            {
+              id: 6,
+              name: 'vuetify :',
+              children: [
+                {
+                  id: 7,
+                  name: 'src :',
+                  children: [
+                    { id: 8, name: 'index : ts' },
+                    { id: 9, name: 'bootstrap : ts' },
+                  ],
+                },
+              ],
+            },
+            {
+              id: 10,
+              name: 'material2 :',
+              children: [
+                {
+                  id: 11,
+                  name: 'src :',
+                  children: [
+                    { id: 12, name: 'v-btn : ts' },
+                    { id: 13, name: 'v-card : ts' },
+                    { id: 14, name: 'v-window : ts' },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: 15,
+          name: 'Downloads :',
+          children: [
+            { id: 16, name: 'October : pdf' },
+            { id: 17, name: 'November : pdf' },
+            { id: 18, name: 'Tutorial : html' },
+          ],
+        },
+        {
+          id: 19,
+          name: 'Videos :',
+          children: [
+            {
+              id: 20,
+              name: 'Tutorials :',
+              children: [
+                { id: 21, name: 'Basic layouts : mp4' },
+                { id: 22, name: 'Advanced techniques : mp4' },
+                { id: 23, name: 'All about app : dir' },
+              ],
+            },
+            { id: 24, name: 'Intro : mov' },
+            { id: 25, name: 'Conference introduction : avi' },
+          ],
+        },
+      ],
+    }),
   }
-};
 </script>
-
 <style>
-a {
-  text-decoration: none !important;
-  color: black;
-}
-.drop{
-  background: none;  
-  border: none;
-  color: black;
-}
+
 </style>
