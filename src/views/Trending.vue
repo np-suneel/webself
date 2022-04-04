@@ -1,5 +1,6 @@
 <template>
   <div class="mb-5 col-md-12 p-0">
+
     <div class="col-md-10 m-auto">
       <div
         class="d-flex"
@@ -45,12 +46,14 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       // bikes:[{"name":"1"},{"name":"2"},{"name":"3"},{"name":"4"},{"name":"5"},{"name":"6"},{"name":"7"}],
       isMounted: false,
       scrolledValue: 0,
+      saveData: "",
       f: [
         {
           img: "https://www.jiomart.com/images/cms/aw_rbslider/slides/1602257194_Atta_Web.jpg",
@@ -75,12 +78,18 @@ export default {
   },
   mounted() {
     this.isMounted = true;
+    this.getTop();
   },
   // created(){
   //     this.$store.dispatch('load_top_selling')
   //     this.$store.dispatch('load_display_images')
   // },
   methods: {
+    getTop() {
+      axios
+        .get("/product-service/cws/catalog/products/topselling/10")
+        .then((resp) => (this.saveData = resp.data));
+    },
     scrollRight() {
       let content = this.$refs.foo;
       if (this.scrolledValue < this.totalWidth) {

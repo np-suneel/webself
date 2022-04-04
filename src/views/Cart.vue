@@ -16,7 +16,9 @@
           v-model="skuno"
         />
         <div class="col-md-12 text-center" style="text-align: center">
-          <button type="" class="btn btn-primary my-3" @click="addViaSKU()">Submit</button>
+          <button type="" class="btn btn-primary my-3" @click="addViaSKU()">
+            Submit
+          </button>
         </div>
       </div>
     </div>
@@ -47,7 +49,7 @@
     </div>
     <div class="col-md-12 row" v-show="this.iscartempty != true">
       <div class="col-md-7 ml-0 pl-0">
-        <div class="col-md-12" v-show="this.iscartempty != true">
+        <div class="col-md-12 mt-0 pt-0" v-show="this.iscartempty != true">
           <div
             class="card mb-3 p-3"
             v-for="(data, index) in cartitemarr"
@@ -58,7 +60,7 @@
                 <img
                   src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAPFBMVEW7u7vz8/O4uLjb29vk5OTs7Ozh4eHZ2dny8vLu7u7q6ur29va9vb22trbn5+fGxsbQ0NDJycnU1NSwsLCMcr6HAAAESklEQVR4nO2bgXKiMBCGSTSaJQkIff93vf2X1lqF3tydTlfv/6YdFZTJ191sFopdRwghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYSQvyM+jp9WW6jz7lHM9aflDCnhURT5aTklzo8TVMX55xM1HmCYH2CHY5aDA8OdDWfY35vBjrvzYjg+oI6Ofgxz2cf7F70a9yU7MQzh8BDDg5sYwvDPPxdrrfG7v8yTG8ap11op83dv8W34m6xd1hgs6dtvdG7Yaf5tDw6CeVnztrsW54bxWOTUtoY3fvZBZdPBuSEcSj+uj09DeG6CSt48smvDOLw3XXVthFEuerMybh3Zs2Gc3tOwhHnlJC9edp9l2jqya0P5zEKZ2s1nLhv1p4yhlplLhUGn45dFwcZ+DuLmkR0b1usTod3VdHz2WvqxnF+EMZ/W35Gx5Nf1BsGx4bhy1l/S5coRzz1Nql3r0KCuHNmtYexvBfPHyrEEq6IvDaWgL22jnlxO8TaMbg3jaePCTQnHi0ZOo2bnFnqKoY5v403B9WvYbV+zuZ6O6tjFsY2tra0YHg0xnd6v22w5putgwTDW40rv49FQMy7W31xcvGnk6tjqUNL1guLSENOq7c9N9We25i89TJltOmqCWumJ43gIfQphvlg0KvLXnaFVfKwU+YvWWS/rM3tR8mT/k6it4iHWJPiz5DSd/1OBR2+GKI0txr5IQkCk71NS14yXomJiW2wfUnVEFW3VrtUcRFRP9+YDAttZaLHdlaEOuKnhSdVS35ckKQ1QhJSIxkg3ABEoZpFZ/RroTrJPQcxe0rE2ZK9ur82ZIcYVuz7LIBozjFYHHSyCiKa+EmzRF5qQsE5z94Z+LeY0SIA7yP3JlsrRnWF909xqOx3jgBxNJgpTPdlVLY2l/sJQfyyHs55z6EdinItGO/S9FLXX55KmN9RkZ1naVYuHpIyUUyd90NwMOuCsrxDQfnkUMxx6i+RBUzUFMxxgl4ruCXK0mmq9qxtDJGlrey0WGCImYxo0EwNmIYrNF0PdMCQtPth3PEp4jyG89bkail3EijvNXi//e0Klad2kQ7NhauuSMANNBnmbUEk/DBf0U2kJ7rVhQSYPunLMwz77Mexa7VDvMeFQLNMiYxVEpxbmYD5XGxW0RdKe5tDDUn+1KKklNuiOozvD2k4i5ras8CiMSEX1yrbeYeIJ1sWCRF2aAJuU2Few3x7xXltNYrfTxdOR4XLp4va8Il9v/Wzhcrht8M693S66qzQ3ly7+CTMMrgzXLl28lGHc0ZCGNKQhDWlIQxrS8CkM73mPaXZoeCr35eTNsHbT8Z5Mru5NxP2leHbPo+LX0/2lr36PMErfK9/n/fr36r/89y1e/zsz/8P3nl7/u2uEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCyBPyC1stQARopdgqAAAAAElFTkSuQmCC"
                   width="auto"
-                  height="100px"
+                  height="90px"
                   alt=""
                 />
                 <!-- <img
@@ -70,13 +72,13 @@
               </div>
               <div
                 class="col-md-7 pl-2"
-                style="text-align: left; padding-left: 10px"
+                style="text-align: left; padding-left: 20px"
               >
-                <p class="mb-1" style="font-weight: 700">{{ data.name }}</p>
-                <p class="mb-4" style="color: grey; font-size: 13px">
+                <p class="mb-1" style="font-weight: 700;font-size:13px;">{{ data.name }}</p>
+                <p class="mb-3" style="color: grey; font-size: 13px">
                   {{ data.sku }}
                 </p>
-                <p class="mb-0" style="font-weight: 700; color: #021e45">
+                <p class="mb-0" style="font-weight: 700; font-size:13px; color: #021e45">
                   ₹ {{ data.mrp }}
                 </p>
               </div>
@@ -92,7 +94,7 @@
                   <button
                     style="height: 30px; width: 30px"
                     class="btn border m-0 p-0"
-                    @click="changeCounter('-1',data.sku,data.quantity)"
+                    @click="changeCounter('-1', data.sku, data.quantity)"
                     type="button"
                     name="button"
                   >
@@ -108,7 +110,7 @@
                   <button
                     class="btn border m-0 p-0"
                     style="height: 30px; width: 30px"
-                    @click="changeCounter('1',data.sku,data.quantity)"
+                    @click="changeCounter('1', data.sku, data.quantity)"
                     type="button"
                     name="button"
                   >
@@ -224,38 +226,36 @@
 import axios from "axios";
 export default {
   mounted() {
-    if(localStorage.getItem("cartId") == null){
-      this.iscartempty = true
-      this.cartitemarr = []
-      
-    }
-    else{
-    const payloads = {
-      operation: "Refresh cart",
-      cartId: parseInt(localStorage.getItem("cartId")),
-    };
+    if (localStorage.getItem("cartId") == null) {
+      this.iscartempty = true;
+      this.cartitemarr = [];
+    } else {
+      const payloads = {
+        operation: "Refresh cart",
+        cartId: parseInt(localStorage.getItem("cartId")),
+      };
 
-    axios
-      .post("/cart-service/ws/cart/refreshCart", payloads)
-      .then((response) => {
-        if (response.data.status === "success") {
-          this.cartitemarr = response.data.itemResult;
+      axios
+        .post("/cart-service/ws/cart/refreshCart", payloads)
+        .then((response) => {
+          if (response.data.status === "success") {
+            this.cartitemarr = response.data.itemResult;
 
-          console.log("cart arr", this.cartitemarr);
+            console.log("cart arr", this.cartitemarr);
 
-          this.cartId = response.data.cartId;
-          localStorage.setItem("cartId", this.cartId);
-          this.mrptotal = response.data.grossTotal;
-          this.totalamt = response.data.netTotal;
-          this.discount = response.data.discounts[0].discountAmount;
-        } else if (response.data.status === "failed") {
-          alert("Retrieval failed");
-        }
-      })
+            this.cartId = response.data.cartId;
+            localStorage.setItem("cartId", this.cartId);
+            this.mrptotal = response.data.grossTotal;
+            this.totalamt = response.data.netTotal;
+            this.discount = response.data.discounts[0].discountAmount;
+          } else if (response.data.status === "failed") {
+            alert("Retrieval failed");
+          }
+        })
 
-      .catch(function (e) {
-        console.log("temporary error", e.response);
-      });
+        .catch(function (e) {
+          console.log("temporary error", e.response);
+        });
     }
   },
   data() {
@@ -268,11 +268,11 @@ export default {
       counter: 1,
       cartitemarr: [],
       temparr: [],
-      skuno:''
+      skuno: "",
     };
   },
   methods: {
-openModal() {
+    openModal() {
       var modal = window.document.getElementById("myModal");
       modal.style.display = "block";
     },
@@ -289,7 +289,7 @@ openModal() {
     addViaSKU() {
       if (this.skuno != "") {
         if (this.cartitemarr.length == 0) {
-          console.log('came to null arr')
+          console.log("came to null arr");
           const payload = {
             operation: "AddItem",
             cartItems: [
@@ -314,47 +314,44 @@ openModal() {
                 this.mrptotal = response.data.grossTotal;
                 this.totalamt = response.data.netTotal;
                 this.discount = response.data.discounts[0].discountAmount;
-                console.log('after adding to ar',this.cartitemarr)
+                console.log("after adding to ar", this.cartitemarr);
               } else if (response.data.status === "failed") {
                 alert("Enter correct SKU number");
               }
             });
         } else {
-          console.log('not null arr')
-            for(let i=0; i<this.cartitemarr.length;i++){
-              if(this.cartitemarr[i].sku == this.skuno){
-                let quant = this.cartitemarr[i].quantity
-                const payload = {
-    operation: "UpdateItemQuantity",
-    cartId: this.cartId,
-    cartItems: [
-        {
-            storeId: parseInt(localStorage.getItem('storeId')),
-            newQuantity: quant+1,
-            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
-            sku: this.skuno
-        }
-    ]
-}
+          console.log("not null arr");
+          for (let i = 0; i < this.cartitemarr.length; i++) {
+            if (this.cartitemarr[i].sku == this.skuno) {
+              let quant = this.cartitemarr[i].quantity;
+              const payload = {
+                operation: "UpdateItemQuantity",
+                cartId: this.cartId,
+                cartItems: [
+                  {
+                    storeId: parseInt(localStorage.getItem("storeId")),
+                    newQuantity: quant + 1,
+                    storeCode: JSON.parse(localStorage.getItem("expandFashion"))
+                      .site_code,
+                    sku: this.skuno,
+                  },
+                ],
+              };
 
-      axios.post('/cart-service/ws/cart/updateItemQty',payload).then((response) =>{
-        this.cartitemarr=response.data.itemResult      
-        
-        
+              axios
+                .post("/cart-service/ws/cart/updateItemQty", payload)
+                .then((response) => {
+                  this.cartitemarr = response.data.itemResult;
 
-        this.cartId = response.data.cartId
-        localStorage.setItem('cartId',this.cartId)
-        this.mrptotal = response.data.grossTotal
-        this.totalamt = response.data.netTotal
-        this.discount = response.data.discounts[0].discountAmount
-      })
-
-
-              }
-              return
+                  this.cartId = response.data.cartId;
+                  localStorage.setItem("cartId", this.cartId);
+                  this.mrptotal = response.data.grossTotal;
+                  this.totalamt = response.data.netTotal;
+                  this.discount = response.data.discounts[0].discountAmount;
+                });
             }
-
-
+            return;
+          }
 
           const payload = {
             operation: "AddItem",
@@ -502,45 +499,43 @@ openModal() {
         }
       }
     },
-    changeCounter(num,sku,quan) {
-      if(quan == 1 && num == -1)
-        alert('click \'Remove Item\' button to delete item')
-        
+    changeCounter(num, sku, quan) {
+      if (quan == 1 && num == -1)
+        alert("click 'Remove Item' button to delete item");
+      else {
+        quan += +num;
+        const payload = {
+          operation: "UpdateItemQuantity",
+          cartId: this.cartId,
+          cartItems: [
+            {
+              storeId: parseInt(localStorage.getItem("storeId")),
+              newQuantity: quan,
+              storeCode: JSON.parse(localStorage.getItem("expandFashion"))
+                .site_code,
+              sku: sku,
+            },
+          ],
+        };
 
-      else{
-      quan += +num;
-      const payload = {
-    operation: "UpdateItemQuantity",
-    cartId: this.cartId,
-    cartItems: [
-        {
-            storeId: parseInt(localStorage.getItem('storeId')),
-            newQuantity: quan,
-            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
-            sku: sku
-        }
-    ]
-}
+        axios
+          .post("/cart-service/ws/cart/updateItemQty", payload)
+          .then((response) => {
+            this.cartitemarr = response.data.itemResult;
 
-      axios.post('/cart-service/ws/cart/updateItemQty',payload).then((response) =>{
-        this.cartitemarr=response.data.itemResult      
-        
-        
+            this.cartId = response.data.cartId;
+            localStorage.setItem("cartId", this.cartId);
+            this.mrptotal = response.data.grossTotal;
+            this.totalamt = response.data.netTotal;
+            this.discount = response.data.discounts[0].discountAmount;
+          });
 
-        this.cartId = response.data.cartId
-        localStorage.setItem('cartId',this.cartId)
-        this.mrptotal = response.data.grossTotal
-        this.totalamt = response.data.netTotal
-        this.discount = response.data.discounts[0].discountAmount
-      })
-      
-      console.log(quan);
-      // !isNaN(this.counter) && this.counter > 0
-      //   ? this.counter
-      //   : (this.counter = 0);
-    
-    }
-  }
+        console.log(quan);
+        // !isNaN(this.counter) && this.counter > 0
+        //   ? this.counter
+        //   : (this.counter = 0);
+      }
+    },
   },
 };
 </script>

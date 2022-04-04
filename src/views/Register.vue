@@ -48,7 +48,14 @@
       <button class="mt-5" @click="submitDetails()">
         <span v-if="loading">Loading</span> <span v-else>SUBMIT</span>
       </button>
-      <p class="mb-0 mt-4" style="color:black; font-size:13px">Already Registered ? <span @click="$router.push('/login')" style="cursor:pointer;color:black; font-weight:700">Login</span></p>
+      <p class="mb-0 mt-4" style="color: black; font-size: 13px">
+        Already Registered ?
+        <span
+          @click="$router.push('/login')"
+          style="cursor: pointer; color: black; font-weight: 700"
+          >Login</span
+        >
+      </p>
       <!-- <input type="text" placeholder="otp" v-model="otp" />
         <button @click="send()">Verify</button> -->
     </div>

@@ -1,9 +1,6 @@
 <template>
   <div class="col-md-12 mb-5" style="margin-top: 50px">
-    <div
-      class="col-md-3 card m-auto p-5"
-      style=" border-radius: 5px"
-    >
+    <div class="col-md-3 card m-auto p-5" style="border-radius: 5px">
       <h5 style="color: black">Login Here</h5>
       <!-- <button class="btn btn-success" @click="getposts()">Get Posts</button>
       <button @click="deletetoken">delete token</button> -->
@@ -31,7 +28,13 @@
         style="color: black"
       />
 
-      <button  class="btn btn-danger" style="border: 1px solid red" @click="login">Log In</button>
+      <button
+        class="btn btn-danger"
+        style="border: 1px solid red"
+        @click="login"
+      >
+        Log In
+      </button>
       <!-- <div class="social">
         <div class="go" style="background: #ea617c; color: white">
           <i class="fab fa-google"></i> Google
@@ -81,10 +84,10 @@ export default {
           const token = response.headers.authorization;
           localStorage.setItem("jwtToken", response.headers.authorization);
           setAuthHeaders(token);
-          this.$store.state.email = response.data.email
-          this.$store.state.firstName = response.data.firstName
-          this.$store.state.lastName = response.data.lastName
-          this.$store.state.mobile = response.data.contactNumber
+          this.$store.state.email = response.data.email;
+          this.$store.state.firstName = response.data.firstName;
+          this.$store.state.lastName = response.data.lastName;
+          this.$store.state.mobile = response.data.contactNumber;
           console.log(response.data.statusCode);
           if (response.data.statusCode == 200) {
             this.$router.push("/select-store");

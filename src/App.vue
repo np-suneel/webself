@@ -9,41 +9,36 @@
   </div>
 </template>
 
-
-
 <script>
 import navb from "./views/Navbar";
 import subnav from "./views/subnav";
 import LoadingScreen from "./views/SplashScreen";
 
-
 export default {
   components: {
     navb,
     subnav,
-    LoadingScreen
+    LoadingScreen,
   },
   data() {
     return { isLoading: true };
   },
   created() {
-    console.log(this.$store.state.splashLoader)
-    console.log(this.$store.state.hi)
-     if(this.$store.state.splashLoader){
-          setTimeout(() => {
-          this.isLoading = false;
-          const data = false
-          this.$state.commit('splashLoader', data)
-        }, 1000);
-     }
-    
-  }
+    console.log(this.$store.state.splashLoader);
+    console.log(this.$store.state.hi);
+    if (this.$store.state.splashLoader) {
+      setTimeout(() => {
+        this.isLoading = false;
+        const data = false;
+        this.$state.commit("splashLoader", data);
+      }, 1000);
+    }
+  },
 };
 </script>
 
 <style>
 #app {
-
   text-align: center;
   color: black;
 }

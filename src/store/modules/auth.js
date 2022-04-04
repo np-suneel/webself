@@ -1,83 +1,86 @@
-import axios from 'axios'
+import axios from "axios";
 
 export const state = {
-  currentUser: getSavedState('auth.currentUser'),
-}
+  currentUser: getSavedState("auth.currentUser"),
+};
 
 export const mutations = {
   SET_CURRENT_USER(state, newValue) {
-    state.currentUser = newValue
-    saveState('auth.currentUser', newValue)
-    setDefaultAuthHeaders(state)
+    state.currentUser = newValue;
+    saveState("auth.currentUser", newValue);
+    setDefaultAuthHeaders(state);
   },
-}
+};
 
 export const getters = {
   // Whether the user is currently logged in.
   loggedIn(state) {
-    return !!state.currentUser
+    return !!state.currentUser;
   },
-}
+};
 
 export const actions = {
   // This is automatically run in `src/state/store.js` when the app
   // starts, along with any other actions named `init` in other modules.
   init({ state, dispatch }) {
-    setDefaultAuthHeaders(state)
-    dispatch('validate')
+    setDefaultAuthHeaders(state);
+    dispatch("validate");
   },
 
   // Logs in the current user.
   logIn({ commit, dispatch, getters }, { username, password } = {}) {
-    if (getters.loggedIn) return dispatch('validate')
-    const host = window.location.host
-    const parts = host.split('.')
-    const domainLength = 3
-    let tenantSubDomain = null
-    if (parts.length >= domainLength && parts[0] !== 'www')
-      tenantSubDomain = parts[0]
-    
-    if (process.env.NODE_ENV === 'development' && process.env.VUE_APP_SUB_DOMAIN !== ''){
-      tenantSubDomain = process.env.VUE_APP_SUB_DOMAIN
-    }  
-    tenantSubDomain = 'bf-qa'
+    if (getters.loggedIn) return dispatch("validate");
+    const host = window.location.host;
+    const parts = host.split(".");
+    const domainLength = 3;
+    let tenantSubDomain = null;
+    if (parts.length >= domainLength && parts[0] !== "www")
+      tenantSubDomain = parts[0];
+
+    if (
+      process.env.NODE_ENV === "development" &&
+      process.env.VUE_APP_SUB_DOMAIN !== ""
+    ) {
+      tenantSubDomain = process.env.VUE_APP_SUB_DOMAIN;
+    }
+    tenantSubDomain = "bf-qa";
     return axios
-      .post('/auth-service/ui/auth', { username, password, tenantSubDomain })
+      .post("/auth-service/ui/auth", { username, password, tenantSubDomain })
       .then((response) => {
-        const user = handleResponse(response)
+        const user = handleResponse(response);
         if (user.token) {
-          commit('SET_CURRENT_USER', user)
+          commit("SET_CURRENT_USER", user);
         }
-        return user
-      })
+        return user;
+      });
   },
 
   // Logs out the current user.
   logOut({ commit }) {
-    axios.get('/auth-service/ui/logout')
-    commit('SET_CURRENT_USER', null)
+    axios.get("/auth-service/ui/logout");
+    commit("SET_CURRENT_USER", null);
   },
 
   // register the user
   register({ commit, dispatch, getters }, { fullname, email, password } = {}) {
-    if (getters.loggedIn) return dispatch('validate')
+    if (getters.loggedIn) return dispatch("validate");
 
     return axios
-      .post('/api/register', { fullname, email, password })
+      .post("/api/register", { fullname, email, password })
       .then((response) => {
-        const user = response.data
-        return user
-      })
+        const user = response.data;
+        return user;
+      });
   },
 
   // register the user
   resetPassword({ commit, dispatch, getters }, { email } = {}) {
-    if (getters.loggedIn) return dispatch('validate')
+    if (getters.loggedIn) return dispatch("validate");
 
-    return axios.post('/api/reset', { email }).then((response) => {
-      const message = response.data
-      return message
-    })
+    return axios.post("/api/reset", { email }).then((response) => {
+      const message = response.data;
+      return message;
+    });
   },
 
   // Validates the current user's token and refreshes it
@@ -98,7 +101,7 @@ export const actions = {
     //     return null
     //   })
   },
-}
+};
 
 // ===
 // Private helpers
@@ -106,7 +109,7 @@ export const actions = {
 
 function handleResponse(response) {
   //  console.log(response.headers);
-  if (response.data.statusCode !== '200') {
+  if (response.data.statusCode !== "200") {
     // console.log(response.data.statusMessage);
     if (response.status == 401) {
       // auto logout if 401 response returned from api
@@ -114,25 +117,25 @@ function handleResponse(response) {
       // location.reload()
     }
     const error =
-      (response.data && response.data.statusMessage) || response.statusText
-    return Promise.reject(error)
+      (response.data && response.data.statusMessage) || response.statusText;
+    return Promise.reject(error);
   }
-  const data = response.data
-  data.token = response.headers['authorization']
+  const data = response.data;
+  data.token = response.headers["authorization"];
   // console.log(data);
-  return data
+  return data;
 }
 
 function getSavedState(key) {
-  return JSON.parse(window.localStorage.getItem(key))
+  return JSON.parse(window.localStorage.getItem(key));
 }
 
 function saveState(key, state) {
-  window.localStorage.setItem(key, JSON.stringify(state))
+  window.localStorage.setItem(key, JSON.stringify(state));
 }
 
 function setDefaultAuthHeaders(state) {
   axios.defaults.headers.common.Authorization = state.currentUser
     ? state.currentUser.token
-    : ''
+    : "";
 }

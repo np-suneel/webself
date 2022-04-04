@@ -1,5 +1,12 @@
 <template>
-  <div class="col-md-12 m-0 p-0" style="background: #021E45;    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);z-index:10">
+  <div
+    class="col-md-12 m-0 p-0"
+    style="
+      background: #021e45;
+      box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
+      z-index: 10;
+    "
+  >
     <!-- <ul>
             <li><img class="img-css" src="../assets/images/onboarding/rdep_logo.png" alt=""></li>
             <li style="float:right; color:white; padding-right:70px; margin-top: 24px;"><span style="font-size:16px;  font-family: 'DM Sans', sans-serif;">+91 91234 56789</span></li>
@@ -29,15 +36,25 @@
       >
         <ul class="navbar-nav" style="color: white">
           <li class="nav-item active" style="margin-left: 20px">
-            <a class="nav-link" @click="$router.push('home')" style="cursor:pointer"
-              >{{ $t('nav.h1')}} <span class="sr-only">(current)</span></a
+            <a
+              class="nav-link"
+              @click="$router.push('home')"
+              style="cursor: pointer"
+              >{{ $t("nav.h1") }} <span class="sr-only">(current)</span></a
             >
           </li>
           <li class="nav-item" style="margin-left: 20px">
-            <a class="nav-link" @click="openNav1()" style="cursor:pointer" >Catalogue</a>
+            <a class="nav-link" @click="openNav1()" style="cursor: pointer"
+              >Catalogue</a
+            >
           </li>
           <li class="nav-item" style="margin-left: 20px">
-            <a class="nav-link" @click="$router.push('/test')" style="cursor:pointer">Scan</a>
+            <a
+              class="nav-link"
+              @click="$router.push('/test')"
+              style="cursor: pointer"
+              >Scan</a
+            >
           </li>
           <!-- <li class="nav-item" style="margin-left: 20px">
             <a class="nav-link" href="#">Department</a>
@@ -47,7 +64,7 @@
       <div>
         <ul>
           <li class="nav-item">
-            <a class="nav-link"  style="cursor:pointer"
+            <a class="nav-link" style="cursor: pointer"
               ><i
                 class="fa fa-user"
                 style="font-size: 20px; padding-right: 10px; color: white"
@@ -56,7 +73,10 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" @click="$router.push('myorders')" style="cursor:pointer"
+            <a
+              class="nav-link"
+              @click="$router.push('myorders')"
+              style="cursor: pointer"
               ><i
                 class="fa fa-user"
                 style="font-size: 20px; padding-right: 10px; color: white"
@@ -65,7 +85,10 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" @click="$router.push('resetpass')" style="cursor:pointer"
+            <a
+              class="nav-link"
+              @click="$router.push('resetpass')"
+              style="cursor: pointer"
               ><i
                 class="fa fa-user"
                 style="font-size: 20px; padding-right: 10px; color: white"
@@ -73,8 +96,11 @@
               >Settings</a
             >
           </li>
-          <li class="nav-item" style="margin-right: 30px" >
-            <a class="nav-link " @click="$router.push('/cart')" style="cursor:pointer"
+          <li class="nav-item" style="margin-right: 30px">
+            <a
+              class="nav-link"
+              @click="$router.push('/cart')"
+              style="cursor: pointer"
               ><i
                 class="fa fa-cart-plus"
                 style="font-size: 20px; padding-right: 10px; color: white"
@@ -86,14 +112,41 @@
       </div>
     </nav>
     <div id="mySidenav1" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" @click="closeNav1()">&times;</a>
-      <div class="bttns" v-for="(item,i) in buttArr" :key="i" :value="i" style="margin-left:20px;text-align:left">
-          <b-button variant="outline-secondary" @click="drpFunc(item.id)"> {{item.name}} </b-button> 
+      <a href="javascript:void(0)" class="closebtn" @click="closeNav1()"
+        >&times;</a
+      >
+      <div
+        class="bttns"
+        v-for="(item, i) in buttArr"
+        :key="i"
+        :value="i"
+        style="margin-left: 20px; text-align: left"
+      >
+        <b-button variant="outline-secondary" @click="drpFunc(item.id)">
+          {{ item.name }}
+        </b-button>
       </div>
-      <div class="drps mt-2" v-for="(items,j) in drpArr" :key="j" :value="j" style="margin-left:20px;text-align:left" >
-          <b-dropdown split :text="items.name" split-variant="outline-secondary" @click="drpFunc(3)"> 
-          <b-dropdown-item  @click="drpFunc(its.id)" v-for="(its,k) in items.sub_categories" :key="k" :value="k">{{its.name}} </b-dropdown-item>
-          </b-dropdown> 
+      <div
+        class="drps mt-2"
+        v-for="(items, j) in drpArr"
+        :key="j"
+        :value="j"
+        style="margin-left: 20px; text-align: left"
+      >
+        <b-dropdown
+          split
+          :text="items.name"
+          split-variant="outline-secondary"
+          @click="drpFunc(3)"
+        >
+          <b-dropdown-item
+            @click="drpFunc(its.id)"
+            v-for="(its, k) in items.sub_categories"
+            :key="k"
+            :value="k"
+            >{{ its.name }}
+          </b-dropdown-item>
+        </b-dropdown>
       </div>
     </div>
   </div>
@@ -103,52 +156,49 @@
 import axios from "axios";
 
 export default {
-  data(){
+  data() {
     return {
-    selItem: '',
-    selbtn:'',
-    seldrp:'',
-    buttArr: [],
-    drpArr: []
-    }
+      selItem: "",
+      selbtn: "",
+      seldrp: "",
+      buttArr: [],
+      drpArr: [],
+    };
   },
-  created(){
-    this.loadItems()
+  created() {
+    this.loadItems();
   },
-  methods:{    
-    drpFunc(id){
-      console.log('clicked drpdwn',id)
-      //this.$store.commit('fashId',id) 
-      localStorage.setItem('fashionId',id)          
-      this.$router.push('/catalogues')
-      
+  methods: {
+    drpFunc(id) {
+      console.log("clicked drpdwn", id);
+      //this.$store.commit('fashId',id)
+      localStorage.setItem("fashionId", id);
+      this.$router.push("/catalogues");
     },
     openNav1() {
       window.document.getElementById("mySidenav1").style.width = "250px";
       window.document.getElementById("main").style.marginLeft = "250px";
       window.document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     },
-     closeNav1() {
+    closeNav1() {
       window.document.getElementById("mySidenav1").style.width = "0";
-      window.document.getElementById("main").style.marginLeft= "0";
+      window.document.getElementById("main").style.marginLeft = "0";
       window.document.body.style.backgroundColor = "white";
     },
-    loadItems(){
+    loadItems() {
       axios.get("/product-service/cws/catalog/online").then((response) => {
-        console.log('list', response.data.categories)
-        this.itemArr = response.data.categories        
-        for(let i=0;i<this.itemArr.length;i++){
-          if(this.itemArr[i].sub_categories.length!=0)
-            this.drpArr.push(this.itemArr[i])          
-          else
-            this.buttArr.push(this.itemArr[i])
-
+        console.log("list", response.data.categories);
+        this.itemArr = response.data.categories;
+        for (let i = 0; i < this.itemArr.length; i++) {
+          if (this.itemArr[i].sub_categories.length != 0)
+            this.drpArr.push(this.itemArr[i]);
+          else this.buttArr.push(this.itemArr[i]);
         }
 
-        console.log('dis array', this.itemArr[1].sub_categories)
+        console.log("dis array", this.itemArr[1].sub_categories);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -184,7 +234,7 @@ li {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #021E45;
+  background-color: #f3f3f3;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -212,12 +262,16 @@ li {
 }
 
 #main {
-  transition: margin-left .5s;
+  transition: margin-left 0.5s;
   padding: 16px;
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
 }
 </style>

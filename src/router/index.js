@@ -12,7 +12,8 @@ import scanner from "../views/Scanner.vue";
 import test from "../views/test.vue";
 import payment from "../views/Payment.vue";
 import MyOrders from "../views/MyOrders.vue";
-import PasswordReset from "../views/PasswordReset.vue"
+import PasswordReset from "../views/PasswordReset.vue";
+import a from "../views/a.vue";
 
 Vue.use(VueRouter);
 
@@ -21,44 +22,48 @@ const routes = [
     path: "/home",
     name: "Home",
     component: Home,
+    meta: {
+      subnav: true,
+    },
+  },
+  {
+    path: "/a",
+    name: "a",
+    component: a,
+    meta: {
+      subnav: true,
+    },
   },
   {
     path: "/catalogues",
     name: "",
     component: catalogues,
     meta: {
-      
-      subnav:true
+      subnav: true,
     },
-    
   },
   {
     path: "/checkout",
     name: "",
     component: payment,
     meta: {
-      
-      subnav:true
+      subnav: true,
     },
-    
   },
   {
     path: "/test",
     name: "",
     component: test,
     meta: {
-      
-      subnav:true
+      subnav: true,
     },
-    
   },
   {
     path: "/display",
     name: "",
     component: cl,
     meta: {
-
-      subnav:true
+      subnav: true,
     },
   },
   {
@@ -67,7 +72,7 @@ const routes = [
     component: Login,
     meta: {
       hideNavbar: true,
-      subnav:true
+      subnav: true,
     },
   },
   {
@@ -76,7 +81,7 @@ const routes = [
     component: scanner,
     meta: {
       hideNavbar: true,
-      subnav:true
+      subnav: true,
     },
   },
   {
@@ -85,7 +90,7 @@ const routes = [
     component: SelectStore,
     meta: {
       hideNavbar: true,
-      subnav:true
+      subnav: true,
     },
   },
   {
@@ -94,13 +99,16 @@ const routes = [
     component: Register,
     meta: {
       hideNavbar: true,
-      subnav:true
+      subnav: true,
     },
   },
   {
     path: "/features",
     name: "features",
     component: features,
+    meta: {
+      subnav: true,
+    },
   },
   {
     path: "/cart",
@@ -108,20 +116,25 @@ const routes = [
     component: cart,
     meta: {
       // hideNavbar: true,
-      subnav:true
+      subnav: true,
     },
-    
   },
   {
-    path:"/myorders",
+    path: "/myorders",
     name: "myorders",
     component: MyOrders,
+    meta: {
+      subnav: true,
+    },
   },
   {
-    path:"/resetpass",
+    path: "/resetpass",
     name: "resetpass",
     component: PasswordReset,
-  }, 
+    meta: {
+      subnav: true,
+    },
+  },
 ];
 
 const router = new VueRouter({

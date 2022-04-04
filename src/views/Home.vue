@@ -5,9 +5,8 @@
       id="carouselExampleCaptions"
       class="carousel slide"
       data-bs-ride="carousel"
-     
     >
-      <div class="carousel-indicators" style="z-index:-1">
+      <div class="carousel-indicators" style="z-index: -1">
         <!-- <button
           type="button"
           data-bs-target="#carouselExampleCaptions"

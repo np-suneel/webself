@@ -1,147 +1,175 @@
-<template> 
-<div>
-<div class="col-md-12 m-0 p-0 py-2" style="background: white">
-    <div class="col-md-11 m-auto">
-      <div
-        class="d-flex col-md-6"
-        style="color: black; font-weight: 700"
-      >
-      <div class="bttns" v-for="(item,i) in buttArr" :key="i" :value="i">
-          <b-button variant="outline-secondary" @click="drpFunc(item.id)"> {{item.name}} </b-button> 
-      </div>
-       <div class="drps" v-for="(items,j) in drpArr" :key="j" :value="j" style="margin-left:10px">
-          <b-dropdown split :text="items.name" split-variant="outline-secondary" @click="drpFunc(3)"> 
-          <b-dropdown-item  @click="drpFunc(its.id)" v-for="(its,k) in items.sub_categories" :key="k" :value="k">{{its.name}} </b-dropdown-item>
-          </b-dropdown> 
-      </div>
-      
-      </div>
-    </div>
-  </div>
-  <div class="mx-3 mb-3 mt-0 pt-0"  style="padding-top: 2rem!important;">
-    <!-- <p class="text-left" style="font-size: 13px">
-      Home > All Categories > Fashion > Men > Clothing Accessories
-    </p> -->
-    <div class="row">
-      
-      <div class="col-md-3">
-        <div class="card text-left m-0 p-0" style="border-radius: 5px" v-show="filterexists">
-          <p class="mb-0 mt-2 ml-3" style="font-weight: bolder">Filters</p>
-          <hr />
-          <div v-show="this.brands.length != 0" >
-          <p class="ml-3">Brand </p>
-          <div class="sb-example-1 px-3 pr-5 mb-2">
-            <div class="search mb-2">
-              <button type="submit" class="searchButton ml-2">
-                <i class="fa fa-search"></i>
-              </button>
-              <input
-                type="text"
-                class="searchTerm"
-                placeholder="e.g : Adidas, Puma etc..."
-              />
-            </div>
+<template>
+  <div>
+    <div class="col-md-12 m-0 p-0 py-2" style="background: white">
+      <!-- <div class="col-md-11 m-auto">
+        <div class="d-flex col-md-6" style="color: black; font-weight: 700">
+          <div class="bttns" v-for="(item, i) in buttArr" :key="i" :value="i">
+            <b-button variant="outline-secondary" @click="drpFunc(item.id)">
+              {{ item.name }}
+            </b-button>
           </div>
           <div
-          
-            v-for="(data, index) in brands"
-            :key="index"
-            class="text-left"
-            style="text-align: left; padding-left: 20px"
+            class="drps"
+            v-for="(items, j) in drpArr"
+            :key="j"
+            :value="j"
+            style="margin-left: 10px"
           >
-            <input v-model="selbrand" :value="data.value" type="checkbox" :id="index" />
-            <label :for="index" class="pl-2" style="padding-left:6px">
-              <p class="mb-1" style="font-size: 12px">
-                {{ data.display_name }}
-                <!-- <span class="number"> ( 34 )</span> -->
-              </p>
-            </label>
-          </div>
-          </div>
-          <hr />
-          <div v-show="this.sizes.length != 0">
-          <p class="ml-3">Size</p>
-          <div class="sb-example-1 px-3 pr-5 mb-2">
-            <div class="search mb-2">
-              <button type="submit" class="searchButton ml-2">
-                <i class="fa fa-search"></i>
-              </button>
-              <input
-                type="text"
-                class="searchTerm"
-                placeholder="e.g : Large, Small etc..."
-              />
-            </div>
-          </div>
-          <div
-            v-for="(data, index) in sizes"
-            :key="index"
-            class="text-left"
-            style="text-align: left; padding-left: 20px"
-          >
-            <input
-              v-model="selsize"
-              :value="data.value"
-              type="checkbox"
-              :id="index"
-              style="padding-right: 12px"
-            />
-            <label :for="index" style="padding-left:6px">
-              <p class="pl-1 mb-1" style="font-size: 12px">
-                {{ data.display_name }}
-              </p>
-            </label>
-          </div>
-          </div>
-          <hr />
-          <div v-show="this.colours.length != 0">
-          <p class="ml-3">Colours</p>
-          <div class="sb-example-1 px-3 pr-5 mb-2">
-            <div class="search mb-2">
-              <button type="submit" class="searchButton ml-2">
-                <i class="fa fa-search"></i>
-              </button>
-              <input
-                type="text"
-                class="searchTerm"
-                placeholder="e.g : White, Red etc..."
-              />
-            </div>
-          </div>
-          <div
-            v-for="(data, index) in colours"
-            :key="index"
-            class="text-left"
-            style="text-align: left; padding-left: 20px"
-          >
-            <input
-            v-model="selcolour"
-              :value="data.value"
-              type="checkbox"
-              :id="index"
-              style="padding-right: 12px"
-              class="mr-3"
-            />
-            <label :for="index" style="padding-left:6px">
-              <p class="pl-1 mb-1" style="font-size: 12px">
-                {{ data.display_name }}
-              </p>
-            </label>
-          </div>
-          </div>
-          <div>
-            <button type="button" class="my-3 btn btn-outline-secondary" @click="postFilt()">Apply</button>
+            <b-dropdown
+              split
+              :text="items.name"
+              split-variant="outline-secondary"
+              @click="drpFunc(3)"
+            >
+              <b-dropdown-item
+                @click="drpFunc(its.id)"
+                v-for="(its, k) in items.sub_categories"
+                :key="k"
+                :value="k"
+                >{{ its.name }}
+              </b-dropdown-item>
+            </b-dropdown>
           </div>
         </div>
-      </div>
-      <div class="col-md-9">
-        <img
-          src="https://www.jiomart.com/images/category/496/men-20200831.jpg"
-          alt=""
-          width="100%"
-        />
-        <div class="d-flex mt-3 my-3" style="justify-content: space-between">
-          <!-- <div class=" " style="text-align: left">
+      </div> -->
+    </div>
+    <div class="mx-3 mb-3 mt-0 pt-0" style="padding-top: 2rem !important">
+      <!-- <p class="text-left" style="font-size: 13px">
+      Home > All Categories > Fashion > Men > Clothing Accessories
+    </p> -->
+      <div class="row">
+        <div class="col-md-3">
+          <div
+            class="card text-left m-0 p-0"
+            style="border-radius: 5px"
+            v-show="filterexists"
+          >
+            <p class="mb-0 mt-2 ml-3" style="font-weight: bolder">Filters</p>
+            <hr />
+            <div v-show="this.brands.length != 0">
+              <p class="ml-3">Brand</p>
+              <div class="sb-example-1 px-3 pr-5 mb-2">
+                <div class="search mb-2">
+                  <button type="submit" class="searchButton ml-2">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  <input
+                    type="text"
+                    class="searchTerm"
+                    placeholder="e.g : Adidas, Puma etc..."
+                  />
+                </div>
+              </div>
+              <div
+                v-for="(data, index) in brands"
+                :key="index"
+                class="text-left"
+                style="text-align: left; padding-left: 20px"
+              >
+                <input
+                  v-model="selbrand"
+                  :value="data.value"
+                  type="checkbox"
+                  :id="index"
+                />
+                <label :for="index" class="pl-2" style="padding-left: 6px">
+                  <p class="mb-1" style="font-size: 12px">
+                    {{ data.display_name }}
+                    <!-- <span class="number"> ( 34 )</span> -->
+                  </p>
+                </label>
+              </div>
+            </div>
+            <hr />
+            <div v-show="this.sizes.length != 0">
+              <p class="ml-3">Size</p>
+              <div class="sb-example-1 px-3 pr-5 mb-2">
+                <div class="search mb-2">
+                  <button type="submit" class="searchButton ml-2">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  <input
+                    type="text"
+                    class="searchTerm"
+                    placeholder="e.g : Large, Small etc..."
+                  />
+                </div>
+              </div>
+              <div
+                v-for="(data, index) in sizes"
+                :key="index"
+                class="text-left"
+                style="text-align: left; padding-left: 20px"
+              >
+                <input
+                  v-model="selsize"
+                  :value="data.value"
+                  type="checkbox"
+                  :id="index"
+                  style="padding-right: 12px"
+                />
+                <label :for="index" style="padding-left: 6px">
+                  <p class="pl-1 mb-1" style="font-size: 12px">
+                    {{ data.display_name }}
+                  </p>
+                </label>
+              </div>
+            </div>
+            <hr />
+            <div v-show="this.colours.length != 0">
+              <p class="ml-3">Colours</p>
+              <div class="sb-example-1 px-3 pr-5 mb-2">
+                <div class="search mb-2">
+                  <button type="submit" class="searchButton ml-2">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  <input
+                    type="text"
+                    class="searchTerm"
+                    placeholder="e.g : White, Red etc..."
+                  />
+                </div>
+              </div>
+              <div
+                v-for="(data, index) in colours"
+                :key="index"
+                class="text-left"
+                style="text-align: left; padding-left: 20px"
+              >
+                <input
+                  v-model="selcolour"
+                  :value="data.value"
+                  type="checkbox"
+                  :id="index"
+                  style="padding-right: 12px"
+                  class="mr-3"
+                />
+                <label :for="index" style="padding-left: 6px">
+                  <p class="pl-1 mb-1" style="font-size: 12px">
+                    {{ data.display_name }}
+                  </p>
+                </label>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="my-3 btn btn-outline-secondary"
+                @click="postFilt()"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <img
+            src="https://www.jiomart.com/images/category/496/men-20200831.jpg"
+            alt=""
+            width="100%"
+          />
+          <div class="d-flex mt-3 my-3" style="justify-content: space-between">
+            <!-- <div class=" " style="text-align: left">
             <p
               class="mb-0"
               style="color: black !important; opacity: 0.8; font-size: 14px"
@@ -151,36 +179,36 @@
               <span style="font-weight: bolder; color: black">128</span> items
             </p>
           </div> -->
-          <div class="d-flex c">
-            <div class="">
-              <p class="mb-0">Sort By:</p>
-            </div>
-            <div class="d-flex justify-content-between">
-              <div
-                v-for="(data, index) in sorttext"
-                :key="index"
-                @click="selected(index)"
-              >
-                <button class="labelp p-1 px-2" style="margin-left: 10px">
-                  {{ data.text }}
-                </button>
+            <div class="d-flex c">
+              <div class="">
+                <p class="mb-0">Sort By:</p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div
+                  v-for="(data, index) in sorttext"
+                  :key="index"
+                  @click="selected(index)"
+                >
+                  <button class="labelp p-1 px-2" style="margin-left: 10px">
+                    {{ data.text }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="mt-3 p-2" style="background: white">
-          <p
-            class="text-left ml-3 mt-1"
-            style="
-              color: rgba(21, 27, 57, 0.6);
-              font-weight: 700;
-              font-size: 13px;
-            "
-          >
-            ALL PRODUCTS
-          </p>
-          <div class="row col-md-12">
-            <!-- <div class="col-md-3" v-for="(data, index) in items" :key="index">
+          <div class="mt-3 p-2" style="background: white">
+            <p
+              class="text-left ml-3 mt-1"
+              style="
+                color: rgba(21, 27, 57, 0.6);
+                font-weight: 700;
+                font-size: 13px;
+              "
+            >
+              ALL PRODUCTS
+            </p>
+            <div class="row col-md-12">
+              <!-- <div class="col-md-3" v-for="(data, index) in items" :key="index">
               <div class="m-0 my-2 p-1" style="margin-right: 9px">
                
                 <img class="zoom" :src="data.img3" alt="" height="90%" width="100%" />
@@ -205,64 +233,74 @@
               </div>
             </div> -->
 
-          <!-- Women's wear-->
+              <!-- Women's wear-->
 
-          <div class="col-md-3" v-for="(data, index) in itemsArr" :key="index">
-              <div class="m-0 my-2 p-1" style="margin-right: 9px">
-                <!-- <div class="dis">
+              <div
+                class="col-md-3"
+                v-for="(data, index) in itemsArr"
+                :key="index"
+              >
+                <div class="m-0 my-2 p-1" style="margin-right: 9px">
+                  <!-- <div class="dis">
                   <span>
                     {{ data.net_price }}<span class="per_txt">%</span>
                   </span>
                   <div class="clearfix"></div>
                   OFF
                 </div> -->
-                <img @click="expandInfo(data)" class="zoom" :src="data.img_url" alt="" width="250px" height="250px" />
-                <h5
-                  class="mt-3 text-left"
-                  style="
-                    font-weight: bold;
-                    font-size: 14px;
-                    letter-spacing: 1px;
-                  "
-                >
-                  {{ data.name }}
-                </h5>
-                <p class="text-left mb-0">
-                  <span style="text-decoration: line-through; font-size: 13px"
-                    >₹ 599.00</span
-                  ><span
-                    style="font-size: 16px; font-weight: bolder; color: black"
-                    > ₹ {{ data.mrp }}</span
+                  <img
+                    @click="expandInfo(data)"
+                    class="zoom"
+                    :src="data.img_url"
+                    alt=""
+                    width="250px"
+                    height="250px"
+                  />
+                  <h5
+                    class="mt-3 text-left"
+                    style="
+                      font-weight: bold;
+                      font-size: 14px;
+                      letter-spacing: 1px;
+                    "
                   >
-                </p>
+                    {{ data.name }}
+                  </h5>
+                  <p class="text-left mb-0">
+                    <span style="text-decoration: line-through; font-size: 13px"
+                      >₹ 599.00</span
+                    ><span
+                      style="font-size: 16px; font-weight: bolder; color: black"
+                    >
+                      ₹ {{ data.mrp }}</span
+                    >
+                  </p>
+                </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   data() {
-    
-    return {    
-      selItem: '',
-    selbtn:'',
-    seldrp:'',
-    buttArr: [],
-    drpArr: [],
-      selbrand:[],
-      selsize:[],
-      selcolour:[],      
+    return {
+      selItem: "",
+      selbtn: "",
+      seldrp: "",
+      buttArr: [],
+      drpArr: [],
+      selbrand: [],
+      selsize: [],
+      selcolour: [],
       brands: [],
       sizes: [],
-      colours:[],
+      colours: [],
       items: [
         {
           title: "Zip-Front Training Jacket",
@@ -287,156 +325,148 @@ export default {
         {
           id: 4,
           text: "Name: Z-A",
-        }
+        },
       ],
-      itemsArr:[],
-      filterexists: true
+      itemsArr: [],
+      filterexists: true,
     };
   },
-  
-  created(){
-    this.loadItems()    
-    this.loadFilters()
-    this.loadDrpItems()
-  },
-  methods: 
-  {
-    drpFunc(id){
-      
-      localStorage.setItem('fashionId',id)
-               this.loadItems()    
-    this.loadFilters()
-      
-      
-    },
-    loadDrpItems(){
-      axios.get("/product-service/cws/catalog/online").then((response) => {
-        console.log('list', response.data.categories)
-        this.itemArr = response.data.categories        
-        for(let i=0;i<this.itemArr.length;i++){
-          if(this.itemArr[i].sub_categories.length!=0)
-            this.drpArr.push(this.itemArr[i])          
-          else
-            this.buttArr.push(this.itemArr[i])
 
+  created() {
+    this.loadItems();
+    this.loadFilters();
+    this.loadDrpItems();
+  },
+  methods: {
+    drpFunc(id) {
+      localStorage.setItem("fashionId", id);
+      this.loadItems();
+      this.loadFilters();
+    },
+    loadDrpItems() {
+      axios.get("/product-service/cws/catalog/online").then((response) => {
+        console.log("list", response.data.categories);
+        this.itemArr = response.data.categories;
+        for (let i = 0; i < this.itemArr.length; i++) {
+          if (this.itemArr[i].sub_categories.length != 0)
+            this.drpArr.push(this.itemArr[i]);
+          else this.buttArr.push(this.itemArr[i]);
         }
 
-        console.log('dis array', this.itemArr[1].sub_categories)
+        console.log("dis array", this.itemArr[1].sub_categories);
       });
     },
-    expandInfo(data){      
-      localStorage.setItem('expandFashion',JSON.stringify(data))            
+    expandInfo(data) {
+      localStorage.setItem("expandFashion", JSON.stringify(data));
       //this.$store.commit('expanFash',data)
-      this.$router.push('/display')
-  },
-    selected(id){
-      console.log('which butt', id)
-        switch(id){
-          case 0: 
-              this.itemsArr.sort(function (a, b) {
-              return b.mrp - a.mrp;
-              });           
-              break;
-          case 1: 
-              this.itemsArr.sort(function (a, b) {
-              return a.mrp - b.mrp;
-              });           
-              break;
-          case 2:
-              this.itemsArr.sort(function (a, b) {
-              const nameA = a.name.toUpperCase(); 
-              const nameB = b.name.toUpperCase();
-              if (nameA < nameB) {
-              return -1;
-              }
-              });           
-              break;
-          case 3:
-              this.itemsArr.sort(function (a, b) {
-              const nameA = a.name.toUpperCase(); 
-              const nameB = b.name.toUpperCase();
-              if (nameA > nameB) {
-              return -1;
-              }
-              });           
-              break;
-        }
+      this.$router.push("/display");
     },
-     postFilt(){     
-      if(this.selsize.length == 0 && this.selbrand.length == 0 && this.selcolour.length == 0)
-      {
-        this.itemsArr = []
-        this.loadItems()
-      }
-      else{
-        const payload = {filters: [
-        {
-            key: "size",
-            values:  this.selsize
-            
-        },
-        {
-            key: "brand",
-           values:
-           
-                this.selbrand
-            
-        },
-        {
-            key: "color",
-            values: this.selcolour
-            
-        }
-    ] }
-
-    
-
-    console.log('dis payload', payload.filters[0].values)
-      axios.post("/product-service/cws/catalog/products/",
-          payload
-
-      ).then((response) => {      
-        console.log('resp',response.data)     
-        this.itemsArr = response.data.item_list  
-        console.log('filtrered arr', this.itemsArr)     
-      }
-      );      
+    selected(id) {
+      console.log("which butt", id);
+      switch (id) {
+        case 0:
+          this.itemsArr.sort(function (a, b) {
+            return b.mrp - a.mrp;
+          });
+          break;
+        case 1:
+          this.itemsArr.sort(function (a, b) {
+            return a.mrp - b.mrp;
+          });
+          break;
+        case 2:
+          this.itemsArr.sort(function (a, b) {
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
+            if (nameA < nameB) {
+              return -1;
+            }
+          });
+          break;
+        case 3:
+          this.itemsArr.sort(function (a, b) {
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
+            if (nameA > nameB) {
+              return -1;
+            }
+          });
+          break;
       }
     },
-    
-    loadItems(){
-      axios.post("/product-service/cws/catalog/products/"+localStorage.getItem('fashionId')).then((response) => {
-        console.log('list', response.data.item_list)
-        this.itemsArr = response.data.item_list  
-        console.log('arr', this.itemsArr) 
-             }
-      );
-      
+    postFilt() {
+      if (
+        this.selsize.length == 0 &&
+        this.selbrand.length == 0 &&
+        this.selcolour.length == 0
+      ) {
+        this.itemsArr = [];
+        this.loadItems();
+      } else {
+        const payload = {
+          filters: [
+            {
+              key: "size",
+              values: this.selsize,
+            },
+            {
+              key: "brand",
+              values: this.selbrand,
+            },
+            {
+              key: "color",
+              values: this.selcolour,
+            },
+          ],
+        };
+
+        console.log("dis payload", payload.filters[0].values);
+        axios
+          .post("/product-service/cws/catalog/products/", payload)
+          .then((response) => {
+            console.log("resp", response.data);
+            this.itemsArr = response.data.item_list;
+            console.log("filtrered arr", this.itemsArr);
+          });
+      }
+    },
+
+    loadItems() {
+      axios
+        .post(
+          "/product-service/cws/catalog/products/" +
+            localStorage.getItem("fashionId")
+        )
+        .then((response) => {
+          console.log("list", response.data.item_list);
+          this.itemsArr = response.data.item_list;
+          console.log("arr", this.itemsArr);
+        });
+    },
+    loadFilters() {
+      axios
+        .get(
+          "/product-service/cws/catalog/filters/" +
+            localStorage.getItem("fashionId")
+        )
+        .then((response) => {
+          if (response.data.status !== "Fail") {
+            let arr = response.data.filters.find((a) => a.key === "size");
+            console.log("size arr", arr.values);
+            this.sizes = arr.values;
+
+            let arr2 = response.data.filters.find((a) => a.key === "brand");
+            console.log("brand arr", arr2.values);
+            this.brands = arr2.values;
+
+            let arr3 = response.data.filters.find((a) => a.key === "color");
+            console.log("color arr", arr3.values);
+            this.colours = arr3.values;
+          } else this.filterexists = false;
+        });
+      console.log("no filters");
+    },
   },
-  loadFilters(){
-      axios.get("/product-service/cws/catalog/filters/"+localStorage.getItem('fashionId')).then((response) => {        
-        
-        if(response.data.status !== "Fail"){
-          let arr = response.data.filters.find(a => a.key === "size")
-          console.log('size arr', arr.values)
-        this.sizes = arr.values
-       
-          let arr2 = response.data.filters.find(a => a.key === "brand")
-          console.log('brand arr', arr2.values)
-        this.brands = arr2.values
-       
-          let arr3 = response.data.filters.find(a => a.key === "color")
-          console.log('color arr', arr3.values)
-          this.colours = arr3.values
-        }
-        else
-          this.filterexists = false
-                 
-  }     
-      );
-      console.log('no filters')
-  }
-  }
 };
 </script>
 

@@ -12,15 +12,14 @@ export default new Vuex.Store({
       email: "",
       tenantId: 1,
     },
-    email:'',
-    firstName:'',
-    lastName:'',
+    email: "",
+    firstName: "",
+    lastName: "",
     fashionid: null,
-    expandata:{},
+    expandata: {},
     storeid: null,
-    splashLoader:true,
-    hi:"rakesh"
-    
+    splashLoader: true,
+    hi: "rakesh",
   },
   mutations: {
     SET_REGISTER_INFO: (state, payload) => {
@@ -30,23 +29,22 @@ export default new Vuex.Store({
       state.register.email = payload.email;
       state.register.tenantId = payload.tenantId;
     },
-    fashId(state, id){
-      console.log('called mutation', id)
-      state.fashionid = id
+    fashId(state, id) {
+      console.log("called mutation", id);
+      state.fashionid = id;
     },
-    expanFash(state,data){
-      console.log('called muta',data)
-      state.expandata = data
+    expanFash(state, data) {
+      console.log("called muta", data);
+      state.expandata = data;
     },
-    storeId(state,id){
-      console.log('called mutat',id)
-      state.storeid=id
+    storeId(state, id) {
+      console.log("called mutat", id);
+      state.storeid = id;
     },
-    splashLoader(state, id){
-      console.log('called mutat',id)
-      state.splashLoader=id
-    }
-
+    splashLoader(state, id) {
+      console.log("called mutat", id);
+      state.splashLoader = id;
+    },
   },
   actions: {
     UPDATE_REGISTER_INFO: ({ commit }, payload) => {
