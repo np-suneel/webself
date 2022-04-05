@@ -8,6 +8,7 @@
       position: relative
     "
   >
+ 
     <!-- <ul>
             <li><img class="img-css" src="../assets/images/onboarding/rdep_logo.png" alt=""></li>
             <li style="float:right; color:white; padding-right:70px; margin-top: 24px;"><span style="font-size:16px;  font-family: 'DM Sans', sans-serif;">+91 91234 56789</span></li>
@@ -46,7 +47,7 @@
           </li>
           <li class="nav-item" style="margin-left: 20px">
             <a class="nav-link" @click="openNav1()" style="cursor: pointer"
-              >Catalogue</a
+              >Catalogue  </a
             >
           </li>
           <li class="nav-item" style="margin-left: 20px">
@@ -180,6 +181,7 @@ export default {
   },
   created() {
     this.loadItems();
+    
   },
   methods: {
     lgOut() {
@@ -199,8 +201,14 @@ export default {
     drpFunc(id) {
       console.log("clicked drpdwn", id);
       //this.$store.commit('fashId',id)
-      localStorage.setItem("fashionId", id);
+      
+      if(this.$router.currentRoute.path !== '/catalogues'){
+        localStorage.setItem("fashionId", id);
       this.$router.push("/catalogues");
+      }
+      else{
+        localStorage.setItem("fashionId", id);
+      }
     },
     openNav1() {
       window.document.getElementById("mySidenav1").style.width = "250px";
