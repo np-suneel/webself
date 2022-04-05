@@ -36,7 +36,7 @@ const routes = [
   },
   {
     path: "/catalogues",
-    name: "",
+    name: "Catalogues",
     component: catalogues,
     meta: {
       subnav: true,

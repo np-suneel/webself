@@ -208,6 +208,8 @@ export default {
       }
       else{
         localStorage.setItem("fashionId", id);
+        this.$root.$refs.Catalogues.loadItems()
+         this.$root.$refs.Catalogues.loadFilters()
       }
     },
     openNav1() {
