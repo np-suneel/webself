@@ -642,8 +642,8 @@
                 <p style="font-size:16px;font-weight:700;">Rs. {{ this.mrptotal }}</p>
               </div>
               <div class="d-flex justify-content-between">
-                <p style="font-size:15px;font-weight:600;color:grey">You saved</p>
-                <p style="font-size:16px;font-weight:700;">Rs. {{ this.discount }}</p>
+                <p style="font-size:15px;font-weight:600;color:grey">Discount</p>
+                <p style="font-size:16px;font-weight:700;">- Rs. {{ this.discount }}</p>
               </div>
               <div class="d-flex justify-content-between">
                 <p style="font-size:15px;font-weight:600;color:grey">Shipping</p>
@@ -651,7 +651,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <p style="font-size:15px;font-weight:600;color:grey">Total</p>
-                <p style="font-size:16px;font-weight:700;">Rs. {{ this.mrptotal }}</p>
+                <p style="font-size:16px;font-weight:700;">Rs. {{ this.totalamt }}</p>
               </div>
             </div>
               

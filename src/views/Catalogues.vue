@@ -333,9 +333,10 @@ export default {
   },
 
   created() {
+    this.$root.$refs.Catalogues = this;
     this.loadItems();
     this.loadFilters();
-    this.loadDrpItems();
+   
   },
   methods: {
     drpFunc(id) {
@@ -343,19 +344,7 @@ export default {
       this.loadItems();
       this.loadFilters();
     },
-    loadDrpItems() {
-      axios.get("/product-service/cws/catalog/online").then((response) => {
-        console.log("list", response.data.categories);
-        this.itemArr = response.data.categories;
-        for (let i = 0; i < this.itemArr.length; i++) {
-          if (this.itemArr[i].sub_categories.length != 0)
-            this.drpArr.push(this.itemArr[i]);
-          else this.buttArr.push(this.itemArr[i]);
-        }
-
-        console.log("dis array", this.itemArr[1].sub_categories);
-      });
-    },
+    
     expandInfo(data) {
       localStorage.setItem("expandFashion", JSON.stringify(data));
       //this.$store.commit('expanFash',data)
