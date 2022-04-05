@@ -19,20 +19,20 @@
 
       <div
         class="card otr-card col-md-3 col-6 mr-3 my-2 p-0"
-        v-on:click="display(data.vehicle_id)"
-        v-for="(data, index) in f"
+        
+        v-for="(data, index) in this.saveData"
         :key="index"
       >
-        <img class="image" :src="data.img" width="100%" alt="" />
+        <img class="image" :src="data.imgeURL" width="100%" alt="" />
       </div>
       <div
         id="wrapper"
         class="card otr-card no-shadow col-md-2 col-6 mr-3 my-2 p-0"
       >
-        <button @click="viewBikes" class="view-all-button" type="button">
+        <button class="view-all-button" type="button">
           <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
         </button>
-        <p class="header-xs pt-2" @click="viewBikes">View All</p>
+        <p class="header-xs pt-2" >View All</p>
       </div>
     </div>
 
@@ -53,7 +53,7 @@ export default {
       // bikes:[{"name":"1"},{"name":"2"},{"name":"3"},{"name":"4"},{"name":"5"},{"name":"6"},{"name":"7"}],
       isMounted: false,
       scrolledValue: 0,
-      saveData: "",
+      saveData: null,
       f: [
         {
           img: "https://www.jiomart.com/images/cms/aw_rbslider/slides/1602257194_Atta_Web.jpg",
@@ -76,9 +76,12 @@ export default {
       ],
     };
   },
+  created(){
+    this.getTop();
+  },
   mounted() {
     this.isMounted = true;
-    this.getTop();
+    
   },
   // created(){
   //     this.$store.dispatch('load_top_selling')
@@ -88,7 +91,11 @@ export default {
     getTop() {
       axios
         .get("/product-service/cws/catalog/products/topselling/10")
-        .then((resp) => (this.saveData = resp.data));
+        .then((resp) => {this.saveData = resp.data 
+        
+        console.log('trend data',this.saveData)}
+        );
+        
     },
     scrollRight() {
       let content = this.$refs.foo;

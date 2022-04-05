@@ -3,7 +3,7 @@
     <LoadingScreen :isLoading="isLoading" />
     <div class="col-md-12 m-0 p-0" v-if="!isLoading">
       <navb v-if="!$route.meta.hideNavbar"></navb>
-      <subnav v-if="!$route.meta.subnav"></subnav>
+      <!--<subnav v-if="!$route.meta.subnav"></subnav>-->
       <router-view />
     </div>
   </div>
@@ -11,13 +11,12 @@
 
 <script>
 import navb from "./views/Navbar";
-import subnav from "./views/subnav";
+
 import LoadingScreen from "./views/SplashScreen";
 
 export default {
   components: {
     navb,
-    subnav,
     LoadingScreen,
   },
   data() {

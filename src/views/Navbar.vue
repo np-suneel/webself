@@ -5,6 +5,7 @@
       background: #021e45;
       box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
       z-index: 10;
+      position: relative
     "
   >
     <!-- <ul>
@@ -63,7 +64,7 @@
       </div>
       <div>
         <ul>
-          <li class="nav-item">
+          <li class="nav-item"  @mouseover="come()" @mouseleave="leav()">
             <a class="nav-link" style="cursor: pointer"
               ><i
                 class="fa fa-user"
@@ -71,7 +72,17 @@
               ></i
               >Profile</a
             >
+            <div class="lgss" v-show="this.lobt">
+              <a class="nav-link nav-item" style="cursor: pointer" @click="lgOut()"
+              ><i
+                class="fa fa-lock"
+                style="font-size: 20px; padding-right: 10px; color: white"
+              ></i
+              >Log out</a
+            >
+            </div>
           </li>
+
           <li class="nav-item">
             <a
               class="nav-link"
@@ -108,6 +119,7 @@
               >Cart</a
             >
           </li>
+         
         </ul>
       </div>
     </nav>
@@ -163,12 +175,27 @@ export default {
       seldrp: "",
       buttArr: [],
       drpArr: [],
+      lobt: false
     };
   },
   created() {
     this.loadItems();
   },
   methods: {
+    lgOut() {
+      
+      localStorage.removeItem('jwtToken')
+      
+      this.$router.push('/login')
+      
+      
+    },
+    come(){
+      this.lobt=true
+    },
+    leav(){
+      this.lobt=false
+    },
     drpFunc(id) {
       console.log("clicked drpdwn", id);
       //this.$store.commit('fashId',id)
@@ -210,7 +237,12 @@ ul {
   padding: 0;
   overflow: hidden;
 }
-
+.lgss{
+  position: absolute;
+  background: #021e45;
+      box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
+      z-index: 10;
+}
 li {
   float: left;
   color: white !important;
