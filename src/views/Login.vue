@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-12 mb-5" style="margin-top: 50px">
-    <div class="col-md-3 card m-auto p-5" style="border-radius: 5px">
+    <div class="col-md-3 card m-auto p-4" style="border-radius: 5px">
       <h5 style="color: black">Login Here</h5>
       <!-- <button class="btn btn-success" @click="getposts()">Get Posts</button>
       <button @click="deletetoken">delete token</button> -->
@@ -15,6 +15,7 @@
         type="text"
         placeholder="Phone Number"
         v-model="phoneNo"
+        class="form-control"
         style="color: black"
       />
 
@@ -25,12 +26,13 @@
         type="password"
         placeholder="Password"
         v-model="password"
+        class="form-control"
         style="color: black"
       />
 
       <button
-        class="btn btn-danger"
-        style="border: 1px solid red"
+        class="btn btn-danger form-control"
+      
         @click="login"
       >
         Log In
@@ -43,6 +45,7 @@
           <i class="fab fa-facebook"></i> Facebook
         </div>
       </div> -->
+      <p class="mb-0 pt-3" style="font-size:11px; color:blue" @click="$router.push('/')" >Go to register</p>
     </div>
   </div>
 </template>
@@ -186,36 +189,15 @@ input {
   color: grey;
 }
 button {
-  margin-top: 50px;
+  margin-top: 20px;
   width: 100%;
-  background-color: #ffffff;
-  color: #080710;
+  /* background-color: #ffffff; */
+  color: white;
   padding: 15px 0;
   font-size: 18px;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
 }
-.social {
-  margin-top: 30px;
-  display: flex;
-}
-.social div {
-  background: red;
-  width: 150px;
-  border-radius: 3px;
-  padding: 5px 10px 10px 5px;
-  background-color: rgba(255, 255, 255, 0.27);
-  color: #eaf0fb;
-  text-align: center;
-}
-.social div:hover {
-  background-color: rgba(255, 255, 255, 0.47);
-}
-.social .fb {
-  margin-left: 25px;
-}
-.social i {
-  margin-right: 4px;
-}
+
 </style>

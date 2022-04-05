@@ -37,7 +37,6 @@
 
 <script>
 import axios from "axios";
-
 export default {
   created() {
     axios.get("order-service/cws/order/list").then((response) => {

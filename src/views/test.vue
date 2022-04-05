@@ -4,21 +4,18 @@
       @decode="onDecode"
       @loaded="onLoaded"
     ></StreamBarcodeReader>
-    <ImageBarcodeReader
-      @decode="onDecode"
-      @error="onError"
-    ></ImageBarcodeReader>
+    
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { StreamBarcodeReader, ImageBarcodeReader } from "vue-barcode-reader";
+import { StreamBarcodeReader } from "vue-barcode-reader";
 
 export default {
   components: {
     StreamBarcodeReader,
-    ImageBarcodeReader,
+
   },
   methods: {
     onDecode(a) {

@@ -79,7 +79,7 @@
                   {{ data.sku }}
                 </p>
                 <p class="mb-0" style="font-weight: 700; font-size:13px; color: #021e45">
-                  ₹ {{ data.mrp }}
+                  ₹ {{ data.netPrice }}
                 </p>
               </div>
               <div class="col-md-3 pr-0 mr-0 text-right align-text-bottom">

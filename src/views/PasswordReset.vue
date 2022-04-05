@@ -74,7 +74,7 @@ export default {
       this.hideDropdown();
     },
     resetPass() {
-      if(this.alertMsg){
+      if(!this.alertMsg){
         axios
         .post("auth-service/cws/password/reset", {
           currentPassword: this.currpass,
