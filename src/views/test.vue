@@ -1,87 +1,92 @@
 <template>
   <div class="col-md-4 m-auto pt-5">
-    <StreamBarcodeReader @decode="(a) => onDecode(a)" @loaded="onLoaded"></StreamBarcodeReader>
-        <p v-show="this.scn">SKU number: {{this. sku}} </p> 
-        <ImageBarcodeReader @decode="onDecode" @error="onError"></ImageBarcodeReader>
-    
+    <StreamBarcodeReader ref="scanner"
+      @decode="(a) => onDecode(a)"
+      @loaded="onLoaded"
+    ></StreamBarcodeReader>
+    <p v-show="this.scn">SKU number: {{ this.sku }}</p>
+    <ImageBarcodeReader
+      @decode="onDecode"
+      @error="onError"
+    ></ImageBarcodeReader>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import { StreamBarcodeReader,  ImageBarcodeReader  } from 'vue-barcode-reader'
+import axios from "axios";
+import { StreamBarcodeReader, ImageBarcodeReader } from "vue-barcode-reader";
 
-export default{
-  data(){
-    return{
-      sku:'',
-      scn:false
-    }
+export default {
+  data() {
+    return {
+      sku: "",
+      scn: false,
+    };
   },
-    components:{
-        StreamBarcodeReader,
-        ImageBarcodeReader
-
+  components: {
+    StreamBarcodeReader,
+    ImageBarcodeReader,
+  },
+  methods: {
+    onDecode(a) {
+      alert("SKU number is " + a);
+      this.sku = a;
+      this.scn = true;
+      console.log("barcode", a);
+      if (localStorage.getItem("cartId") == null) {
+        const payload = {
+          operation: "AddItem",
+          cartItems: [
+            {
+              storeId: parseInt(localStorage.getItem("storeId")),
+              quantity: 1,
+              sku: a,
+              storeCode: JSON.parse(localStorage.getItem("expandFashion"))
+                .site_code,
+              sequence: 0,
+            },
+          ],
+        };
+        axios
+          .post("/cart-service/ws/cart/addItemtoCart", payload)
+          .then((response) => {
+            localStorage.setItem("cartId", response.data.cartId);
+            alert("successfully added item");
+            this.$refs.scanner.codeReader.stream.getTracks().forEach(function (track) { track.stop() })
+          });
+      } else {
+        const payload = {
+          operation: "AddItem",
+          cartId: parseInt(localStorage.getItem("cartId")),
+          cartItems: [
+            {
+              storeId: parseInt(localStorage.getItem("storeId")),
+              quantity: 1,
+              sku: a,
+              storeCode: JSON.parse(localStorage.getItem("expandFashion"))
+                .site_code,
+              sequence: 0,
+            },
+          ],
+        };
+        axios
+          .post("/cart-service/ws/cart/addItemtoCart", payload)
+          .then((response) => {
+            console.log("successfully added item");
+            localStorage.setItem("cartId", response.data.cartId);
+            this.$refs.scanner.codeReader.stream.getTracks().forEach(function (track) { track.stop() })
+          });
+      }
     },
-    methods:
-    {
-         onDecode (a) { 
-           alert('SKU number is '+a)
-           this.sku = a
-           this.scn = true
-             console.log('barcode',a) 
-        if(localStorage.getItem('cartId') == null){
-        const payload = {
-      operation: "AddItem",
-      cartItems: [
-        {
-            storeId: parseInt(localStorage.getItem('storeId')),
-            quantity: 1,
-            sku: a,
-            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
-            sequence: 0            
-        
-     }
-     ]
-    }    
-    axios.post('/cart-service/ws/cart/addItemtoCart',payload).then((response) => {
-      
-      localStorage.setItem('cartId',response.data.cartId)
-      alert('successfully added item')
-      
-      }
-    )
-    
-      }
-      else{
-        const payload = {
-      operation: "AddItem",
-      cartId: parseInt(localStorage.getItem('cartId')),
-      cartItems: [
-        {
-            storeId: parseInt(localStorage.getItem('storeId')),
-            quantity: 1,
-            sku: a,
-            storeCode: JSON.parse(localStorage.getItem('expandFashion')).site_code,
-            sequence: 0            
-        
-     }
-     ]
-    }    
-    axios.post('/cart-service/ws/cart/addItemtoCart',payload).then((response) => {
-      
-      console.log('successfully added item')
-      localStorage.setItem('cartId',response.data.cartId)
-      
-      })  
-          
-      }
-      },
 
-     onLoaded() { console.log('ready to start scan') },
-     onError() { console.log('barcode error') },
-    }
-}
+    onLoaded() {
+      console.log("ready to start scan");
+    },
+    onError() {
+      console.log("barcode error");
+    },
+  },
+};
 </script>
 
 <style scoped>
