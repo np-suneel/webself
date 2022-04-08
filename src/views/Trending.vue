@@ -1,15 +1,14 @@
 <template>
   <div class="mb-5 col-md-12 p-0">
-
     <div class="col-md-10 m-auto">
       <div
         class="d-flex"
         style="justify-content: space-between; font-weight: bolder"
       >
         <h5 class="" style="text-align: left; font-weight: bolder">
-          Top Categories
+          Top Selling
         </h5>
-        <p style="color: blue; font-weight: 400">View All</p>
+        <!-- <p style="color: blue; font-weight: 400">View All</p> -->
       </div>
     </div>
     <div class="bike-section col-md-10 p-0" ref="foo" style="margin: 0 auto">
@@ -19,13 +18,13 @@
 
       <div
         class="card otr-card col-md-3 col-6 mr-3 my-2 p-0"
-        
         v-for="(data, index) in this.saveData"
         :key="index"
       >
-        <img class="image" :src="data.imgeURL" width="100%" alt="" />
+      
+        <img class="img-responsive" :src="data.imgeURL" width="100%" alt="" />
       </div>
-      <div
+      <!-- <div
         id="wrapper"
         class="card otr-card no-shadow col-md-2 col-6 mr-3 my-2 p-0"
       >
@@ -33,7 +32,7 @@
           <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
         </button>
         <p class="header-xs pt-2" >View All</p>
-      </div>
+      </div> -->
     </div>
 
     <button class="left control-button" @click="scrollLeft">
@@ -54,48 +53,24 @@ export default {
       isMounted: false,
       scrolledValue: 0,
       saveData: null,
-      f: [
-        {
-          img: "https://www.jiomart.com/images/cms/aw_rbslider/slides/1602257194_Atta_Web.jpg",
-        },
-        {
-          img: "https://www.jiomart.com/images/cms/aw_rbslider/slides/1598825980_1598704463_Biscuits-Cookies.jpg",
-        },
-        {
-          img: "https://www.jiomart.com/images/cms/aw_rbslider/slides/1612272383_kidswear.jpg",
-        },
-        {
-          img: "https://www.jiomart.com/images/cms/aw_rbslider/slides/1612272459_womenwear.jpg",
-        },
-        {
-          img: "https://www.jiomart.com/images/cms/aw_rbslider/slides/1606400616_Top-Categories-03.jpg",
-        },
-        {
-          img: "https://www.jiomart.com/images/cms/aw_rbslider/slides/1598824690_1598720641_Shampoos_Conditioners.jpg",
-        },
-      ],
     };
   },
-  created(){
+  created() {
     this.getTop();
   },
   mounted() {
     this.isMounted = true;
-    
   },
-  // created(){
-  //     this.$store.dispatch('load_top_selling')
-  //     this.$store.dispatch('load_display_images')
-  // },
+
   methods: {
     getTop() {
       axios
         .get("/product-service/cws/catalog/products/topselling/10")
-        .then((resp) => {this.saveData = resp.data 
-        
-        console.log('trend data',this.saveData)}
-        );
-        
+        .then((resp) => {
+          this.saveData = resp.data;
+
+          console.log("trend data", this.saveData);
+        });
     },
     scrollRight() {
       let content = this.$refs.foo;
@@ -113,13 +88,7 @@ export default {
       content.scrollLeft -= 300;
       this.scrolledValue -= 300;
     },
-    // display(id){
-    //     this.$router.push('/vehicle/' +id)
-    //     window.scrollTo(0,0)
-    // },
-    // viewBikes(){
-    //     this.$router.push('/scooter')
-    // }
+
   },
   computed: {
     leftScroll() {
@@ -132,23 +101,7 @@ export default {
         return 0;
       }
     },
-    //      top_selling_vehicles(){
-    //   return this.$store.state.top_selling_vehicles
-    // },
-    // displayImage(){
-    //   return  this.$store.state.display_images
-    // },
-    // TOP_SELLING(){
-    //     const temp2 = []
-    //     this.top_selling_vehicles.forEach(x => {
-    //         this.displayImage.forEach(y => {
-    //         if (x.vehicle_id === y.vehicle_id) {
-    //             temp2.push({ ...x, ...y })
-    //         }
-    //         })
-    //     })
-    // return temp2
-    // },
+
   },
 };
 </script>

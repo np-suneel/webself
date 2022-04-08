@@ -27,7 +27,8 @@ if (
   process.env.NODE_ENV !== "development" &&
   process.env.VUE_APP_BASE_URL !== ""
 ) {
-  baseURL = process.env.VUE_APP_BASE_URL;
+  // baseURL = process.env.VUE_APP_BASE_URL;
+  baseURL = "https://bf-qa.rdep.io:9090"
 }
 Vue.prototype.$http = require("axios");
 Vue.prototype.$http.defaults.baseURL = baseURL;

@@ -67,7 +67,6 @@ export default {
             this.drpArr.push(this.itemArr[i]);
           else this.buttArr.push(this.itemArr[i]);
         }
-
         console.log("dis array", this.itemArr[1].sub_categories);
       });
     },

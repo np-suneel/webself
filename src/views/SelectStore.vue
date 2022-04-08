@@ -126,11 +126,11 @@ export default {
       localStorage.removeItem("cartId");
       this.$router.push("/home");
     },
-    productList() {
-      axios.post("/product-service/cws/catalog/products/9").then((response) => {
-        console.log("list", response.data);
-      });
-    },
+    // productList() {
+    //   axios.post("/product-service/cws/catalog/products/9").then((response) => {
+    //     console.log("list", response.data);
+    //   });
+    // },
   },
 };
 </script>

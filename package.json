@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "webpack --mode=production --node-env=production",
+    "build": " vue-cli-service build --modern",
+    "build-qa": "VUE_APP_BASE_URL=https://bf-qa.rdep.io:9090 vue-cli-service build --modern",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "build:dev": "webpack --mode=development",
@@ -15,6 +16,7 @@
     "axios": "^0.26.1",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.3.2",
+    "firebase": "^9.6.10",
     "qrcode.vue": "^1.7.0",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.14",

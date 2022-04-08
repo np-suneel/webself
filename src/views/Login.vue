@@ -37,14 +37,7 @@
       >
         Log In
       </button>
-      <!-- <div class="social">
-        <div class="go" style="background: #ea617c; color: white">
-          <i class="fab fa-google"></i> Google
-        </div>
-        <div class="fb" style="background: #3e99e7; color: white">
-          <i class="fab fa-facebook"></i> Facebook
-        </div>
-      </div> -->
+    
       <p class="mb-0 pt-3" style="font-size:11px; color:blue" @click="$router.push('/')" >Go to register</p>
     </div>
   </div>
@@ -57,7 +50,7 @@ export default {
   data() {
     return {
       phoneNo: 9611100928,
-      password: "123456",
+      password: "12345",
       errorMsg: "",
       // loading: false,
       // msg: false,
@@ -116,30 +109,7 @@ export default {
 </script>
 
 <style scoped>
-/* .background{
-    width: 430px;
-    height: 520px;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    left: 50%;
-    top: 50%;
-}
-.background .shape{
-    height: 200px;
-    width: 200px;
-    position: absolute;
-    border-radius: 50%;
-} */
-.shape:first-child {
-  background: linear-gradient(#1845ad, #23a2f6);
-  left: -80px;
-  top: -80px;
-}
-.shape:last-child {
-  background: linear-gradient(to right, #ff512f, #f09819);
-  right: -30px;
-  bottom: -80px;
-}
+
 form {
   height: 520px;
   width: 400px;

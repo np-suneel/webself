@@ -34,6 +34,7 @@
         </select>
       </div>
     </div>
+    <p @click="$router.push('/test')">Scan</p>
   </div>
 </template>
 
@@ -71,7 +72,7 @@ export default {
       this.$router.push({
         params: { lang: locale },
       });
-      this.hideDropdown();
+    
     },
     resetPass() {
       if(!this.alertMsg){

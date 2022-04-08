@@ -24,10 +24,10 @@
     </div>
 
     <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" @click="closeNav()"
+      <a  href="javascript:void(0)" class="closebtn mt-5 pt-3" @click="closeNav()"
         >&times;</a
       >
-      <div>
+      <div class="mt-5">
         <p @click="cartFunc('refresh')" style="cursor: pointer">Refresh cart</p>
 
         <p @click="cartFunc('clear')" style="cursor: pointer">Clear cart</p>

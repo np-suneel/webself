@@ -1,6 +1,5 @@
 <template>
   <div>
-  
     <div class="mt-1 border col-md-3 form pt-1 mb-5" v-if="!otpShow">
       <p>{{responseMsg}}</p>
       <h5 style="color: black">Register</h5>
@@ -84,7 +83,6 @@
           <div
             class="mt-3 content d-flex justify-content-center align-items-center"
           >
-            
             <p class="text-decoration-none " style="font-size:12px" v-if="resendShow" @click="resend()">Resend OTP</p>
           </div>
         </div>
@@ -102,8 +100,7 @@ export default {
       loading: false,
       msg: false,
       responseMsg:'',
-      otpShow: true,
-      rakesh:false,
+      otpShow: false,
       resendShow:false
     };
   },
@@ -157,7 +154,6 @@ export default {
         else{
           this.resendShow = false
           this.$router.push('/login')
-          
         }
       });
     },
@@ -178,7 +174,6 @@ export default {
         }
       })
     },
-    
   },
 };
 </script>
@@ -195,7 +190,7 @@ export default {
   top: 50%;
   left: 50%;
   border-radius: 10px;
-  backdrop-filter: blur(10px);
+
   border: 2px solid rgba(255, 255, 255, 0.1);
   padding: 50px 35px;
 }

@@ -150,7 +150,7 @@
           split
           :text="items.name"
           split-variant="outline-secondary"
-          @click="drpFunc(3)"
+          @click="drpFunc(its.id)"
         >
           <b-dropdown-item
             @click="drpFunc(its.id)"

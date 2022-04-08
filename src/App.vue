@@ -11,7 +11,6 @@
 
 <script>
 import navb from "./views/Navbar";
-
 import LoadingScreen from "./views/SplashScreen";
 
 export default {
